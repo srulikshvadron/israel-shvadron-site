@@ -12,7 +12,9 @@ export function Contact() {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const subject = encodeURIComponent(`פנייה מאתר התדמית — ${name || "ללא שם"}`);
+    const subject = encodeURIComponent(
+      `בקשת הצעת מחיר / ייעוץ — ${name || "ללא שם"}`,
+    );
     const body = encodeURIComponent(
       `שם: ${name}\nאימייל: ${email}\n\n${message}`,
     );
@@ -24,7 +26,7 @@ export function Contact() {
       id={contact.id}
       title={contact.title}
       subtitle={contact.subtitle}
-      eyebrow="בואו נדבר"
+      eyebrow="הצעת מחיר"
       className="border-t border-line"
     >
       <Reveal>

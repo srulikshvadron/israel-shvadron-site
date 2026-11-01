@@ -8,8 +8,7 @@ export function Capabilities() {
       id={capabilities.id}
       title={capabilities.title}
       subtitle={capabilities.subtitle}
-      eyebrow="חוזקות"
-      className="border-y border-line bg-bg-elevated/30"
+      eyebrow="שיטת עבודה"
     >
       <ul className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
         {capabilities.items.map((item, index) => (

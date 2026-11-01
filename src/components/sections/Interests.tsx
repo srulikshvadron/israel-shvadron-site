@@ -9,7 +9,7 @@ export function Interests() {
       id={interests.id}
       title={interests.title}
       subtitle={interests.subtitle}
-      eyebrow="מומחיות ותחומי עניין"
+      eyebrow="טכנולוגיה"
     >
       <Reveal>
         <ul className="flex flex-wrap gap-3" aria-label="רשימת תחומי עניין">
