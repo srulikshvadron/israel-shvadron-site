@@ -1,24 +1,49 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { contact, siteConfig } from "@/content/site";
+import { contact } from "@/content/site";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
+
+type FormStatus = "idle" | "loading" | "success" | "error";
 
 export function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const subject = encodeURIComponent(
-      `בקשת הצעת מחיר / ייעוץ — ${name || "ללא שם"}`,
-    );
-    const body = encodeURIComponent(
-      `שם: ${name}\nאימייל: ${email}\n\n${message}`,
-    );
-    window.location.href = `mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`;
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      const data = (await response.json().catch(() => null)) as {
+        error?: string;
+      } | null;
+
+      if (!response.ok) {
+        setStatus("error");
+        setErrorMessage(data?.error ?? "שליחת ההודעה נכשלה. נסו שוב.");
+        return;
+      }
+
+      setStatus("success");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch {
+      setStatus("error");
+      setErrorMessage("לא ניתן להתחבר לשרת. בדקו את החיבור ונסו שוב.");
+    }
   }
 
   return (
@@ -49,6 +74,7 @@ export function Contact() {
               placeholder={contact.form.namePlaceholder}
               className="w-full rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
+              disabled={status === "loading"}
             />
           </div>
 
@@ -66,6 +92,7 @@ export function Contact() {
               placeholder={contact.form.emailPlaceholder}
               className="w-full rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
+              disabled={status === "loading"}
             />
           </div>
 
@@ -82,17 +109,33 @@ export function Contact() {
               placeholder={contact.form.messagePlaceholder}
               className="w-full resize-y rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
+              disabled={status === "loading"}
             />
           </div>
 
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong sm:w-auto"
+            disabled={status === "loading"}
+            className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
           >
-            {contact.form.submitLabel}
+            {status === "loading" ? "שולח..." : contact.form.submitLabel}
           </button>
 
-          <p className="text-sm text-muted">{contact.note}</p>
+          {status === "success" ? (
+            <p className="text-sm text-accent" role="status">
+              ההודעה נשלחה בהצלחה. נחזור אליכם בהקדם.
+            </p>
+          ) : null}
+
+          {status === "error" ? (
+            <p className="text-sm text-red-300" role="alert">
+              {errorMessage}
+            </p>
+          ) : null}
+
+          {status === "idle" ? (
+            <p className="text-sm text-muted">{contact.note}</p>
+          ) : null}
         </form>
       </Reveal>
     </Section>
