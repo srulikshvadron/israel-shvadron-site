@@ -181,7 +181,7 @@ export const contact = {
     messagePlaceholder:
       "ספרו בקצרה מה צריך: אתר, בוט בוואטסאפ, אוטומציה — או שאלה כללית.",
   },
-  note: "ההודעה נשלחת ישירות למייל. בדקו ש־RESEND_API_KEY ו־CONTACT_TO_EMAIL מוגדרים ב־.env.local / Vercel.",
+  note: "נחזור אליכם בהקדם עם מענה או הצעת מחיר.",
 } as const;
 
 export const footer = {
