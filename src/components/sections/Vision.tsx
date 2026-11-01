@@ -7,7 +7,7 @@ export function Vision() {
     <Section
       id={vision.id}
       title={vision.title}
-      eyebrow="לאן אני שואף"
+      eyebrow="למה זה חשוב"
       className="border-y border-line bg-bg-elevated/30"
     >
       <Reveal>

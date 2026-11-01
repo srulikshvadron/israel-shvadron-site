@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion/Reveal";
 
 export function About() {
   return (
-    <Section id={about.id} title={about.title} eyebrow="מי אני">
+    <Section id={about.id} title={about.title} eyebrow="למי זה מתאים">
       <Reveal>
         <div className="max-w-3xl space-y-5 text-lg leading-relaxed text-muted">
           {about.paragraphs.map((paragraph) => (
