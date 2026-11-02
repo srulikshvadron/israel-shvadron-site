@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { navigation, siteConfig } from "@/content/site";
 import { Container } from "@/components/ui/Container";
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -23,6 +24,25 @@ export function Header() {
       document.body.style.overflow = "";
     };
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  function closeMenu() {
+    setOpen(false);
+    menuButtonRef.current?.focus();
+  }
 
   return (
     <header
@@ -57,6 +77,7 @@ export function Header() {
         </nav>
 
         <button
+          ref={menuButtonRef}
           type="button"
           className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-fg md:hidden"
           aria-expanded={open}
@@ -101,7 +122,7 @@ export function Header() {
               key={item.href}
               href={item.href}
               className="rounded-lg px-3 py-3 text-base text-fg hover:bg-accent-soft"
-              onClick={() => setOpen(false)}
+              onClick={closeMenu}
             >
               {item.label}
             </a>

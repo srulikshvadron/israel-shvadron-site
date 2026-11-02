@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Heebo, Rubik } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { AccessibilityWidget } from "@/components/a11y/AccessibilityWidget";
 import { createMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
         <Header />
         <div className="flex flex-1 flex-col">{children}</div>
         <Footer />
+        <AccessibilityWidget />
       </body>
     </html>
   );
