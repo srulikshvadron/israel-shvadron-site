@@ -4,7 +4,7 @@
   --bg: #0b1220;
   --bg-elevated: #111a2b;
   --fg: #e8eef7;
-  --muted: #9aabc2;
+  --muted: #b4c3d6;
   --accent: #2dd4bf;
   --accent-strong: #14b8a6;
   --accent-soft: rgba(45, 212, 191, 0.12);
@@ -117,4 +117,24 @@ body {
 
 .animate-fade-up-delay-2 {
   animation: fade-up 0.7s ease-out 0.3s both;
+}
+
+html.a11y-large-text {
+  font-size: 118%;
+}
+
+html.a11y-high-contrast {
+  --bg: #000000;
+  --bg-elevated: #0a0a0a;
+  --fg: #ffffff;
+  --muted: #f0f0f0;
+  --accent: #5eead4;
+  --accent-strong: #99f6e4;
+  --accent-soft: rgba(94, 234, 212, 0.2);
+  --line: rgba(255, 255, 255, 0.45);
+  --focus: #ffffff;
+}
+
+html.a11y-high-contrast .site-atmosphere {
+  background: #000000;
 }

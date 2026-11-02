@@ -39,6 +39,12 @@ export function Footer() {
                 {link.label}
               </a>
             ))}
+            <Link
+              href="/accessibility"
+              className="text-sm text-muted transition-colors hover:text-accent"
+            >
+              הצהרת נגישות
+            </Link>
           </nav>
           <p className="text-sm text-muted">
             © {year} {siteConfig.name}. {footer.rights}

@@ -46,6 +46,9 @@ export function Contact() {
     }
   }
 
+  const hasError = status === "error";
+  const isLoading = status === "loading";
+
   return (
     <Section
       id={contact.id}
@@ -59,6 +62,7 @@ export function Contact() {
           onSubmit={handleSubmit}
           className="max-w-xl space-y-5 rounded-xl border border-line bg-bg-elevated/50 p-6 sm:p-8"
           noValidate
+          aria-busy={isLoading}
         >
           <div className="space-y-2">
             <label htmlFor="contact-name" className="block text-sm font-medium text-fg">
@@ -74,7 +78,9 @@ export function Contact() {
               placeholder={contact.form.namePlaceholder}
               className="w-full rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
-              disabled={status === "loading"}
+              disabled={isLoading}
+              aria-invalid={hasError || undefined}
+              aria-describedby={hasError ? "contact-form-error" : undefined}
             />
           </div>
 
@@ -92,7 +98,9 @@ export function Contact() {
               placeholder={contact.form.emailPlaceholder}
               className="w-full rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
-              disabled={status === "loading"}
+              disabled={isLoading}
+              aria-invalid={hasError || undefined}
+              aria-describedby={hasError ? "contact-form-error" : undefined}
             />
           </div>
 
@@ -109,16 +117,18 @@ export function Contact() {
               placeholder={contact.form.messagePlaceholder}
               className="w-full resize-y rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70"
               required
-              disabled={status === "loading"}
+              disabled={isLoading}
+              aria-invalid={hasError || undefined}
+              aria-describedby={hasError ? "contact-form-error" : undefined}
             />
           </div>
 
           <button
             type="submit"
-            disabled={status === "loading"}
+            disabled={isLoading}
             className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
           >
-            {status === "loading" ? "שולח..." : contact.form.submitLabel}
+            {isLoading ? "שולח..." : contact.form.submitLabel}
           </button>
 
           {status === "success" ? (
@@ -127,8 +137,8 @@ export function Contact() {
             </p>
           ) : null}
 
-          {status === "error" ? (
-            <p className="text-sm text-red-300" role="alert">
+          {hasError ? (
+            <p id="contact-form-error" className="text-sm text-red-300" role="alert">
               {errorMessage}
             </p>
           ) : null}
