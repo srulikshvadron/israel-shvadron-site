@@ -5,6 +5,9 @@ import { Footer } from "@/components/layout/Footer";
 import { AccessibilityWidget } from "@/components/a11y/AccessibilityWidget";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
+import { CursorGlow } from "@/components/motion/CursorGlow";
+import { getCopy, pathForLocale } from "@/content/copy";
+import { getRequestLocale } from "@/lib/locale";
 import { createMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -20,29 +23,45 @@ const rubik = Rubik({
   display: "swap",
 });
 
-export const metadata: Metadata = createMetadata();
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = await getRequestLocale();
+  return createMetadata(locale);
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getRequestLocale();
+  const copy = getCopy(locale);
+
   return (
     <html
-      lang="he"
-      dir="rtl"
+      lang={locale}
+      dir={locale === "en" ? "ltr" : "rtl"}
       className={`${heebo.variable} ${rubik.variable} h-full antialiased`}
     >
       <body className="site-atmosphere flex min-h-full flex-col font-sans text-fg">
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var r=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r&&"IntersectionObserver"in window){document.documentElement.classList.add("js-motion")}}catch(e){}',
+          }}
+        />
         <a href="#main-content" className="skip-link">
-          דילוג לתוכן הראשי
+          {copy.skip}
         </a>
-        <JsonLd />
+        <JsonLd locale={locale} />
         <ScrollProgress />
-        <Header />
+        <CursorGlow />
+        <Header locale={locale} copy={copy} />
         <div className="flex flex-1 flex-col">{children}</div>
-        <Footer />
-        <AccessibilityWidget />
+        <Footer locale={locale} copy={copy} />
+        <AccessibilityWidget
+          labels={copy.a11y}
+          statementHref={pathForLocale(locale, "/accessibility")}
+        />
       </body>
     </html>
   );

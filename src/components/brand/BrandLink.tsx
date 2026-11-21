@@ -1,23 +1,55 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Link from "next/link";
-import { siteConfig } from "@/content/site";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { cn } from "@/lib/utils";
 
-export function BrandLink({ className }: { className?: string }) {
+const INTRO_KEY = "srulik-intro";
+
+export function BrandLink({
+  href,
+  name,
+  tagline,
+  taglineClassName,
+  playIntro = false,
+  className,
+}: {
+  href: string;
+  name: string;
+  tagline?: string;
+  taglineClassName?: string;
+  playIntro?: boolean;
+  className?: string;
+}) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (!playIntro) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    try {
+      if (sessionStorage.getItem(INTRO_KEY)) return;
+      sessionStorage.setItem(INTRO_KEY, "1");
+    } catch {
+      return;
+    }
+    linkRef.current?.classList.add("logo-intro");
+  }, [playIntro]);
+
   return (
     <Link
-      href="/"
-      className={cn(
-        "inline-flex min-w-0 items-center gap-2 font-display text-base font-semibold tracking-tight text-fg transition-colors hover:text-accent sm:text-lg",
-        className,
-      )}
+      href={href}
+      aria-label={name}
+      ref={linkRef}
+      className={cn("inline-flex min-w-0 flex-col items-start gap-1", className)}
     >
-      <span
-        aria-hidden
-        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-md border border-accent/30 bg-accent-soft font-display text-xs font-bold text-accent sm:h-8 sm:w-8 sm:text-sm"
-      >
-        ש
-      </span>
-      <span className="truncate">{siteConfig.name}</span>
+      <LogoMark className="h-9 w-auto sm:h-10" />
+      {tagline ? (
+        <span className={cn("brand-tagline max-w-[15rem] text-[11px] leading-tight text-muted", taglineClassName)}>
+          {tagline}
+        </span>
+      ) : null}
     </Link>
   );
 }

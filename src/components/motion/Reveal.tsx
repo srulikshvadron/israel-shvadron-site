@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useLayoutEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type RevealProps = {
@@ -11,43 +11,52 @@ type RevealProps = {
 
 export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const node = ref.current;
     if (!node) return;
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
+    const show = () => node.classList.add("is-shown");
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const motion =
+      document.documentElement.classList.contains("js-motion") &&
+      !reduced &&
+      typeof IntersectionObserver !== "undefined";
 
-    if (reducedMotion) {
-      const frame = requestAnimationFrame(() => setVisible(true));
-      return () => cancelAnimationFrame(frame);
+    if (!motion) {
+      show();
+      return;
     }
 
+    const rect = node.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    if (inView) {
+      show();
+      return;
+    }
+
+    node.classList.add("reveal-arm");
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
+        if (entry?.isIntersecting) {
+          show();
           observer.disconnect();
         }
       },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      { threshold: 0.05 },
     );
-
     observer.observe(node);
-    return () => observer.disconnect();
+    const fallback = window.setTimeout(show, 1200);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(fallback);
+    };
   }, []);
 
   return (
     <div
       ref={ref}
-      className={cn(
-        "transition-all duration-700 ease-out motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:transition-none",
-        visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
-        className,
-      )}
+      className={cn("reveal", className)}
       style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

@@ -1,5 +1,5 @@
 /**
- * Site content and public settings for שרוליק פתרונות.
+ * Site content and public settings for שרוליק.
  *
  * Product name: change `productName.he` and `productName.en` only.
  * Public email stays empty until a real address is chosen.
@@ -33,12 +33,10 @@ export const productName = {
 } as const;
 
 export const operator = {
-  businessHe: "שרוליק פתרונות",
-  businessEn: "Srulik Solutions",
-  givenHe: "שרוליק",
-  legalNameHe: "ישראל שוודרון",
-  givenEn: "Srulik",
-  legalNameEn: "Israel Shvadron",
+  businessHe: "שרוליק",
+  businessEn: "Srulik",
+  personHe: "שרוליק שוודרון",
+  personEn: "Srulik Shvadron",
   localityHe: "מודיעין עילית",
   localityEn: "Modi'in Illit",
   countryHe: "ישראל",
@@ -67,7 +65,7 @@ export const legalMeta = {
 export const siteConfig = {
   name: operator.businessHe,
   nameEn: operator.businessEn,
-  title: "שרוליק פתרונות | אתרים, אוטומציה ותוכן לעסקים",
+  title: "שרוליק | אתרים, בוטים ומערכות לעסקים",
   description:
     "עושים בשבילכם את העבודה הדיגיטלית: אתרים, בוטים בוואטסאפ, אוטומציות ומערכת תוכן לעסקים ולמוסדות.",
   locale: "he_IL",
@@ -81,9 +79,13 @@ export const siteConfig = {
 
 export const publicPages = [
   { path: "/", changeFrequency: "monthly", priority: 1 },
+  { path: "/en", changeFrequency: "monthly", priority: 0.9 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/en/privacy", changeFrequency: "yearly", priority: 0.5 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/en/terms", changeFrequency: "yearly", priority: 0.5 },
   { path: "/accessibility", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/en/accessibility", changeFrequency: "yearly", priority: 0.3 },
 ] as const;
 
 export const navigation = [
@@ -195,7 +197,7 @@ export const about = {
   eyebrow: "מי עומד מאחורי העסק",
   title: "אודות",
   paragraphs: [
-    "קוראים לי שרוליק, ישראל שוודרון. אני גר במודיעין עילית, ומלווה עסקים ומוסדות בפתרונות דיגיטליים שעובדים ביום־יום.",
+    "אני שרוליק שוודרון, מפתח תוכנה.",
     "אני עושה את העבודה בשבילכם: מבין את הצורך, בונה, מחבר ומלווה — בלי להניח ידע טכני מוקדם, ובלי קורס בדרך.",
     "העסק יודע לעבוד עם הציבור החרדי: שפה, סגנון וצניעות שמתאימים לקהל.",
   ],

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { getCopy, type Locale } from "@/content/copy";
 import { getSiteUrl } from "@/content/site";
 import { whatsappHref } from "@/lib/contact";
 import {
@@ -18,6 +19,7 @@ type ContactBody = {
   phone?: unknown;
   message?: unknown;
   company?: unknown;
+  locale?: unknown;
 };
 
 function asTrimmedString(value: unknown) {
@@ -37,7 +39,7 @@ export async function POST(request: Request) {
     const declaredLength = Number(request.headers.get("content-length") ?? "0");
     if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
       return NextResponse.json(
-        { error: "הבקשה ארוכה מדי." },
+        { error: getCopy("he").api.tooLong },
         { status: 413 },
       );
     }
@@ -47,18 +49,20 @@ export async function POST(request: Request) {
       body = (await request.json()) as ContactBody;
     } catch {
       return NextResponse.json(
-        { error: "הבקשה אינה תקינה." },
+        { error: getCopy("he").api.invalid },
         { status: 400 },
       );
     }
 
     if (!body || typeof body !== "object" || Array.isArray(body)) {
       return NextResponse.json(
-        { error: "הבקשה אינה תקינה." },
+        { error: getCopy("he").api.invalid },
         { status: 400 },
       );
     }
 
+    const locale: Locale = body.locale === "en" ? "en" : "he";
+    const text = getCopy(locale).api;
     const honeypot = asTrimmedString(body.company);
     const name = stripControls(asTrimmedString(body.name));
     const email = stripControls(asTrimmedString(body.email));
@@ -71,28 +75,28 @@ export async function POST(request: Request) {
 
     if (!name || name.length > 120) {
       return NextResponse.json(
-        { error: "נא להזין שם תקין." },
+        { error: text.name },
         { status: 400 },
       );
     }
 
     if (phone && !phonePattern.test(phone)) {
       return NextResponse.json(
-        { error: "נא להזין מספר טלפון תקין, או להשאיר את השדה ריק." },
+        { error: text.phone },
         { status: 400 },
       );
     }
 
     if (!email || !emailPattern.test(email) || email.length > 200) {
       return NextResponse.json(
-        { error: "נא להזין אימייל תקין." },
+        { error: text.email },
         { status: 400 },
       );
     }
 
     if (!message || message.length < 5 || message.length > 5000) {
       return NextResponse.json(
-        { error: "נא להזין הודעה קצרה וברורה." },
+        { error: text.message },
         { status: 400 },
       );
     }
@@ -104,14 +108,14 @@ export async function POST(request: Request) {
 
     if (!allowContactSubmission(clientAddress(request), email)) {
       return NextResponse.json(
-        { error: "יותר מדי פניות. נסו שוב מאוחר יותר." },
+        { error: text.rate },
         { status: 429, headers: { "Retry-After": "600" } },
       );
     }
 
     if (!apiKey || !toEmail) {
       return NextResponse.json(
-        { error: "שליחת ההודעה נכשלה. נסו שוב בעוד רגע." },
+        { error: text.send },
         { status: 500 },
       );
     }
@@ -136,7 +140,7 @@ export async function POST(request: Request) {
 
     if (error) {
       return NextResponse.json(
-        { error: "שליחת ההודעה נכשלה. נסו שוב בעוד רגע." },
+        { error: text.send },
         { status: 502 },
       );
     }
@@ -147,6 +151,7 @@ export async function POST(request: Request) {
         name,
         siteUrl,
         whatsappUrl: whatsappHref(),
+        locale,
       });
       try {
         const confirmation = await resend.emails.send({
@@ -169,7 +174,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, confirmationSent });
   } catch {
     return NextResponse.json(
-      { error: "אירעה שגיאה בשליחה. נסו שוב." },
+      { error: getCopy("he").api.send },
       { status: 500 },
     );
   }
