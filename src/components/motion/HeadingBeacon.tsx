@@ -12,41 +12,41 @@ export function HeadingBeacon() {
     };
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced || typeof IntersectionObserver === "undefined") {
-      const seen = nodes.find((node) => {
+
+    const closest = () => {
+      const target = window.innerHeight * 0.32;
+      let best: HTMLElement | null = null;
+      let dist = Infinity;
+      for (const node of nodes) {
         const rect = node.getBoundingClientRect();
-        return rect.top < window.innerHeight * 0.7 && rect.bottom > 0;
-      });
-      mark(seen ?? null);
+        if (rect.bottom < 64 || rect.top > window.innerHeight * 0.72) continue;
+        const delta = Math.abs(rect.top - target);
+        if (delta < dist) {
+          dist = delta;
+          best = node;
+        }
+      }
+      mark(best);
+    };
+
+    if (reduced) {
+      closest();
       return;
     }
 
-    const visible = new Map<Element, number>();
-    const pick = () => {
-      let best: HTMLElement | null = null;
-      let score = 0;
-      for (const [node, ratio] of visible) {
-        if (ratio > score) {
-          score = ratio;
-          best = node as HTMLElement;
-        }
-      }
-      if (best) mark(best);
+    let frame = 0;
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(closest);
     };
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) visible.set(entry.target, entry.intersectionRatio);
-          else visible.delete(entry.target);
-        }
-        pick();
-      },
-      { threshold: [0.35, 0.6, 0.9], rootMargin: "-15% 0px -45% 0px" },
-    );
-
-    for (const node of nodes) observer.observe(node);
-    return () => observer.disconnect();
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   return null;

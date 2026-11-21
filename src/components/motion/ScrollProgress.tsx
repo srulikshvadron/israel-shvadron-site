@@ -22,7 +22,7 @@ export function ScrollProgress() {
       indicator.style.transformOrigin =
         document.documentElement.dir === "ltr" ? "0% 50%" : "100% 50%";
       indicator.style.transform = `scaleX(${progress})`;
-      traveler.style.insetInlineStart = `calc(${progress} * (100% - 12px))`;
+      traveler.style.setProperty("--scroll-progress", progress.toFixed(4));
     }
 
     function onScroll() {
