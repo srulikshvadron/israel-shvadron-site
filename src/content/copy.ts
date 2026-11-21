@@ -124,7 +124,7 @@ const he: Copy = {
   hero: {
     eyebrow: "שרוליק פתרונות",
     headline: "אתרים ובוטים לעסקים",
-    line: "את העבודה אנו מבצעים עבורכם.",
+    line: "אתם מציגים את הבעיה, אנחנו מוצאים את הפתרון.",
     secondary: "לשירותים",
   },
   services: {
@@ -384,7 +384,7 @@ const en: Copy = {
   hero: {
     eyebrow: "Srulik Solutions",
     headline: "Websites and bots for businesses",
-    line: "We do the work for you.",
+    line: "You bring the problem. We find the solution.",
     secondary: "Services",
   },
   services: {

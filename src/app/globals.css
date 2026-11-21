@@ -4,7 +4,7 @@
   --bg: #0b1220;
   --bg-elevated: #111a2b;
   --fg: #e8eef7;
-  --muted: #b4c3d6;
+  --muted: #d5e1ee;
   --accent: #2dd4bf;
   --accent-strong: #14b8a6;
   --accent-soft: rgba(45, 212, 191, 0.12);
@@ -392,6 +392,35 @@ body {
 
 .animate-fade-up-delay-2 {
   animation: fade-up 0.7s ease-out 0.3s both;
+}
+
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js-motion .reveal.reveal-arm:not(.is-shown) {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+
+  html.js-motion .reveal {
+    transition:
+      opacity 0.7s ease,
+      transform 0.7s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up,
+  .animate-fade-up-delay,
+  .animate-fade-up-delay-2,
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 html.a11y-large-text {

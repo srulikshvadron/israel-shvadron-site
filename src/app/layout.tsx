@@ -42,6 +42,12 @@ export default async function RootLayout({
       className={`${heebo.variable} ${rubik.variable} h-full antialiased`}
     >
       <body className="site-atmosphere flex min-h-full flex-col font-sans text-fg">
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              'try{var r=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!r&&"IntersectionObserver"in window){document.documentElement.classList.add("js-motion")}}catch(e){}',
+          }}
+        />
         <a href="#main-content" className="skip-link">
           {copy.skip}
         </a>

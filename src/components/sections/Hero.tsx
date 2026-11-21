@@ -22,7 +22,7 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
           <h1 id="hero-heading" className="animate-fade-up mt-5 font-display text-4xl font-bold leading-[1.15] tracking-tight text-fg sm:text-5xl lg:text-6xl">
             {copy.hero.headline}
           </h1>
-          <p className="animate-fade-up-delay mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+          <p className="animate-fade-up-delay mt-6 max-w-2xl font-display text-2xl font-medium leading-snug text-fg sm:text-3xl">
             {copy.hero.line}
           </p>
           <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
