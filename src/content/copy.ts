@@ -29,7 +29,6 @@ export type Copy = {
     title: string;
     items: { title: string; line: string }[];
   };
-  offer: { id: string; eyebrow: string; title: string; line: string; cta: string };
   about: { id: string; eyebrow: string; title: string; paragraphs: string[] };
   contact: {
     id: string;
@@ -117,7 +116,6 @@ const he: Copy = {
   langLabel: "שפה",
   nav: [
     { id: "services", label: "שירותים" },
-    { id: "offer", label: "וואטסאפ" },
     { id: "about", label: "אודות" },
     { id: "contact", label: "יצירת קשר" },
   ],
@@ -133,16 +131,13 @@ const he: Copy = {
     title: "שירותים",
     items: [
       { title: "אתרים", line: "אתר ברור שמוביל לפנייה." },
-      { title: "בוטים לוואטסאפ", line: "מענה אוטומטי לפניות." },
+      { title: "בוטים לוואטסאפ", line: "מענה אוטומטי, ושליחת הודעות ועדכוני סטטוס." },
       { title: "אוטומציה", line: "חיבור בין טפסים, דוא״ל ווואטסאפ." },
+      {
+        title: "מערכות מותאמות אישית",
+        line: "מערכות ניהול, חיבור בין מערכות ופתרונות מורכבים לפי צרכי העסק.",
+      },
     ],
-  },
-  offer: {
-    id: "offer",
-    eyebrow: "וואטסאפ",
-    title: "בוט לשליחת הודעות",
-    line: "שליחת הודעות ועדכוני סטטוס ללקוחות.",
-    cta: "לשיחה בוואטסאפ",
   },
   about: {
     id: "about",
@@ -282,7 +277,7 @@ const he: Copy = {
       title: "השירות",
       paragraphs: [
         "שרוליק פתרונות מופעל על ידי שרוליק שוודרון, מודיעין עילית.",
-        "השירות כולל בניית אתרים, בוטים לוואטסאפ, אוטומציה, ובוט לשליחת הודעות ועדכוני סטטוס.",
+        "השירות כולל אתרים, בוטים לוואטסאפ, אוטומציה, ומערכות מותאמות אישית.",
         "אנו מבצעים את העבודה. אין כאן הדרכה או קורס.",
       ],
     },
@@ -377,7 +372,6 @@ const en: Copy = {
   langLabel: "Language",
   nav: [
     { id: "services", label: "Services" },
-    { id: "offer", label: "WhatsApp" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
   ],
@@ -393,16 +387,16 @@ const en: Copy = {
     title: "Services",
     items: [
       { title: "Websites", line: "A clear site that leads to an inquiry." },
-      { title: "WhatsApp bots", line: "An automatic reply to inquiries." },
+      {
+        title: "WhatsApp bots",
+        line: "Automatic replies, plus sending messages and status updates.",
+      },
       { title: "Automation", line: "Forms, email, and WhatsApp, connected." },
+      {
+        title: "Custom systems",
+        line: "Management systems, integrations, and complex solutions built around your business.",
+      },
     ],
-  },
-  offer: {
-    id: "offer",
-    eyebrow: "WhatsApp",
-    title: "A bot for sending messages",
-    line: "Send messages and status updates to customers.",
-    cta: "Message on WhatsApp",
   },
   about: {
     id: "about",
@@ -542,7 +536,7 @@ const en: Copy = {
       title: "The service",
       paragraphs: [
         "Srulik Solutions is operated by Srulik Shvadron, Modi'in Illit, Israel.",
-        "The service covers websites, WhatsApp bots, automation, and a bot that sends messages and status updates.",
+        "The service covers websites, WhatsApp bots, automation, and custom systems.",
         "We do the work. This is not a course.",
       ],
     },

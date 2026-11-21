@@ -6,7 +6,7 @@ export function Services({ copy }: { copy: Copy }) {
   const services = copy.services;
   return (
     <Section id={services.id} title={services.title} className="border-y border-line bg-bg-elevated/30">
-      <ul className="grid gap-5 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {services.items.map((item, index) => (
           <Reveal key={item.title} delay={index * 90}>
             <li className="studio-card">

@@ -149,7 +149,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
             onClick={closeMenu}
             {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
-            {copy.offer.cta}
+            {copy.contact.whatsappCta}
           </a>
         </nav>
       </div>
