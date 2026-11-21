@@ -1,5 +1,5 @@
 /**
- * Site content and public settings for שרוליק פתרונות.
+ * Site content and public settings for שרוליק.
  *
  * Product name: change `productName.he` and `productName.en` only.
  * Public email stays empty until a real address is chosen.
@@ -33,8 +33,8 @@ export const productName = {
 } as const;
 
 export const operator = {
-  businessHe: "שרוליק פתרונות",
-  businessEn: "Srulik Solutions",
+  businessHe: "שרוליק",
+  businessEn: "Srulik",
   personHe: "שרוליק שוודרון",
   personEn: "Srulik Shvadron",
   localityHe: "מודיעין עילית",
@@ -65,7 +65,7 @@ export const legalMeta = {
 export const siteConfig = {
   name: operator.businessHe,
   nameEn: operator.businessEn,
-  title: "שרוליק פתרונות | אתרים, אוטומציה ותוכן לעסקים",
+  title: "שרוליק | אתרים, בוטים ומערכות לעסקים",
   description:
     "עושים בשבילכם את העבודה הדיגיטלית: אתרים, בוטים בוואטסאפ, אוטומציות ומערכת תוכן לעסקים ולמוסדות.",
   locale: "he_IL",

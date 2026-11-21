@@ -60,8 +60,14 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           : "border-transparent bg-transparent",
       )}
     >
-      <Container className="flex h-16 items-center justify-between gap-3">
-        <BrandLink href={home} name={copy.brand} />
+      <Container className="flex min-h-16 items-center justify-between gap-3 py-2">
+        <BrandLink
+          href={home}
+          name={copy.brand}
+          tagline={copy.footer.tagline}
+          taglineClassName="hidden md:block"
+          playIntro
+        />
 
         <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
           {copy.nav.map((item) => (

@@ -44,11 +44,20 @@ export function createMetadata(
       siteName: copy.meta.siteName,
       title: pageTitle,
       description: pageDescription,
+      images: [
+        {
+          url: "/brand/logo-square.png",
+          width: 1080,
+          height: 1080,
+          alt: copy.brand,
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: pageTitle,
       description: pageDescription,
+      images: ["/brand/logo-square.png"],
     },
     robots: {
       index: true,

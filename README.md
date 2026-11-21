@@ -1,6 +1,6 @@
-# שרוליק פתרונות
+# שרוליק
 
-אתר העסק של שרוליק פתרונות, בעברית (RTL). בנוי עם Next.js, TypeScript ו-Tailwind CSS.
+אתר העסק של שרוליק, בעברית (RTL) ובאנגלית. בנוי עם Next.js, TypeScript ו-Tailwind CSS.
 
 האתר הציבורי הנוכחי: [https://israel-shvadron-site.vercel.app](https://israel-shvadron-site.vercel.app). הדומיין המתוכנן `sruliksolutions.com` עדיין לא מחובר.
 

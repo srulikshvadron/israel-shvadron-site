@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
+import { BuiltByBadge } from "@/components/brand/BuiltByBadge";
 import { Container } from "@/components/ui/Container";
 import { phoneHref, publicEmail, publicPhone, whatsappHref } from "@/lib/contact";
 
@@ -23,8 +24,7 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
     <footer className="border-t border-line bg-bg-elevated/40 py-12">
       <Container className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-md">
-          <BrandLink href={home} name={copy.brand} />
-          <p className="mt-3 text-sm leading-relaxed text-muted">{copy.footer.tagline}</p>
+          <BrandLink href={home} name={copy.brand} tagline={copy.footer.tagline} />
           <p className="mt-3 text-sm leading-relaxed text-muted">{copy.footer.operator}</p>
         </div>
         <div className="flex flex-col gap-4">
@@ -50,6 +50,7 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
               </Link>
             ))}
           </nav>
+          <BuiltByBadge locale={locale} />
           <p className="text-sm text-muted">
             © {year} {copy.brand}. {copy.footer.rights}
           </p>

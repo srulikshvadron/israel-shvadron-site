@@ -1,5 +1,5 @@
 import { getCopy, type Locale } from "../content/copy";
-import { operator } from "../content/site";
+import { getSiteUrl, operator } from "../content/site";
 
 export type OwnerEmailInput = {
   name: string;
@@ -39,6 +39,7 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
   const copy = getCopy(locale);
   const dir = locale === "en" ? "ltr" : "rtl";
   const align = locale === "en" ? "left" : "right";
+  const logo = `${getSiteUrl()}/brand/logo-email.png`;
   return `<!DOCTYPE html>
 <html lang="${locale}" dir="${dir}">
   <head>
@@ -52,9 +53,10 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
         <td align="center">
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" dir="${dir}" style="max-width:560px;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #d7e2ee;">
             <tr>
-              <td style="background:#0b1220;padding:22px 24px;text-align:${align};">
-                <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:0.08em;color:#2dd4bf;">${escapeHtml(copy.brand)}</div>
-                <div style="font-family:Arial,Helvetica,sans-serif;font-size:22px;line-height:1.35;font-weight:700;color:#f4f8fc;margin-top:6px;">${escapeHtml(title)}</div>
+              <td style="background:#071422;padding:22px 24px;text-align:${align};">
+                <img src="${escapeHtml(logo)}" width="168" height="70" alt="${escapeHtml(copy.brand)}" style="display:block;width:168px;height:auto;border:0;" />
+                <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#d5e1ee;margin-top:8px;">${escapeHtml(copy.footer.tagline)}</div>
+                <div style="font-family:Arial,Helvetica,sans-serif;font-size:22px;line-height:1.35;font-weight:700;color:#f4f8fc;margin-top:12px;">${escapeHtml(title)}</div>
               </td>
             </tr>
             <tr>
@@ -64,7 +66,8 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
             </tr>
             <tr>
               <td style="padding:0 24px 22px;text-align:${align};font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#5d7084;">
-                ${escapeHtml(copy.brand)}
+                ${escapeHtml(copy.brand)} · ${escapeHtml(copy.footer.tagline)}<br />
+                <span style="color:#0ED1CD;">${escapeHtml(copy.hero.aside)}</span>
               </td>
             </tr>
           </table>
@@ -83,7 +86,7 @@ function fieldRow(label: string, value: string) {
 }
 
 function button(href: string, label: string) {
-  return `<a href="${escapeHtml(href)}" style="display:inline-block;margin-top:8px;background:#2dd4bf;color:#042f2e;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;">${escapeHtml(label)}</a>`;
+  return `<a href="${escapeHtml(href)}" style="display:inline-block;margin-top:8px;background:#0ED1CD;color:#04261f;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:10px;">${escapeHtml(label)}</a>`;
 }
 
 export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {

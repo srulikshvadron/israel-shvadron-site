@@ -22,7 +22,7 @@ export type Copy = {
   whatsappShort: string;
   langLabel: string;
   nav: { id: string; label: string }[];
-  hero: { eyebrow: string; headline: string; line: string; secondary: string };
+  hero: { eyebrow: string; headline: string; line: string; aside: string; secondary: string };
   services: {
     id: string;
     eyebrow: string;
@@ -50,6 +50,7 @@ export type Copy = {
     emailPlaceholder: string;
     messagePlaceholder: string;
     note: string;
+    successTitle: string;
     success: string;
     successConfirmed: string;
     fallbackError: string;
@@ -100,13 +101,13 @@ export type Copy = {
 
 const he: Copy = {
   meta: {
-    title: "שרוליק פתרונות | אתרים, בוטים ואוטומציה",
-    description: "אתרים, בוטים לוואטסאפ ואוטומציה לעסקים. את העבודה אנו מבצעים עבורכם.",
-    siteName: "שרוליק פתרונות",
+    title: "שרוליק | אתרים, בוטים ומערכות לעסקים",
+    description: "אתרים, בוטים ומערכות לעסקים. את העבודה אנו מבצעים עבורכם.",
+    siteName: "שרוליק",
     locale: "he_IL",
   },
   skip: "דילוג לתוכן",
-  brand: "שרוליק פתרונות",
+  brand: "שרוליק",
   navLabel: "ניווט",
   mobileNavLabel: "תפריט",
   menuOpen: "פתיחת תפריט",
@@ -120,9 +121,10 @@ const he: Copy = {
     { id: "contact", label: "יצירת קשר" },
   ],
   hero: {
-    eyebrow: "שרוליק פתרונות",
+    eyebrow: "",
     headline: "אתרים ובוטים לעסקים",
     line: "אתם מציגים את הבעיה, אנחנו מוצאים את הפתרון.",
+    aside: "אופס, זה כבר עובד.",
     secondary: "לשירותים",
   },
   services: {
@@ -170,13 +172,14 @@ const he: Copy = {
     emailPlaceholder: "אימייל",
     messagePlaceholder: "תוכן הפנייה",
     note: "נחזור אליכם.",
-    success: "הפנייה נשלחה. נחזור אליכם.",
-    successConfirmed: "הפנייה נשלחה. אישור נשלח לאימייל.",
+    successTitle: "אופס, זה כבר עובד ✓",
+    success: "נחזור אליכם.",
+    successConfirmed: "אישור נשלח לאימייל. נחזור אליכם.",
     fallbackError: "השליחה נכשלה. נסו שוב.",
     honeypot: "חברה",
   },
   footer: {
-    tagline: "אתרים, בוטים ואוטומציה לעסקים.",
+    tagline: "אתרים, בוטים ומערכות לעסקים",
     operator: "שרוליק שוודרון",
     rights: "כל הזכויות שמורות.",
     navLabel: "מידע",
@@ -197,21 +200,21 @@ const he: Copy = {
     privacy: {
       title: "מדיניות פרטיות",
       description: "איזה מידע נאסף באתר ובחיבור ליוטיוב, וכיצד ניתן לבקש מחיקה.",
-      kicker: "שרוליק פתרונות",
+      kicker: "שרוליק",
       intro: "מסמך זה מתאר איזה מידע נאסף, לאיזה צורך, וכיצד ניתן לבקש מחיקה.",
       updated: "עודכן: 21 בנובמבר 2026",
     },
     terms: {
       title: "תנאי שימוש",
-      description: "תנאי השימוש באתר ובשירותים של שרוליק פתרונות.",
-      kicker: "שרוליק פתרונות",
+      description: "תנאי השימוש באתר ובשירותים של שרוליק.",
+      kicker: "שרוליק",
       intro: "השימוש באתר מהווה הסכמה לתנאים אלה.",
       updated: "עודכן: 21 בנובמבר 2026",
     },
     accessibility: {
       title: "הצהרת נגישות",
-      description: "הצהרת הנגישות של אתר שרוליק פתרונות.",
-      kicker: "שרוליק פתרונות",
+      description: "הצהרת הנגישות של אתר שרוליק.",
+      kicker: "שרוליק",
       intro: "אנו פועלים כדי שהאתר יהיה נוח לשימוש, גם לאנשים עם מוגבלות.",
       updated: "עודכן: נובמבר 2026",
     },
@@ -222,7 +225,7 @@ const he: Copy = {
       id: "who",
       title: "מי מפעיל את השירות",
       paragraphs: [
-        "האתר מופעל על ידי שרוליק פתרונות. מאחורי העסק: שרוליק שוודרון.",
+        "האתר מופעל על ידי שרוליק. מאחורי העסק: שרוליק שוודרון.",
         "לשאלה או לבקשת מחיקה יש לפנות בטופס, בוואטסאפ או בטלפון. בנושא הפנייה יש לכתוב: בקשת מחיקת מידע.",
       ],
     },
@@ -276,7 +279,7 @@ const he: Copy = {
       id: "service",
       title: "השירות",
       paragraphs: [
-        "שרוליק פתרונות מופעל על ידי שרוליק שוודרון.",
+        "שרוליק מופעל על ידי שרוליק שוודרון.",
         "השירות כולל אתרים, בוטים לוואטסאפ, אוטומציה, ומערכות מותאמות אישית.",
         "אנו מבצעים את העבודה. אין כאן הדרכה או קורס.",
       ],
@@ -356,13 +359,13 @@ const he: Copy = {
 
 const en: Copy = {
   meta: {
-    title: "Srulik Solutions | Websites, bots, and automation",
-    description: "Websites, WhatsApp bots, and automation for businesses. We do the work for you.",
-    siteName: "Srulik Solutions",
+    title: "Srulik | Websites, bots and systems for businesses",
+    description: "Websites, bots and systems for businesses. We do the work for you.",
+    siteName: "Srulik",
     locale: "en_US",
   },
   skip: "Skip to content",
-  brand: "Srulik Solutions",
+  brand: "Srulik",
   navLabel: "Navigation",
   mobileNavLabel: "Menu",
   menuOpen: "Open menu",
@@ -376,9 +379,10 @@ const en: Copy = {
     { id: "contact", label: "Contact" },
   ],
   hero: {
-    eyebrow: "Srulik Solutions",
+    eyebrow: "",
     headline: "Websites and bots for businesses",
     line: "You bring the problem. We find the solution.",
+    aside: "Oops, it already works.",
     secondary: "Services",
   },
   services: {
@@ -429,13 +433,14 @@ const en: Copy = {
     emailPlaceholder: "Email",
     messagePlaceholder: "Your message",
     note: "We will get back to you.",
-    success: "Your message was sent. We will get back to you.",
-    successConfirmed: "Your message was sent. A confirmation was sent to your email.",
+    successTitle: "Oops, it already works ✓",
+    success: "We will get back to you.",
+    successConfirmed: "A confirmation was sent to your email. We will get back to you.",
     fallbackError: "The message could not be sent. Please try again.",
     honeypot: "Company",
   },
   footer: {
-    tagline: "Websites, bots, and automation for businesses.",
+    tagline: "Websites, bots and systems for businesses",
     operator: "Srulik Shvadron",
     rights: "All rights reserved.",
     navLabel: "Information",
@@ -456,21 +461,21 @@ const en: Copy = {
     privacy: {
       title: "Privacy policy",
       description: "What information is collected on the site and through YouTube, and how to request deletion.",
-      kicker: "Srulik Solutions",
+      kicker: "Srulik",
       intro: "This page states what information is collected, why it is used, and how to request deletion.",
       updated: "Updated: 21 November 2026",
     },
     terms: {
       title: "Terms of use",
-      description: "Terms of use for the Srulik Solutions website and services.",
-      kicker: "Srulik Solutions",
+      description: "Terms of use for the Srulik website and services.",
+      kicker: "Srulik",
       intro: "Using this website means you agree to these terms.",
       updated: "Updated: 21 November 2026",
     },
     accessibility: {
       title: "Accessibility statement",
-      description: "Accessibility statement for the Srulik Solutions website.",
-      kicker: "Srulik Solutions",
+      description: "Accessibility statement for the Srulik website.",
+      kicker: "Srulik",
       intro: "We work so the site can be used by people with disabilities.",
       updated: "Updated: November 2026",
     },
@@ -481,7 +486,7 @@ const en: Copy = {
       id: "who",
       title: "Who operates the service",
       paragraphs: [
-        "This website is operated by Srulik Solutions. The person responsible is Srulik Shvadron.",
+        "This website is operated by Srulik. The person responsible is Srulik Shvadron.",
         "For a question or a deletion request, use the contact form, WhatsApp, or the phone. Write “data deletion request” in the subject.",
       ],
     },
@@ -504,7 +509,7 @@ const en: Copy = {
         "A YouTube channel is connected only when the account owner approves it.",
         `The requested permission is the YouTube upload scope: ${youtubeScope}. It does not include Gmail, Drive, or your password.`,
         "The data is used to upload a video you approved, and to show the upload status. It is not sold and it is not used for advertising.",
-        "Srulik Solutions' use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.",
+        "Srulik's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.",
         "The service uses YouTube API Services. The YouTube Terms of Service and Google’s Privacy Policy also apply.",
       ],
       bullets: [
@@ -535,7 +540,7 @@ const en: Copy = {
       id: "service",
       title: "The service",
       paragraphs: [
-        "Srulik Solutions is operated by Srulik Shvadron.",
+        "Srulik is operated by Srulik Shvadron.",
         "The service covers websites, WhatsApp bots, automation, and custom systems.",
         "We do the work. This is not a course.",
       ],
