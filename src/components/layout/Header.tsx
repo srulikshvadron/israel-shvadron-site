@@ -10,20 +10,43 @@ import { cn } from "@/lib/utils";
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [compact, setCompact] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const scaleRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname() || "/";
   const home = pathForLocale(locale, "/");
 
   useEffect(() => {
-    const onScroll = () => {
+    const node = scaleRef.current;
+    if (!node) return;
+    let frame = 0;
+    let scrolledNow = false;
+    const distance = 120;
+
+    const apply = () => {
       const y = window.scrollY;
-      setScrolled(y > 12);
-      setCompact(y > 72);
+      const next = y > 12;
+      if (next !== scrolledNow) {
+        scrolledNow = next;
+        setScrolled(next);
+      }
+      const progress = Math.min(1, Math.max(0, y / distance));
+      const scale = 1 - progress * 0.58;
+      node.style.transform = `scale(${scale})`;
+      const captions = node.querySelector<HTMLElement>(".brand-captions");
+      if (captions) captions.style.opacity = String(1 - progress);
     };
-    onScroll();
+
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(apply);
+    };
+
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -61,18 +84,20 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
         scrolled || open
           ? "is-scrolled border-line bg-bg/90 backdrop-blur-md"
           : "border-transparent bg-transparent",
-        compact && "is-compact",
       )}
     >
-      <Container className="flex min-h-16 items-center justify-between gap-3 py-2">
-        <BrandLink
-          href={home}
-          name={copy.brand}
-          tagline={copy.footer.tagline}
-          slogan={copy.hero.aside}
-          compact={compact}
-          draw
-        />
+      <Container className="flex items-center justify-between gap-3 py-2">
+        <div className="header-logo-slot">
+          <div ref={scaleRef} className="header-logo-scale">
+            <BrandLink
+              href={home}
+              name={copy.brand}
+              tagline={copy.footer.tagline}
+              slogan={copy.hero.aside}
+              draw
+            />
+          </div>
+        </div>
 
         <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
           {copy.nav.map((item) => (

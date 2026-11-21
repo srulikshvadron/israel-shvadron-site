@@ -586,15 +586,32 @@ html.a11y-high-contrast .scroll-progress {
 .brand-logo {
   height: 2.4rem;
   width: auto;
-  transition: height 280ms ease;
 }
 
 header .brand-logo {
   height: 4.25rem;
 }
 
-header.is-compact .brand-logo {
-  height: 1.7rem;
+.header-logo-slot {
+  display: flex;
+  align-items: center;
+  height: 7.75rem;
+  min-width: 0;
+}
+
+.header-logo-scale {
+  transform-origin: left center;
+  will-change: transform;
+}
+
+[dir="rtl"] .header-logo-scale {
+  transform-origin: right center;
+}
+
+.brand-captions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .brand-tagline,
@@ -627,11 +644,33 @@ header.is-compact .brand-logo {
   font-weight: 650;
 }
 
-.brand-lockup.is-compact .brand-tagline,
-.brand-lockup.is-compact .brand-slogan {
-  max-height: 0;
-  margin-top: 0;
-  opacity: 0;
+.footer-brand {
+  width: 100%;
+  max-width: 28rem;
+  min-width: 0;
+}
+
+.brand-lockup-fit {
+  width: 100%;
+  max-width: 100%;
+  align-items: center;
+}
+
+.brand-lockup-fit .brand-logo {
+  margin-inline: auto;
+}
+
+.brand-lockup-fit .brand-captions,
+.brand-lockup-fit .brand-tagline,
+.brand-lockup-fit .brand-slogan {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.brand-lockup-fit .brand-tagline,
+.brand-lockup-fit .brand-slogan {
+  white-space: nowrap;
 }
 
 .logo-dot {
