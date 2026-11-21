@@ -20,8 +20,7 @@ export function JsonLd({ locale }: { locale: Locale }) {
     },
     founder: {
       "@type": "Person",
-      name: locale === "he" ? operator.givenHe : operator.givenEn,
-      alternateName: locale === "he" ? operator.legalNameHe : operator.legalNameEn,
+      name: locale === "he" ? operator.personHe : operator.personEn,
     },
   };
 

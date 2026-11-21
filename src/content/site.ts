@@ -35,10 +35,8 @@ export const productName = {
 export const operator = {
   businessHe: "שרוליק פתרונות",
   businessEn: "Srulik Solutions",
-  givenHe: "שרוליק",
-  legalNameHe: "ישראל שוודרון",
-  givenEn: "Srulik",
-  legalNameEn: "Israel Shvadron",
+  personHe: "שרוליק שוודרון",
+  personEn: "Srulik Shvadron",
   localityHe: "מודיעין עילית",
   localityEn: "Modi'in Illit",
   countryHe: "ישראל",
@@ -199,7 +197,7 @@ export const about = {
   eyebrow: "מי עומד מאחורי העסק",
   title: "אודות",
   paragraphs: [
-    "קוראים לי שרוליק, ישראל שוודרון. אני גר במודיעין עילית, ומלווה עסקים ומוסדות בפתרונות דיגיטליים שעובדים ביום־יום.",
+    "אני שרוליק שוודרון, מפתח תוכנה.",
     "אני עושה את העבודה בשבילכם: מבין את הצורך, בונה, מחבר ומלווה — בלי להניח ידע טכני מוקדם, ובלי קורס בדרך.",
     "העסק יודע לעבוד עם הציבור החרדי: שפה, סגנון וצניעות שמתאימים לקהל.",
   ],

@@ -149,7 +149,7 @@ const he: Copy = {
     eyebrow: "אודות",
     title: "אודות",
     paragraphs: [
-      "אני שרוליק, ישראל שוודרון. אני מפתח תוכנה.",
+      "אני שרוליק שוודרון, מפתח תוכנה.",
       "אני בונה אתרים, בוטים ואוטומציות לעסקים, ועושה את העבודה עבורם.",
     ],
   },
@@ -180,7 +180,7 @@ const he: Copy = {
   },
   footer: {
     tagline: "אתרים, בוטים ואוטומציה לעסקים.",
-    operator: "שרוליק (ישראל שוודרון), מודיעין עילית",
+    operator: "שרוליק שוודרון, מודיעין עילית",
     rights: "כל הזכויות שמורות.",
     navLabel: "מידע",
     privacy: "מדיניות פרטיות",
@@ -225,7 +225,7 @@ const he: Copy = {
       id: "who",
       title: "מי מפעיל את השירות",
       paragraphs: [
-        "האתר מופעל על ידי שרוליק פתרונות. מאחורי העסק: שרוליק (ישראל שוודרון), מודיעין עילית.",
+        "האתר מופעל על ידי שרוליק פתרונות. מאחורי העסק: שרוליק שוודרון, מודיעין עילית.",
         "לשאלה או לבקשת מחיקה יש לפנות בטופס, בוואטסאפ או בטלפון. בנושא הפנייה יש לכתוב: בקשת מחיקת מידע.",
       ],
     },
@@ -279,7 +279,7 @@ const he: Copy = {
       id: "service",
       title: "השירות",
       paragraphs: [
-        "שרוליק פתרונות מופעל על ידי שרוליק (ישראל שוודרון), מודיעין עילית.",
+        "שרוליק פתרונות מופעל על ידי שרוליק שוודרון, מודיעין עילית.",
         "השירות כולל בניית אתרים, בוטים לוואטסאפ, אוטומציה, ובוט לשליחת הודעות ועדכוני סטטוס.",
         "אנו מבצעים את העבודה. אין כאן הדרכה או קורס.",
       ],
@@ -407,7 +407,7 @@ const en: Copy = {
     eyebrow: "About",
     title: "About",
     paragraphs: [
-      "I am Srulik, Israel Shvadron. I am a software developer.",
+      "I'm Srulik Shvadron, a software developer.",
       "I build websites, bots, and automations for businesses, and I do the work for them.",
     ],
   },
@@ -438,7 +438,7 @@ const en: Copy = {
   },
   footer: {
     tagline: "Websites, bots, and automation for businesses.",
-    operator: "Srulik (Israel Shvadron), Modi'in Illit",
+    operator: "Srulik Shvadron, Modi'in Illit",
     rights: "All rights reserved.",
     navLabel: "Information",
     privacy: "Privacy policy",
@@ -483,7 +483,7 @@ const en: Copy = {
       id: "who",
       title: "Who operates the service",
       paragraphs: [
-        "This website is operated by Srulik Solutions. The person responsible is Srulik (Israel Shvadron), Modi'in Illit, Israel.",
+        "This website is operated by Srulik Solutions. The person responsible is Srulik Shvadron, Modi'in Illit, Israel.",
         "For a question or a deletion request, use the contact form, WhatsApp, or the phone. Write “data deletion request” in the subject.",
       ],
     },
@@ -537,7 +537,7 @@ const en: Copy = {
       id: "service",
       title: "The service",
       paragraphs: [
-        "Srulik Solutions is operated by Srulik (Israel Shvadron), Modi'in Illit, Israel.",
+        "Srulik Solutions is operated by Srulik Shvadron, Modi'in Illit, Israel.",
         "The service covers websites, WhatsApp bots, automation, and a bot that sends messages and status updates.",
         "We do the work. This is not a course.",
       ],
