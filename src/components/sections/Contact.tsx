@@ -16,6 +16,7 @@ export function Contact() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [company, setCompany] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmationSent, setConfirmationSent] = useState(false);
@@ -30,7 +31,7 @@ export function Contact() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, message }),
+        body: JSON.stringify({ name, phone, email, message, company }),
       });
 
       const data = (await response.json().catch(() => null)) as {
@@ -50,6 +51,7 @@ export function Contact() {
       setPhone("");
       setEmail("");
       setMessage("");
+      setCompany("");
     } catch {
       setStatus("error");
       setErrorMessage("לא ניתן להתחבר לשרת. בדקו את החיבור ונסו שוב.");
@@ -93,9 +95,21 @@ export function Contact() {
           <form
             onSubmit={handleSubmit}
             className="studio-card studio-card-quiet space-y-5"
-            noValidate
-            aria-busy={isLoading}
-          >
+          noValidate
+          aria-busy={isLoading}
+        >
+          <div className="hp-field" aria-hidden="true">
+            <label htmlFor="contact-company">חברה</label>
+            <input
+              id="contact-company"
+              name="company"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={company}
+              onChange={(event) => setCompany(event.target.value)}
+            />
+          </div>
             <div className="space-y-2">
               <label htmlFor="contact-name" className="block text-sm font-medium text-fg">
                 {contact.form.nameLabel}

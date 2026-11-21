@@ -29,6 +29,10 @@ function escapeHtml(value: string) {
     .replaceAll("'", "&#39;");
 }
 
+function oneLine(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F]/g, " ").replace(/\s+/g, " ").trim();
+}
+
 function shell(title: string, bodyHtml: string) {
   return `<!DOCTYPE html>
 <html lang="he" dir="rtl">
@@ -78,16 +82,18 @@ function button(href: string, label: string) {
 }
 
 export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {
-  const subject = `פנייה חדשה מהאתר — ${input.name}`;
-  const phone = input.phone || "—";
-  const replyHref = `mailto:${input.email}?subject=${encodeURIComponent(`מענה לפנייה — ${input.name}`)}`;
+  const safeName = oneLine(input.name);
+  const safeEmail = oneLine(input.email);
+  const subject = `פנייה חדשה מהאתר — ${safeName}`;
+  const phone = oneLine(input.phone) || "—";
+  const replyHref = `mailto:${safeEmail}?subject=${encodeURIComponent(`מענה לפנייה — ${safeName}`)}`;
   const html = shell(
     "פנייה חדשה",
     `<p style="margin:0 0 16px;">הגיעה פנייה חדשה מאתר ${escapeHtml(operator.businessHe)}.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" dir="rtl" style="border-collapse:collapse;">
-      ${fieldRow("שם", input.name)}
+      ${fieldRow("שם", safeName)}
       ${fieldRow("טלפון או וואטסאפ", phone)}
-      ${fieldRow("אימייל", input.email)}
+      ${fieldRow("אימייל", safeEmail)}
     </table>
     <p style="margin:18px 0 8px;font-weight:700;">הודעה</p>
     <div style="white-space:pre-wrap;background:#f4f8fb;border:1px solid #e1ebf3;border-radius:12px;padding:14px;">${escapeHtml(input.message)}</div>
@@ -97,9 +103,9 @@ export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {
   const text = [
     `${operator.businessHe} — פנייה חדשה`,
     "",
-    `שם: ${input.name}`,
+    `שם: ${safeName}`,
     `טלפון או וואטסאפ: ${phone}`,
-    `אימייל: ${input.email}`,
+    `אימייל: ${safeEmail}`,
     "",
     "הודעה:",
     input.message,
@@ -112,6 +118,7 @@ export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {
 }
 
 export function visitorConfirmationEmail(input: VisitorEmailInput): RenderedEmail {
+  const safeName = oneLine(input.name);
   const subject = `קיבלנו את הפנייה — ${operator.businessHe}`;
   const whatsappBlock = input.whatsappUrl
     ? `<p style="margin:18px 0 8px;">אם נוח להמשיך בוואטסאפ, זה הערוץ המהיר:</p>
@@ -119,7 +126,7 @@ export function visitorConfirmationEmail(input: VisitorEmailInput): RenderedEmai
     : `<p style="margin:18px 0 0;">אפשר גם להשיב למייל הזה, ונמשיך משם.</p>`;
   const html = shell(
     "הפנייה התקבלה",
-    `<p style="margin:0 0 12px;">שלום ${escapeHtml(input.name)},</p>
+    `<p style="margin:0 0 12px;">שלום ${escapeHtml(safeName)},</p>
     <p style="margin:0 0 12px;">תודה שפניתם ל${escapeHtml(operator.businessHe)}. הפנייה התקבלה, ואין צורך לשלוח את הפרטים שוב.</p>
     <p style="margin:0;font-weight:700;">מה הלאה</p>
     <p style="margin:6px 0 0;">נחזור אליכם בהקדם עם מענה ברור. אנחנו עושים את העבודה, ואתם נשארים עם התוצאה.</p>
@@ -127,7 +134,7 @@ export function visitorConfirmationEmail(input: VisitorEmailInput): RenderedEmai
     <p style="margin:18px 0 0;font-size:13px;color:#5d7084;"><a href="${escapeHtml(input.siteUrl)}" style="color:#0f766e;">${escapeHtml(input.siteUrl)}</a></p>`,
   );
   const text = [
-    `שלום ${input.name},`,
+    `שלום ${safeName},`,
     "",
     `תודה שפניתם ל${operator.businessHe}. הפנייה התקבלה, ואין צורך לשלוח את הפרטים שוב.`,
     "",

@@ -6,23 +6,42 @@ import {
   ownerNotificationEmail,
   visitorConfirmationEmail,
 } from "@/lib/contact-email";
+import { allowContactSubmission, clientAddress } from "@/lib/contact-guard";
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const phonePattern = /^[\d+\-\s()]{7,40}$/;
+const MAX_BODY_BYTES = 20_000;
 
 type ContactBody = {
   name?: unknown;
   email?: unknown;
   phone?: unknown;
   message?: unknown;
+  company?: unknown;
 };
 
 function asTrimmedString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function stripControls(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F]/g, "");
+}
+
+function sanitizeMessage(value: string) {
+  return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
+}
+
 export async function POST(request: Request) {
   try {
+    const declaredLength = Number(request.headers.get("content-length") ?? "0");
+    if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+      return NextResponse.json(
+        { error: "הבקשה ארוכה מדי." },
+        { status: 413 },
+      );
+    }
+
     let body: ContactBody;
     try {
       body = (await request.json()) as ContactBody;
@@ -40,10 +59,15 @@ export async function POST(request: Request) {
       );
     }
 
-    const name = asTrimmedString(body.name);
-    const email = asTrimmedString(body.email);
-    const phone = asTrimmedString(body.phone);
-    const message = asTrimmedString(body.message);
+    const honeypot = asTrimmedString(body.company);
+    const name = stripControls(asTrimmedString(body.name));
+    const email = stripControls(asTrimmedString(body.email));
+    const phone = stripControls(asTrimmedString(body.phone));
+    const message = sanitizeMessage(asTrimmedString(body.message));
+
+    if (honeypot) {
+      return NextResponse.json({ ok: true, confirmationSent: false });
+    }
 
     if (!name || name.length > 120) {
       return NextResponse.json(
@@ -78,9 +102,16 @@ export async function POST(request: Request) {
     const configuredFrom = process.env.CONTACT_FROM_EMAIL?.trim() ?? "";
     const fromEmail = configuredFrom || "onboarding@resend.dev";
 
+    if (!allowContactSubmission(clientAddress(request), email)) {
+      return NextResponse.json(
+        { error: "יותר מדי פניות. נסו שוב מאוחר יותר." },
+        { status: 429, headers: { "Retry-After": "600" } },
+      );
+    }
+
     if (!apiKey || !toEmail) {
       return NextResponse.json(
-        { error: "שליחת מייל אינה מוגדרת בשרת." },
+        { error: "שליחת ההודעה נכשלה. נסו שוב בעוד רגע." },
         { status: 500 },
       );
     }
