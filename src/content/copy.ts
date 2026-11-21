@@ -149,8 +149,10 @@ const he: Copy = {
     eyebrow: "אודות",
     title: "אודות",
     paragraphs: [
-      "אני שרוליק שוודרון, מפתח תוכנה.",
-      "אני בונה אתרים, בוטים ואוטומציות לעסקים, ועושה את העבודה עבורם.",
+      "אני שרוליק שוודרון, מפתח תוכנה ממודיעין עילית.",
+      "בעלי עסקים רבים יודעים שטכנולוגיה יכולה לחסוך להם זמן, אך אין להם פנאי ללמוד אותה.",
+      "לשם כך אני כאן: מקים עבורם אתרים, בוטים ואוטומציות, ומלווה אותם גם לאחר העלייה לאוויר.",
+      "אתם מתמקדים בעסק, ואני מטפל בצד הטכנולוגי.",
     ],
   },
   contact: {
@@ -407,8 +409,10 @@ const en: Copy = {
     eyebrow: "About",
     title: "About",
     paragraphs: [
-      "I'm Srulik Shvadron, a software developer.",
-      "I build websites, bots, and automations for businesses, and I do the work for them.",
+      "I'm Srulik Shvadron, a software developer from Modi'in Illit.",
+      "Many business owners know technology can save them time, but have no time to learn it.",
+      "That's where I come in: I build websites, bots, and automations for them, and stay with them after launch.",
+      "You focus on your business; I handle the technology.",
     ],
   },
   contact: {
