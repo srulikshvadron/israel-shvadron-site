@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { getSiteUrl } from "@/content/site";
+import { whatsappHref } from "@/lib/contact";
+import {
+  ownerNotificationEmail,
+  visitorConfirmationEmail,
+} from "@/lib/contact-email";
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const phonePattern = /^[\d+\-\s()]{7,40}$/;
@@ -69,7 +75,8 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.CONTACT_TO_EMAIL;
-    const fromEmail = process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+    const configuredFrom = process.env.CONTACT_FROM_EMAIL?.trim() ?? "";
+    const fromEmail = configuredFrom || "onboarding@resend.dev";
 
     if (!apiKey || !toEmail) {
       return NextResponse.json(
@@ -79,20 +86,21 @@ export async function POST(request: Request) {
     }
 
     const resend = new Resend(apiKey);
+    const siteUrl = getSiteUrl();
+    const ownerMail = ownerNotificationEmail({
+      name,
+      email,
+      phone,
+      message,
+      siteUrl,
+    });
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
       replyTo: email,
-      subject: `פנייה מאתר שרוליק פתרונות — ${name}`,
-      text: [
-        `שם: ${name}`,
-        phone ? `טלפון או וואטסאפ: ${phone}` : null,
-        `אימייל: ${email}`,
-        "",
-        message,
-      ]
-        .filter((line) => line !== null)
-        .join("\n"),
+      subject: ownerMail.subject,
+      html: ownerMail.html,
+      text: ownerMail.text,
     });
 
     if (error) {
@@ -102,7 +110,32 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true });
+    let confirmationSent = false;
+    if (configuredFrom) {
+      const visitorMail = visitorConfirmationEmail({
+        name,
+        siteUrl,
+        whatsappUrl: whatsappHref(),
+      });
+      try {
+        const confirmation = await resend.emails.send({
+          from: configuredFrom,
+          to: [email],
+          replyTo: toEmail,
+          subject: visitorMail.subject,
+          html: visitorMail.html,
+          text: visitorMail.text,
+        });
+        confirmationSent = !confirmation.error;
+        if (confirmation.error) {
+          console.error("Visitor confirmation email failed");
+        }
+      } catch {
+        console.error("Visitor confirmation email failed");
+      }
+    }
+
+    return NextResponse.json({ ok: true, confirmationSent });
   } catch {
     return NextResponse.json(
       { error: "אירעה שגיאה בשליחה. נסו שוב." },

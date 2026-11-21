@@ -64,7 +64,7 @@ export function Header() {
             <a
               key={item.href}
               href={item.href}
-              className="text-sm text-muted transition-colors hover:text-fg"
+              className="nav-link text-sm text-muted transition-colors hover:text-fg"
             >
               {item.label}
             </a>
@@ -74,7 +74,7 @@ export function Header() {
         <div className="flex shrink-0 items-center gap-2">
           <a
             href={contactHref}
-            className="inline-flex items-center justify-center rounded-lg bg-accent px-2.5 py-2 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong sm:px-3"
+            className="btn-primary btn-compact"
             {...(whatsapp
               ? { target: "_blank", rel: "noopener noreferrer" }
               : {})}
@@ -135,7 +135,7 @@ export function Header() {
           ))}
           <a
             href={contactHref}
-            className="mt-2 inline-flex items-center justify-center rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-[#042f2e]"
+            className="btn-primary mt-2"
             onClick={closeMenu}
             {...(whatsapp
               ? { target: "_blank", rel: "noopener noreferrer" }

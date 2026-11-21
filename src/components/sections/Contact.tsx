@@ -9,8 +9,7 @@ import { whatsappHref } from "@/lib/contact";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-const fieldClass =
-  "w-full rounded-lg border border-line bg-bg px-4 py-3 text-fg placeholder:text-muted/70";
+const fieldClass = "field";
 
 export function Contact() {
   const [name, setName] = useState("");
@@ -19,6 +18,7 @@ export function Contact() {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [confirmationSent, setConfirmationSent] = useState(false);
   const whatsapp = whatsappHref();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -35,6 +35,7 @@ export function Contact() {
 
       const data = (await response.json().catch(() => null)) as {
         error?: string;
+        confirmationSent?: boolean;
       } | null;
 
       if (!response.ok) {
@@ -43,6 +44,7 @@ export function Contact() {
         return;
       }
 
+      setConfirmationSent(Boolean(data?.confirmationSent));
       setStatus("success");
       setName("");
       setPhone("");
@@ -67,7 +69,7 @@ export function Contact() {
     >
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <Reveal>
-          <div className="rounded-xl border border-accent/30 bg-accent-soft p-6 sm:p-8">
+          <div className="studio-card studio-card-quiet border-accent/30 bg-accent-soft">
             <h3 className="font-display text-2xl font-semibold text-fg">
               {contact.whatsappTitle}
             </h3>
@@ -90,7 +92,7 @@ export function Contact() {
         <Reveal>
           <form
             onSubmit={handleSubmit}
-            className="space-y-5 rounded-xl border border-line bg-bg-elevated/50 p-6 sm:p-8"
+            className="studio-card studio-card-quiet space-y-5"
             noValidate
             aria-busy={isLoading}
           >
@@ -177,14 +179,14 @@ export function Contact() {
             <button
               type="submit"
               disabled={isLoading}
-              className="inline-flex w-full items-center justify-center rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+              className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {isLoading ? "שולח..." : contact.form.submitLabel}
             </button>
 
             {status === "success" ? (
               <p className="text-sm text-accent" role="status">
-                ההודעה נשלחה בהצלחה. נחזור אליכם בהקדם.
+                {confirmationSent ? contact.successConfirmed : contact.success}
               </p>
             ) : null}
 

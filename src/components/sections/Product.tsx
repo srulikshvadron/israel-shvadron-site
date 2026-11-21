@@ -18,8 +18,8 @@ export function Product() {
     >
       <ol className="grid gap-6 lg:grid-cols-3">
         {product.steps.map((step, index) => (
-          <Reveal key={step.title}>
-            <li className="h-full rounded-xl border border-line bg-bg-elevated/40 p-6">
+          <Reveal key={step.title} delay={index * 90}>
+            <li className="studio-card">
               <p className="text-sm font-medium text-accent">
                 {String(index + 1).padStart(2, "0")}
               </p>
@@ -33,7 +33,7 @@ export function Product() {
       </ol>
 
       <Reveal>
-        <div className="mt-8 max-w-3xl space-y-4 rounded-xl border border-line bg-bg/40 p-6">
+        <div className="studio-card mt-8 max-w-3xl space-y-4">
           <p className="leading-relaxed text-muted">{product.oauthNote}</p>
           <p className="leading-relaxed text-muted">היקף ההרשאה:</p>
           <p className="break-all font-mono text-sm leading-relaxed text-fg">
@@ -51,7 +51,7 @@ export function Product() {
         <aside
           lang="en"
           dir="ltr"
-          className="mt-6 max-w-3xl rounded-xl border border-line bg-bg-elevated/40 p-6 text-start [overflow-wrap:anywhere]"
+          className="studio-card mt-6 max-w-3xl text-start [overflow-wrap:anywhere]"
         >
           <p className="text-sm font-medium text-accent">English summary</p>
           <h3 className="mt-2 font-display text-xl font-semibold text-fg">

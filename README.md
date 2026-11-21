@@ -54,9 +54,9 @@ npm run dev
 | משתנה | תיאור |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | כתובת ציבורית ל־canonical, sitemap, robots ו-Open Graph |
-| `RESEND_API_KEY` | מפתח לשליחת טופס יצירת הקשר |
-| `CONTACT_TO_EMAIL` | תיבה שמקבלת פניות מהטופס |
-| `CONTACT_FROM_EMAIL` | כתובת השולח המאומתת ב־Resend |
+| `RESEND_API_KEY` | מפתח Resend. בלי שינוי שם מההגדרה הקיימת |
+| `CONTACT_TO_EMAIL` | התיבה שמקבלת את פניית בעל העסק |
+| `CONTACT_FROM_EMAIL` | שולח מאומת. כשהוא ריק, ההתראה לבעל העסק יוצאת מ־`onboarding@resend.dev` ואין מייל אישור לפונה. אישור לפונה נשלח רק כשהמשתנה הזה מוגדר, כי שולח ברירת המחדל של Resend יכול לשלוח רק לבעל החשבון |
 
 ## פריסה
 

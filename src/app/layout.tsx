@@ -4,6 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AccessibilityWidget } from "@/components/a11y/AccessibilityWidget";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { createMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({
           דילוג לתוכן הראשי
         </a>
         <JsonLd />
+        <ScrollProgress />
         <Header />
         <div className="flex flex-1 flex-col">{children}</div>
         <Footer />
