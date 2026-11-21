@@ -37,8 +37,10 @@ export function Section({
             ) : null}
             <h2
               id={id ? `${id}-title` : undefined}
-              className="font-display text-3xl font-semibold tracking-tight text-fg sm:text-4xl"
+              data-heading={id ? "" : undefined}
+              className="section-heading font-display text-3xl font-semibold tracking-tight text-fg sm:text-4xl"
             >
+              {id ? <span className="heading-dot" aria-hidden="true" /> : null}
               {title}
             </h2>
             {subtitle ? (

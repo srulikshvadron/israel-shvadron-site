@@ -5,7 +5,8 @@ import { Footer } from "@/components/layout/Footer";
 import { AccessibilityWidget } from "@/components/a11y/AccessibilityWidget";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { ScrollProgress } from "@/components/motion/ScrollProgress";
-import { CursorGlow } from "@/components/motion/CursorGlow";
+import { HeadingBeacon } from "@/components/motion/HeadingBeacon";
+import { WhatsAppFloat } from "@/components/contact/WhatsAppFloat";
 import { getCopy, pathForLocale } from "@/content/copy";
 import { getRequestLocale } from "@/lib/locale";
 import { createMetadata } from "@/lib/seo";
@@ -54,7 +55,7 @@ export default async function RootLayout({
         </a>
         <JsonLd locale={locale} />
         <ScrollProgress />
-        <CursorGlow />
+        <HeadingBeacon />
         <Header locale={locale} copy={copy} />
         <div className="flex flex-1 flex-col">{children}</div>
         <Footer locale={locale} copy={copy} />
@@ -62,6 +63,7 @@ export default async function RootLayout({
           labels={copy.a11y}
           statementHref={pathForLocale(locale, "/accessibility")}
         />
+        <WhatsAppFloat label={copy.whatsappShort} />
       </body>
     </html>
   );

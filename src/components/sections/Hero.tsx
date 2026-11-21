@@ -3,10 +3,8 @@ import { pathForLocale } from "@/content/copy";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { HeroAtmosphere } from "@/components/motion/HeroAtmosphere";
-import { whatsappHref } from "@/lib/contact";
 
 export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
-  const whatsapp = whatsappHref();
   const servicesHref = `${pathForLocale(locale, "/")}#services`;
 
   return (
@@ -21,22 +19,16 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
               {copy.hero.eyebrow}
             </p>
           ) : null}
-          <h1 id="hero-heading" className="animate-fade-up font-display text-4xl font-bold leading-[1.15] tracking-tight text-fg sm:text-5xl lg:text-6xl">
+          <h1 id="hero-heading" data-heading className="section-heading animate-fade-up font-display text-4xl font-bold leading-[1.15] tracking-tight text-fg sm:text-5xl lg:text-6xl">
+            <span className="heading-dot" aria-hidden="true" />
             {copy.hero.headline}
           </h1>
           <p className="animate-fade-up-delay mt-6 max-w-2xl font-display text-2xl font-medium leading-snug text-fg sm:text-3xl">
             {copy.hero.line}
           </p>
           <p className="animate-fade-up-delay mt-4 text-sm font-medium text-accent">{copy.hero.aside}</p>
-          <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button
-              href={whatsapp ?? `${pathForLocale(locale, "/")}#contact`}
-              className="w-full sm:w-auto"
-              {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              {copy.whatsappShort}
-            </Button>
-            <Button href={servicesHref} variant="secondary" className="w-full sm:w-auto">
+          <div className="animate-fade-up-delay-2 mt-10">
+            <Button href={servicesHref} className="w-full sm:w-auto">
               {copy.hero.secondary}
             </Button>
           </div>

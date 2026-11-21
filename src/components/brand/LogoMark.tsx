@@ -1,27 +1,26 @@
+import { useId } from "react";
 import { cn } from "@/lib/utils";
 
+/** Centerline of the original swoosh, from the right tip to the arrowhead. */
+const SWOOSH_PATH =
+  "M 568 203.5 L 543 213 L 518 220 L 493 225.5 L 468 230.5 L 443 234.5 L 418 238 L 393 241 L 368 243.5 L 343 245.5 L 318 247 L 293 248.5 L 268 249.5 L 243 250.5 L 218 250.5 L 193 250.5 L 168 249.5 L 143 248.5 L 118 247 L 93 245";
+
+/** Original mark, split into aligned transparent layers so the swoosh is the source artwork. */
 export function LogoMark({ className }: { className?: string }) {
+  const maskId = `swoosh-${useId().replace(/:/g, "")}`;
+
   return (
-    <svg
-      viewBox="0 0 687.6 286"
-      className={cn("logo-mark", className)}
-      aria-hidden="true"
-      focusable="false"
-    >
-      <g fill="#ffffff">
-    <path d="M74 -191Q63 -191 55.0 -183.0Q47 -175 47 -164V289Q47 300 55.0 308.0Q63 316 74 316H237Q248 316 256.0 308.0Q264 300 264 289V-164Q264 -175 256.0 -183.0Q248 -191 237 -191ZM350 -15Q340 -17 331.0 -5.5Q322 6 322 17V156Q322 167 330.5 177.5Q339 188 349 192L376 203Q394 211 410.0 224.5Q426 238 436.0 260.0Q446 282 446 315Q446 340 441.0 355.5Q436 371 423.0 378.5Q410 386 385 386H74Q64 386 55.5 394.0Q47 402 47 413V546Q47 556 55.5 563.5Q64 571 74 571H435Q523 571 576.0 540.0Q629 509 653.0 454.0Q677 399 677 326Q677 260 653.5 205.0Q630 150 589.0 108.0Q548 66 497.0 37.5Q446 9 390 -5Z" transform="translate(16.00,174.00) scale(0.2,-0.2)"/>
-    <path d="M72 240Q61 240 53.0 248.0Q45 256 45 267V544Q45 555 53.0 563.0Q61 571 72 571H251Q262 571 270.0 563.0Q278 555 278 544V267Q278 256 270.0 248.0Q262 240 251 240Z" transform="translate(156.00,174.00) scale(0.2,-0.2)"/>
-    <path d="M190 -15Q180 -17 171.0 -5.5Q162 6 162 17V156Q162 167 170.5 177.5Q179 188 189 192L216 203Q234 211 250.0 224.5Q266 238 276.0 260.0Q286 282 286 315Q286 340 281.0 355.5Q276 371 263.0 378.5Q250 386 225 386H208Q198 386 189.5 394.0Q181 402 181 413V546Q181 556 189.5 563.5Q198 571 208 571H275Q363 571 416.0 540.0Q469 509 493.0 454.0Q517 399 517 326Q517 260 493.5 205.0Q470 150 429.0 108.0Q388 66 337.0 37.5Q286 9 230 -5ZM254 386H43Q32 386 24.0 394.0Q16 402 16 413V683Q16 694 24.0 702.0Q32 710 43 710H196Q207 710 215.0 702.0Q223 694 223 683V571H254Z" transform="translate(221.40,174.00) scale(0.2,-0.2)"/>
-    <path d="M74 0Q63 0 55.0 8.0Q47 16 47 27V544Q47 555 55.0 563.0Q63 571 74 571H253Q264 571 272.0 563.0Q280 555 280 544V27Q280 16 272.0 8.0Q264 0 253 0Z" transform="translate(331.20,174.00) scale(0.2,-0.2)"/>
-    <path d="M325 0Q314 0 306.0 7.5Q298 15 298 26V321Q298 359 279.5 377.5Q261 396 224 396H57Q46 396 38.0 404.0Q30 412 30 423V544Q30 555 38.0 563.0Q46 571 57 571H230Q323 571 388.0 549.5Q453 528 487.0 475.0Q521 422 521 327V27Q521 16 513.0 8.0Q505 0 494 0Z" transform="translate(397.40,174.00) scale(0.2,-0.2)"/>
-    <path d="M398 164Q442 164 479.0 182.0Q516 200 538.5 230.5Q561 261 561 298V545Q561 556 569.0 563.5Q577 571 588 571H737Q748 571 756.0 563.0Q764 555 764 544V293Q764 223 738.5 167.0Q713 111 668.0 71.5Q623 32 565.5 11.0Q508 -10 443 -10H333Q238 -10 174.5 23.0Q111 56 79.0 108.0Q47 160 47 217V544Q47 555 55.0 563.0Q63 571 74 571H223Q234 571 242.0 563.5Q250 556 250 545V335Q250 253 287.5 208.5Q325 164 380 164ZM236 190 237 333Q261 333 276.0 347.5Q291 362 298.0 392.5Q305 423 305 471V542Q305 555 313.0 563.0Q321 571 332 571H480Q491 571 499.0 562.0Q507 553 507 542V471Q507 375 473.5 313.0Q440 251 379.0 220.5Q318 190 236 190Z" transform="translate(510.60,174.00) scale(0.2,-0.2)"/>
-      </g>
-      <path className="logo-swoosh" d="M 640 198 C 400 262, 220 270, 150 236" stroke="#0ED1CD" strokeWidth="9" strokeLinecap="round" />
-      <path className="logo-arrow" d="M 126 236 L 152 224 L 142 236 L 152 248 Z" fill="#0ED1CD" />
-      <g className="logo-dot">
-        <circle cx="534" cy="70" r="22" fill="#0ED1CD" opacity="0.42" />
-        <circle cx="534" cy="70" r="11.5" fill="#0ED1CD" />
-      </g>
-    </svg>
+    <span className={cn("logo-mark", className)} aria-hidden="true">
+      <img src="/brand/logo-letters.png" alt="" className="logo-layer logo-word" />
+      <svg className="logo-layer logo-swoosh" viewBox="0 0 620 280">
+        <defs>
+          <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="620" height="280">
+            <path className="swoosh-pen" d={SWOOSH_PATH} pathLength={100} />
+          </mask>
+        </defs>
+        <image href="/brand/logo-swoosh.png" width="620" height="280" mask={`url(#${maskId})`} />
+      </svg>
+      <img src="/brand/logo-dot.png" alt="" className="logo-layer logo-dot" />
+    </span>
   );
 }

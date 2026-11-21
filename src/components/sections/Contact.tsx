@@ -4,9 +4,7 @@ import { FormEvent, useState } from "react";
 import type { Copy, Locale } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { Button } from "@/components/ui/Button";
 import { PulseDot } from "@/components/brand/PulseDot";
-import { whatsappHref } from "@/lib/contact";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -22,8 +20,6 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [confirmationSent, setConfirmationSent] = useState(false);
-  const whatsapp = whatsappHref();
-
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setStatus("loading");
@@ -68,28 +64,9 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
       id={contact.id}
       title={contact.title}
       subtitle={contact.subtitle}
-      className=""
+      className="border-t border-line"
     >
-      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <Reveal>
-          <div className="studio-card studio-card-quiet border-accent/30 bg-accent-soft">
-            <h3 className="font-display text-2xl font-semibold text-fg">
-              {contact.whatsappTitle}
-            </h3>
-            <p className="mt-3 leading-relaxed text-muted">{contact.whatsappBody}</p>
-            {whatsapp ? (
-              <Button
-                href={whatsapp}
-                className="mt-6 w-full sm:w-auto"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {contact.whatsappCta}
-              </Button>
-            ) : null}
-          </div>
-        </Reveal>
-
+      <div className="mx-auto max-w-2xl">
         <Reveal>
           <form
             onSubmit={handleSubmit}
@@ -99,17 +76,6 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
           >
           {status === "success" ? (
             <div className="success-panel" role="status">
-              <svg viewBox="0 0 220 36" className="success-swoosh h-8 w-52" aria-hidden="true">
-                <path
-                  className="success-swoosh-line"
-                  d="M198 10 C 140 28, 70 30, 36 18"
-                  stroke="#0ED1CD"
-                  strokeWidth="4"
-                  strokeLinecap="round"
-                  fill="none"
-                />
-                <path className="success-arrow" d="M18 18 L 40 10 L 32 18 L 40 26 Z" fill="#0ED1CD" />
-              </svg>
               <p className="font-display text-xl font-semibold text-accent">{contact.successTitle}</p>
               <p className="text-sm text-muted">
                 {confirmationSent ? contact.successConfirmed : contact.success}

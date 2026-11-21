@@ -5,51 +5,42 @@ import Link from "next/link";
 import { LogoMark } from "@/components/brand/LogoMark";
 import { cn } from "@/lib/utils";
 
-const INTRO_KEY = "srulik-intro";
-
 export function BrandLink({
   href,
   name,
   tagline,
-  taglineClassName,
-  playIntro = false,
+  slogan,
+  compact = false,
+  draw = false,
   className,
 }: {
   href: string;
   name: string;
   tagline?: string;
-  taglineClassName?: string;
-  playIntro?: boolean;
+  slogan?: string;
+  compact?: boolean;
+  draw?: boolean;
   className?: string;
 }) {
-  const linkRef = useRef<HTMLAnchorElement>(null);
+  const ref = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    if (!playIntro) return;
+    if (!draw) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
-    try {
-      if (sessionStorage.getItem(INTRO_KEY)) return;
-      sessionStorage.setItem(INTRO_KEY, "1");
-    } catch {
-      return;
-    }
-    linkRef.current?.classList.add("logo-intro");
-  }, [playIntro]);
+    ref.current?.classList.add("logo-draw");
+  }, [draw]);
 
   return (
     <Link
+      ref={ref}
       href={href}
       aria-label={name}
-      ref={linkRef}
-      className={cn("inline-flex min-w-0 flex-col items-start gap-1", className)}
+      className={cn("brand-lockup min-w-0 flex-col gap-0", compact && "is-compact", className)}
     >
-      <LogoMark className="h-9 w-auto sm:h-10" />
-      {tagline ? (
-        <span className={cn("brand-tagline max-w-[15rem] text-[11px] leading-tight text-muted", taglineClassName)}>
-          {tagline}
-        </span>
-      ) : null}
+      <LogoMark className="brand-logo" />
+      {tagline ? <span className="brand-tagline">{tagline}</span> : null}
+      {slogan ? <span className="brand-slogan">{slogan}</span> : null}
     </Link>
   );
 }

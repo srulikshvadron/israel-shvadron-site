@@ -5,19 +5,22 @@ import { usePathname } from "next/navigation";
 import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
 import { Container } from "@/components/ui/Container";
-import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [compact, setCompact] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname() || "/";
-  const whatsapp = whatsappHref();
   const home = pathForLocale(locale, "/");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      setCompact(y > 72);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -56,8 +59,9 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
       className={cn(
         "sticky top-0 z-50 border-b transition-colors duration-300",
         scrolled || open
-          ? "border-line bg-bg/90 backdrop-blur-md"
+          ? "is-scrolled border-line bg-bg/90 backdrop-blur-md"
           : "border-transparent bg-transparent",
+        compact && "is-compact",
       )}
     >
       <Container className="flex min-h-16 items-center justify-between gap-3 py-2">
@@ -65,8 +69,9 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           href={home}
           name={copy.brand}
           tagline={copy.footer.tagline}
-          taglineClassName="hidden md:block"
-          playIntro
+          slogan={copy.hero.aside}
+          compact={compact}
+          draw
         />
 
         <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
@@ -111,13 +116,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               EN
             </a>
           </nav>
-          <a
-            href={whatsapp ?? sectionHref("contact")}
-            className="btn-primary btn-compact"
-            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {copy.whatsappShort}
-          </a>
           <button
             ref={menuButtonRef}
             type="button"
@@ -149,14 +147,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               {item.label}
             </a>
           ))}
-          <a
-            href={whatsapp ?? sectionHref("contact")}
-            className="btn-primary mt-2"
-            onClick={closeMenu}
-            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {copy.contact.whatsappCta}
-          </a>
         </nav>
       </div>
     </header>
