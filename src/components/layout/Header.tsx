@@ -10,12 +10,17 @@ import { cn } from "@/lib/utils";
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [compact, setCompact] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname() || "/";
   const home = pathForLocale(locale, "/");
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 12);
+      setCompact(y > 72);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -54,8 +59,9 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
       className={cn(
         "sticky top-0 z-50 border-b transition-colors duration-300",
         scrolled || open
-          ? "border-line bg-bg/90 backdrop-blur-md"
+          ? "is-scrolled border-line bg-bg/90 backdrop-blur-md"
           : "border-transparent bg-transparent",
+        compact && "is-compact",
       )}
     >
       <Container className="flex min-h-16 items-center justify-between gap-3 py-2">
@@ -63,7 +69,9 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           href={home}
           name={copy.brand}
           tagline={copy.footer.tagline}
-          taglineClassName="hidden md:block"
+          slogan={copy.hero.aside}
+          compact={compact}
+          draw
         />
 
         <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">

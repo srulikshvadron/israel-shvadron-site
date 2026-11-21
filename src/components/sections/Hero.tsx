@@ -19,7 +19,8 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
               {copy.hero.eyebrow}
             </p>
           ) : null}
-          <h1 id="hero-heading" className="animate-fade-up font-display text-4xl font-bold leading-[1.15] tracking-tight text-fg sm:text-5xl lg:text-6xl">
+          <h1 id="hero-heading" data-heading className="section-heading animate-fade-up font-display text-4xl font-bold leading-[1.15] tracking-tight text-fg sm:text-5xl lg:text-6xl">
+            <span className="heading-dot" aria-hidden="true" />
             {copy.hero.headline}
           </h1>
           <p className="animate-fade-up-delay mt-6 max-w-2xl font-display text-2xl font-medium leading-snug text-fg sm:text-3xl">

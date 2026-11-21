@@ -4,11 +4,14 @@ import { useEffect, useRef } from "react";
 
 export function ScrollProgress() {
   const barRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const bar = barRef.current;
-    if (!bar) return;
+    const dot = dotRef.current;
+    if (!bar || !dot) return;
     const indicator = bar;
+    const traveler = dot;
 
     let frame = 0;
 
@@ -19,6 +22,7 @@ export function ScrollProgress() {
       indicator.style.transformOrigin =
         document.documentElement.dir === "ltr" ? "0% 50%" : "100% 50%";
       indicator.style.transform = `scaleX(${progress})`;
+      traveler.style.insetInlineStart = `calc(${progress} * (100% - 12px))`;
     }
 
     function onScroll() {
@@ -39,6 +43,7 @@ export function ScrollProgress() {
   return (
     <div className="scroll-progress" aria-hidden>
       <div ref={barRef} className="scroll-progress-bar" />
+      <div ref={dotRef} className="scroll-dot" />
     </div>
   );
 }
