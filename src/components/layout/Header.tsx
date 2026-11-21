@@ -1,15 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
-import { navigation, siteConfig } from "@/content/site";
+import { hero, navigation } from "@/content/site";
+import { BrandLink } from "@/components/brand/BrandLink";
 import { Container } from "@/components/ui/Container";
+import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const whatsapp = whatsappHref();
+  const contactHref = whatsapp ?? "/#contact";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -53,18 +56,10 @@ export function Header() {
           : "border-transparent bg-transparent",
       )}
     >
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <Link
-          href="/"
-          className="font-display text-lg font-semibold tracking-tight text-fg transition-colors hover:text-accent"
-        >
-          {siteConfig.name}
-        </Link>
+      <Container className="flex h-16 items-center justify-between gap-3">
+        <BrandLink />
 
-        <nav
-          aria-label="ניווט ראשי"
-          className="hidden items-center gap-8 md:flex"
-        >
+        <nav aria-label="ניווט ראשי" className="hidden items-center gap-6 lg:flex">
           {navigation.map((item) => (
             <a
               key={item.href}
@@ -76,43 +71,54 @@ export function Header() {
           ))}
         </nav>
 
-        <button
-          ref={menuButtonRef}
-          type="button"
-          className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-fg md:hidden"
-          aria-expanded={open}
-          aria-controls="mobile-nav"
-          aria-label={open ? "סגירת תפריט" : "פתיחת תפריט"}
-          onClick={() => setOpen((value) => !value)}
-        >
-          <span className="sr-only">{open ? "סגירה" : "תפריט"}</span>
-          <span aria-hidden className="flex flex-col gap-1.5">
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-transform",
-                open && "translate-y-2 rotate-45",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-opacity",
-                open && "opacity-0",
-              )}
-            />
-            <span
-              className={cn(
-                "block h-0.5 w-5 bg-current transition-transform",
-                open && "-translate-y-2 -rotate-45",
-              )}
-            />
-          </span>
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          <a
+            href={contactHref}
+            className="inline-flex items-center justify-center rounded-lg bg-accent px-2.5 py-2 text-sm font-semibold text-[#042f2e] transition-colors hover:bg-accent-strong sm:px-3"
+            {...(whatsapp
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            וואטסאפ
+          </a>
+          <button
+            ref={menuButtonRef}
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-fg lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            aria-label={open ? "סגירת תפריט" : "פתיחת תפריט"}
+            onClick={() => setOpen((value) => !value)}
+          >
+            <span className="sr-only">{open ? "סגירה" : "תפריט"}</span>
+            <span aria-hidden className="flex flex-col gap-1.5">
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-transform",
+                  open && "translate-y-2 rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-opacity",
+                  open && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-0.5 w-5 bg-current transition-transform",
+                  open && "-translate-y-2 -rotate-45",
+                )}
+              />
+            </span>
+          </button>
+        </div>
       </Container>
 
       <div
         id="mobile-nav"
         className={cn(
-          "border-t border-line bg-bg md:hidden",
+          "border-t border-line bg-bg lg:hidden",
           open ? "block" : "hidden",
         )}
       >
@@ -127,6 +133,16 @@ export function Header() {
               {item.label}
             </a>
           ))}
+          <a
+            href={contactHref}
+            className="mt-2 inline-flex items-center justify-center rounded-lg bg-accent px-4 py-3 text-sm font-semibold text-[#042f2e]"
+            onClick={closeMenu}
+            {...(whatsapp
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
+            {hero.primaryCta}
+          </a>
         </nav>
       </div>
     </header>

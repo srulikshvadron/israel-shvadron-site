@@ -1,6 +1,8 @@
-# ישראל שוודרון — אתר תדמית
+# שרוליק פתרונות
 
-אתר תדמית אישי מקצועי בעברית (RTL), בנוי עם Next.js, TypeScript ו-Tailwind CSS. מוכן לפריסה ב-Vercel ולהרחבות עתידיות (בלוג, פרויקטים, CMS, אינטגרציות AI).
+אתר העסק של שרוליק פתרונות, בעברית (RTL). בנוי עם Next.js, TypeScript ו-Tailwind CSS.
+
+האתר הציבורי הנוכחי: [https://israel-shvadron-site.vercel.app](https://israel-shvadron-site.vercel.app). הדומיין המתוכנן `sruliksolutions.com` עדיין לא מחובר.
 
 ## טכנולוגיות
 
@@ -16,67 +18,51 @@ npm install
 npm run dev
 ```
 
-האתר זמין בכתובת [http://localhost:3000](http://localhost:3000).
+השרת המקומי מדפיס את הכתובת שבה הוא מאזין. כתובות קנוניות, sitemap ו-robots נשארות על האתר הציבורי גם כשמריצים מקומית.
 
 ## סקריפטים
 
 | פקודה | תיאור |
 | --- | --- |
-| `npm run dev` | שרת פיתוח (Turbopack) |
+| `npm run dev` | שרת פיתוח |
 | `npm run build` | בניית פרודקשן |
 | `npm run start` | הרצת בניית הפרודקשן |
 | `npm run lint` | בדיקת ESLint |
 | `npm run typecheck` | בדיקת TypeScript |
 
-## תוכן ופרטי קשר
+## תוכן, מיתוג ופרטי קשר
 
-כל התוכן והקישורים מרוכזים בקובץ:
+כל התוכן הציבורי מרוכז ב־[`src/content/site.ts`](src/content/site.ts).
 
-[`src/content/site.ts`](src/content/site.ts)
+- שם המוצר הזמני (`מערכת התוכן וההפצה`) מוגדר פעם אחת ב־`productName`. משנים שם רק שם.
+- וואטסאפ, אימייל וטלפון ריקים עד שיוחלט עליהם. ממלאים את `siteConfig.contact` — בלי מספרים מומצאים. כשהשדות מלאים, הכפתורים, הפוטר והעמודים המשפטיים מתעדכנים לבד.
+- כתובת האתר ל־SEO מגיעה מ־`NEXT_PUBLIC_SITE_URL`, עם ברירת מחדל של כתובת ה־Vercel הנוכחית.
 
-עדכנו שם את האימייל, LinkedIn, GitHub ושאר הפרטים (כרגע placeholders).
+## עמודים
+
+| נתיב | תוכן |
+| --- | --- |
+| `/` | עמוד הבית: שירותים, המוצר, איך זה עובד, אודות, יצירת קשר |
+| `/privacy` | מדיניות פרטיות, עברית ואנגלית |
+| `/terms` | תנאי שימוש, עברית ואנגלית |
+| `/accessibility` | הצהרת נגישות |
 
 ## משתני סביבה
 
-העתיקו את `.env.example` ל-`.env.local`:
-
-```bash
-cp .env.example .env.local
-```
+מעתיקים את `.env.example` ל־`.env.local`.
 
 | משתנה | תיאור |
 | --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | כתובת האתר בפרודקשן (ל-SEO / sitemap / Open Graph) |
+| `NEXT_PUBLIC_SITE_URL` | כתובת ציבורית ל־canonical, sitemap, robots ו-Open Graph |
+| `RESEND_API_KEY` | מפתח לשליחת טופס יצירת הקשר |
+| `CONTACT_TO_EMAIL` | תיבה שמקבלת פניות מהטופס |
+| `CONTACT_FROM_EMAIL` | כתובת השולח המאומתת ב־Resend |
 
-## מבנה הפרויקט
+## פריסה
 
-```
-src/
-  app/                 # App Router — דפים, metadata, sitemap, robots
-  components/
-    layout/            # Header, Footer, ניווט
-    sections/          # סקציות דף הבית
-    ui/                # רכיבים לשימוש חוזר
-    motion/            # תנועה והופעה
-  content/site.ts      # תוכן האתר
-  lib/                 # SEO ועוזרים
-```
-
-## פריסה ב-Vercel
-
-1. חברו את ה-repository ל-Vercel
-2. הגדירו `NEXT_PUBLIC_SITE_URL` לסביבת הפרודקשן
+1. לחבר את ה-repository ל-Vercel
+2. אחרי חיבור הדומיין, להגדיר `NEXT_PUBLIC_SITE_URL` ל־`https://sruliksolutions.com`
 3. Deploy
-
-## הרחבות עתידיות
-
-הארכיטקטורה מוכנה להוספת:
-
-- בלוג ומאמרים (`/blog`)
-- תיק עבודות ופרויקטים (`/projects`)
-- CMS
-- טופס יצירת קשר עם API (כרגע mailto)
-- אינטגרציות AI
 
 ## רישיון
 

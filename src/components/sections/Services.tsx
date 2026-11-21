@@ -8,7 +8,7 @@ export function Services() {
       id={services.id}
       title={services.title}
       subtitle={services.subtitle}
-      eyebrow="מה אני מציע"
+      eyebrow={services.eyebrow}
       className="border-y border-line bg-bg-elevated/30"
     >
       <ul className="grid gap-x-10 gap-y-10 lg:grid-cols-3">

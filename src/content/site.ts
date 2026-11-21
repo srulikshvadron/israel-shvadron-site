@@ -1,190 +1,264 @@
+/**
+ * Site content and public settings for שרוליק פתרונות.
+ *
+ * Contact details are intentionally empty until they are decided.
+ * TODO: whatsappE164 — digits only, country code, no plus (shape: 9725XXXXXXXX).
+ * TODO: email — the business inbox.
+ * TODO: phone — only if it should be shown separately from WhatsApp.
+ * Do not invent numbers or addresses here.
+ *
+ * Product name: change `productName.he` and `productName.en` only.
+ */
+
+const DEFAULT_SITE_URL = "https://israel-shvadron-site.vercel.app";
+
+/** Public deployment until sruliksolutions.com is connected. */
+export function getSiteUrl() {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) return DEFAULT_SITE_URL;
+
+  try {
+    const url = new URL(raw);
+    const loopback =
+      url.hostname === "localhost" ||
+      url.hostname === "127.0.0.1" ||
+      url.hostname === "0.0.0.0";
+    const allowed = url.protocol === "https:" || url.protocol === "http:";
+    if (!allowed || loopback) return DEFAULT_SITE_URL;
+    return url.origin;
+  } catch {
+    return DEFAULT_SITE_URL;
+  }
+}
+
+/** Temporary label. Rename here only — pages read these two fields. */
+export const productName = {
+  he: "מערכת התוכן וההפצה",
+  en: "Content and Distribution System",
+} as const;
+
+export const operator = {
+  businessHe: "שרוליק פתרונות",
+  businessEn: "Srulik Solutions",
+  givenHe: "שרוליק",
+  legalNameHe: "ישראל שוודרון",
+  givenEn: "Srulik",
+  legalNameEn: "Israel Shvadron",
+  localityHe: "מודיעין עילית",
+  localityEn: "Modi'in Illit",
+  countryHe: "ישראל",
+  countryEn: "Israel",
+} as const;
+
+/** YouTube Data API scope the product requests: upload videos to the authorized channel. */
+export const youtubeScope = "https://www.googleapis.com/auth/youtube.upload";
+
+export const googlePolicyLinks = {
+  userDataPolicy:
+    "https://developers.google.com/terms/api-services-user-data-policy",
+  privacy: "https://www.google.com/policies/privacy",
+  youtubeTerms: "https://www.youtube.com/t/terms",
+  youtubeApiTerms:
+    "https://developers.google.com/youtube/terms/api-services-terms-of-service",
+  permissions: "https://security.google.com/settings/security/permissions",
+} as const;
+
+export const legalMeta = {
+  updatedIso: "2026-11-21",
+  updatedHe: "21 בנובמבר 2026",
+  updatedEn: "21 November 2026",
+} as const;
+
 export const siteConfig = {
-  name: "ישראל שוודרון",
-  nameEn: "Israel Shvadron",
-  title: "ישראל שוודרון | אתרים, בוטים בוואטסאפ ואוטומציות לעסקים",
+  name: operator.businessHe,
+  nameEn: operator.businessEn,
+  title: "שרוליק פתרונות | אתרים, אוטומציה ותוכן לעסקים",
   description:
-    "בניית אתרים, בוטים בוואטסאפ ואוטומציות לעסקים קטנים ומוסדות — פתרונות דיגיטליים ברורים שחוסכים זמן ומגדילים פניות.",
+    "עושים בשבילכם את העבודה הדיגיטלית: אתרים, בוטים בוואטסאפ, אוטומציות ומערכת תוכן לעסקים ולמוסדות.",
   locale: "he_IL",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url: getSiteUrl(),
   contact: {
-    email: "hello@example.com",
-    linkedin: "https://www.linkedin.com/in/your-profile",
-    github: "https://github.com/your-username",
+    whatsappE164: "",
+    email: "",
     phone: "",
   },
 } as const;
 
+export const publicPages = [
+  { path: "/", changeFrequency: "monthly", priority: 1 },
+  { path: "/privacy", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/terms", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/accessibility", changeFrequency: "yearly", priority: 0.3 },
+] as const;
+
 export const navigation = [
-  { href: "#about", label: "אודות" },
-  { href: "#services", label: "שירותים" },
-  { href: "#capabilities", label: "יכולות" },
-  { href: "#interests", label: "תחומי עניין" },
-  { href: "#vision", label: "חזון" },
-  { href: "#contact", label: "יצירת קשר" },
+  { href: "/#services", label: "שירותים" },
+  { href: "/#product", label: "המוצר" },
+  { href: "/#process", label: "איך זה עובד" },
+  { href: "/#about", label: "אודות" },
+  { href: "/#contact", label: "יצירת קשר" },
+] as const;
+
+export const footerNav = [
+  { href: "/privacy", label: "מדיניות פרטיות" },
+  { href: "/terms", label: "תנאי שימוש" },
+  { href: "/accessibility", label: "הצהרת נגישות" },
 ] as const;
 
 export const hero = {
-  brand: "ישראל שוודרון",
-  headline: "בונה אתרים, בוטים בוואטסאפ ואוטומציות לעסקים ומוסדות",
+  brand: operator.businessHe,
+  headline: "עושים בשבילכם את העבודה הדיגיטלית",
   supporting:
-    "פתרונות דיגיטליים פרקטיים לעסקים קטנים ולמוסדות — כולל לציבור החרדי — שמפשטים תהליכים, חוסכים זמן ומביאים יותר פניות.",
-  primaryCta: { href: "#contact", label: "לשיחת ייעוץ / הצעת מחיר" },
-  secondaryCta: { href: "#services", label: "לשירותים" },
-} as const;
-
-export const about = {
-  id: "about",
-  title: "אודות",
-  paragraphs: [
-    "אני מלווה עסקים ומוסדות בבניית נוכחות דיגיטלית שעובדת בפועל — אתרים ברורים, בוטים בוואטסאפ שמענים לפניות, ואוטומציות שמחברות בין המערכות שכבר משתמשים בהן.",
-    "הגישה שלי פרקטית: להבין את הצורך העסקי, לבחור פתרון פשוט ויציב, ולבנות אותו כך שיהיה קל לתפעול גם בלי רקע טכנולוגי עמוק.",
-    "בין אם מדובר בחנות קטנה, מוסד חינוכי או שירות מקומי — המטרה היא אותה מטרה: לחסוך זמן, לסדר תהליכים ולהפוך פניות ללקוחות.",
-  ],
+    "אתר, בוט, תוכן ואוטומציה לעסקים ולמוסדות — בלי קורס, בלי סיבוך, ועם ליווי ברור עד שזה עובד.",
+  primaryCta: "כתבו בוואטסאפ",
+  secondaryCta: { href: "/#services", label: "לשירותים" },
 } as const;
 
 export const services = {
   id: "services",
+  eyebrow: "מה העסק מקבל",
   title: "שירותים",
-  subtitle:
-    "שלושה מסלולים ברורים — לפי הצורך של העסק או המוסד שלכם.",
+  subtitle: "שלושה מסלולים ברורים, לפי מה שהעסק או המוסד צריכים.",
   items: [
     {
       title: "בניית אתרים ודפי נחיתה",
       description:
-        "אתר מקצועי או דף נחיתה ממוקד שמציג את השירות בצורה ברורה ומזמינה לפנייה. מותאם לנייד, מהיר לטעינה, ומותאם לקהל היעד — כולל עסקים ומוסדות בציבור החרדי. מתאים למי שרוצה נוכחות אמינה ברשת בלי סיבוכים מיותרים.",
+        "אתר או דף ברור, מהיר ומותאם לנייד, שמוביל לפנייה. מתאים לעסק, למוסד חינוכי ולשירות מקומי.",
     },
     {
-      title: "בוטים בוואטסאפ לעסקים ומוסדות",
+      title: "בוטים בוואטסאפ",
       description:
-        "מענה אוטומטי לפניות חוזרות: שעות פעילות, מחירים, הרשמה, פרטים ושאלות נפוצות. הבוט חוסך זמן לצוות, מפחית פניות שאבדו, ומשאיר את הלקוח עם תשובה מיידית גם מחוץ לשעות העבודה.",
+        "מענה אוטומטי לשעות פעילות, מחירים, הרשמה ושאלות נפוצות. חוסך זמן לצוות ושומר פניות גם מחוץ לשעות הפעילות.",
     },
     {
       title: "אוטומציות וחיבורים בין מערכות",
       description:
-        "חיבור בין טפסים, מייל, וואטסאפ וכלים נוספים כך שהמידע זורם לבד — בלי העתקה ידנית. מתאים לרישום לקוחות, התראות, מעקב אחרי פניות וסדר בעבודה היומיומית.",
+        "הטפסים, המייל והוואטסאפ מדברים ביניהם, בלי העתקה ידנית. מתאים לרישום, התראות ומעקב אחרי פניות.",
     },
   ],
 } as const;
 
-export const capabilities = {
-  id: "capabilities",
-  title: "איך אני עובד",
-  subtitle: "גישה שירותית שמחברת הבנה עסקית עם ביצוע טכני מדויק.",
-  items: [
-    {
-      title: "הבנת הצורך העסקי",
-      description:
-        "מתחילים מהבעיה האמיתית — פניות, זמן, סדר או מכירות — ורק אחר כך בוחרים את הפתרון הטכנולוגי.",
-    },
-    {
-      title: "פתרונות פשוטים ויציבים",
-      description:
-        "בונים מה שעובד ביום־יום: ברור לתפעול, קל לתחזוקה, ומתאים לקצב של עסק קטן או מוסד.",
-    },
-    {
-      title: "ביצוע ממוקד",
-      description:
-        "ממפים את התהליך, בונים את הפתרון, ובודקים שהוא באמת חוסך זמן ומביא תוצאה.",
-    },
-    {
-      title: "התאמה לקהל",
-      description:
-        "שפה, מבנה וחוויית שימוש שמותאמים ללקוחות שלכם — כולל עסקים ומוסדות בציבור החרדי.",
-    },
-    {
-      title: "כניסה מהירה למערכות קיימות",
-      description:
-        "מתחברים לכלים שכבר בשימוש אצלכם ומחברים ביניהם, בלי להחליף הכול בבת אחת.",
-    },
-    {
-      title: "ליווי ברור",
-      description:
-        "הסברים פשוטים, תהליך שקוף, ותמיכה בהפעלה — כדי שתוכלו להמשיך לבד בביטחון.",
-    },
-    {
-      title: "חשיבה לטווח ארוך",
-      description:
-        "בונים כך שניתן להרחיב בהמשך — דף נוסף, בוט מורחב או אוטומציה נוספת — בלי להתחיל מאפס.",
-    },
-    {
-      title: "יצירת ערך מדיד",
-      description:
-        "המטרה אינה טכנולוגיה לשם עצמה, אלא פחות עבודה ידנית ויותר פניות שמטופלות נכון.",
-    },
-  ],
-} as const;
-
-export const interests = {
-  id: "interests",
-  title: "כלים ותחומים",
+export const product = {
+  id: "product",
+  eyebrow: "המוצר הראשון",
+  title: productName.he,
   subtitle:
-    "הטכנולוגיות והגישות שבהן נבנים האתרים, הבוטים והאוטומציות.",
+    "מערכת שמאתרת חדשות ותוכן, מייצרת מדיה קצרה בעברית, ומפיצה אותה לטלגרם, לוואטסאפ וליוטיוב. אתם מקבלים נוכחות קבועה ברשתות, בלי להפיק כל סרטון לבד.",
+  steps: [
+    {
+      title: "איתור",
+      description:
+        "המערכת מאתרת חדשות ותוכן לפי הנושא שהוגדר לערוץ, כדי שיהיה חומר לעבוד איתו.",
+    },
+    {
+      title: "הפקה בעברית",
+      description:
+        "מהחומר נבנית מדיה קצרה בעברית, מוכנה לפרסום, בלי שתצטרכו להפיק כל פריט בעצמכם.",
+    },
+    {
+      title: "הפצה",
+      description: "התוכן יוצא לערוצים שחיברתם: טלגרם, וואטסאפ ויוטיוב.",
+    },
+  ],
+  oauthNote:
+    "חיבור הערוץ נעשה בהרשאת בעל החשבון. ביוטיוב זו הרשאת גוגל (OAuth), והגישה המבוקשת היא העלאת סרטונים לערוץ שאישרתם.",
+  approvalNote:
+    "בשלב הראשון, עד אישור האפליקציה בגוגל, סרטון ביוטיוב עשוי לעלות כפרטי. המעבר לציבורי נעשה רק באישור שלכם.",
+} as const;
+
+export const workflow = {
+  id: "process",
+  eyebrow: "שיטת עבודה",
+  title: "איך זה עובד",
+  subtitle: "ארבעה שלבים, מהצורך ועד שזה עובד אצלכם.",
   items: [
-    "Python",
-    "JavaScript",
-    "TypeScript",
-    "React",
-    "Next.js",
-    "APIs",
-    "Automation",
-    "AI Agents",
-    "Prompt Engineering",
-    "Networking",
-    "Linux",
-    "Cyber Security",
-    "System Design",
-    "Product Thinking",
+    {
+      title: "מבינים את הצורך",
+      description:
+        "מתחילים מהבעיה האמיתית — פניות, זמן, סדר או נוכחות — ורק אחר כך בוחרים מה לבנות.",
+    },
+    {
+      title: "בונים פתרון פשוט",
+      description:
+        "אתר, בוט, אוטומציה או חיבור למערכת התוכן. ברור לתפעול, בלי מערכת שצריך ללמוד.",
+    },
+    {
+      title: "מחברים למה שכבר קיים",
+      description:
+        "וואטסאפ, טפסים, מייל או ערוץ יוטיוב. מתחברים לכלים שכבר בשימוש, בלי להחליף הכול.",
+    },
+    {
+      title: "מלווים בהפעלה",
+      description:
+        "מסבירים בקצרה, בודקים שזה עובד, ונשארים זמינים עד שהתהליך רץ ביום־יום.",
+    },
   ],
 } as const;
 
-export const vision = {
-  id: "vision",
-  title: "חזון",
-  text: "לאפשר לעסקים ומוסדות — גם בלי רקע טכנולוגי — להפוך רעיונות ורעיונות שירות למציאות דיגיטלית פשוטה: אתר שעובד, בוט שעונה, ואוטומציה שחוסכת זמן.",
+export const about = {
+  id: "about",
+  eyebrow: "מי עומד מאחורי העסק",
+  title: "אודות",
+  paragraphs: [
+    "קוראים לי שרוליק, ישראל שוודרון. אני גר במודיעין עילית, ומלווה עסקים ומוסדות בפתרונות דיגיטליים שעובדים ביום־יום.",
+    "אני עושה את העבודה בשבילכם: מבין את הצורך, בונה, מחבר ומלווה — בלי להניח ידע טכני מוקדם, ובלי קורס בדרך.",
+    "העסק יודע לעבוד עם הציבור החרדי: שפה, סגנון וצניעות שמתאימים לקהל.",
+  ],
 } as const;
 
 export const values = {
   id: "values",
+  eyebrow: "עקרונות",
   title: "ערכים",
-  subtitle: "עקרונות שמנחים כל פרויקט שירות.",
+  subtitle: "מה שמנחה כל עבודה.",
   items: [
-    { title: "בהירות", description: "הסברים פשוטים ותהליך מובן מתחילתו ועד סופו." },
-    { title: "מקצועיות", description: "סטנדרט גבוה בביצוע, בתקשורת ובאיכות התוצר." },
-    { title: "אמינות", description: "עמידה בהתחייבויות ושקיפות לאורך הדרך." },
+    {
+      title: "בהירות",
+      description: "הסברים פשוטים ותהליך מובן מתחילתו ועד סופו.",
+    },
+    {
+      title: "אמינות",
+      description: "עמידה במה שסוכם, ושקיפות לאורך הדרך.",
+    },
     {
       title: "תועלת ללקוח",
       description: "כל פתרון נמדד לפי הזמן שהוא חוסך והפניות שהוא מייצר.",
     },
     {
       title: "התאמה לקהל",
-      description: "בנייה לפי צרכי העסק והקהילה שאותם הוא משרת.",
-    },
-    {
-      title: "חשיבה לטווח ארוך",
-      description: "בנייה יציבה שניתן להרחיב, לתחזק ולשפר לאורך זמן.",
+      description: "שפה, סגנון וצניעות לפי העסק והקהילה שהוא משרת.",
     },
   ],
 } as const;
 
 export const contact = {
   id: "contact",
+  eyebrow: "שיחה קצרה",
   title: "יצירת קשר",
   subtitle:
-    "רוצים שיחת ייעוץ קצרה או הצעת מחיר? כתבו כמה פרטים — ונחזור אליכם עם הצעה ברורה להתקדמות.",
+    "הדרך המהירה היא וואטסאפ. אפשר גם להשאיר פנייה בטופס, ונחזור עם מענה ברור.",
+  whatsappTitle: "וואטסאפ",
+  whatsappBody: "זה הערוץ המועדף. כותבים, וחוזרים אליכם עם מענה ענייני.",
+  whatsappPending:
+    "מספר הוואטסאפ יפורסם כאן. עד אז כתבו בטופס, ונחזור אליכם.",
+  whatsappCta: "כתבו בוואטסאפ",
   form: {
     nameLabel: "שם",
+    phoneLabel: "טלפון או וואטסאפ",
+    phoneHint: "לא חובה",
     emailLabel: "אימייל",
     messageLabel: "הודעה",
-    submitLabel: "בקשת הצעת מחיר",
-    namePlaceholder: "השם המלא / שם העסק",
-    emailPlaceholder: "name@business.com",
+    submitLabel: "שליחת פנייה",
+    namePlaceholder: "השם המלא או שם העסק",
+    phonePlaceholder: "מספר לחזרה",
+    emailPlaceholder: "name@email.com",
     messagePlaceholder:
-      "ספרו בקצרה מה צריך: אתר, בוט בוואטסאפ, אוטומציה — או שאלה כללית.",
+      "ספרו בקצרה מה צריך: אתר, בוט בוואטסאפ, אוטומציה, תוכן — או שאלה כללית.",
   },
-  note: "נחזור אליכם בהקדם עם מענה או הצעת מחיר.",
+  note: "נחזור אליכם בהקדם.",
 } as const;
 
 export const footer = {
-  tagline: "אתרים, בוטים בוואטסאפ ואוטומציות לעסקים ומוסדות.",
+  tagline: "אתרים, בוטים, אוטומציות ותוכן לעסקים ולמוסדות.",
   rights: "כל הזכויות שמורות.",
 } as const;
