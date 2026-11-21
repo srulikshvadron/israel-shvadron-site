@@ -28,27 +28,31 @@ export function Reveal({ children, className, delay = 0 }: RevealProps) {
       return;
     }
 
+    node.classList.add("reveal-arm");
     const rect = node.getBoundingClientRect();
-    const inView = rect.top < window.innerHeight && rect.bottom > 0;
+    const inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+    let frame = 0;
+    let observer: IntersectionObserver | undefined;
+
     if (inView) {
-      show();
-      return;
+      frame = requestAnimationFrame(show);
+    } else {
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry?.isIntersecting) {
+            show();
+            observer?.disconnect();
+          }
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      );
+      observer.observe(node);
     }
 
-    node.classList.add("reveal-arm");
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          show();
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.05 },
-    );
-    observer.observe(node);
     const fallback = window.setTimeout(show, 1200);
     return () => {
-      observer.disconnect();
+      cancelAnimationFrame(frame);
+      observer?.disconnect();
       window.clearTimeout(fallback);
     };
   }, []);

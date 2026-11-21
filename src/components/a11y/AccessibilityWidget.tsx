@@ -152,16 +152,16 @@ export function AccessibilityWidget({
       <button
         ref={buttonRef}
         type="button"
-        className="inline-flex h-12 items-center gap-2 rounded-full border border-line bg-bg-elevated px-4 text-sm font-semibold text-fg shadow-lg transition-colors hover:border-accent/50 hover:bg-accent-soft"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-bg-elevated text-sm font-semibold text-fg shadow-lg transition-colors hover:border-accent/50 hover:bg-accent-soft"
         aria-expanded={open}
         aria-controls={panelId}
         aria-haspopup="dialog"
+        aria-label={labels.button}
         onClick={() => setOpen((value) => !value)}
       >
         <span aria-hidden className="text-base leading-none">
           A
         </span>
-        {labels.button}
       </button>
     </div>
   );

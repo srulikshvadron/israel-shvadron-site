@@ -3,7 +3,7 @@ import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
 import { BuiltByBadge } from "@/components/brand/BuiltByBadge";
 import { Container } from "@/components/ui/Container";
-import { phoneHref, publicEmail, publicPhone, whatsappHref } from "@/lib/contact";
+import { phoneHref, publicEmail, publicPhone } from "@/lib/contact";
 
 const textLink = "text-sm text-muted transition-colors hover:text-accent";
 
@@ -11,7 +11,6 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
   const year = new Date().getFullYear();
   const email = publicEmail();
   const phone = publicPhone();
-  const whatsapp = whatsappHref();
   const home = pathForLocale(locale, "/");
 
   const pages = [
@@ -29,11 +28,6 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
         </div>
         <div className="flex flex-col gap-4">
           <nav aria-label={copy.footer.navLabel} className="flex flex-col gap-3">
-            {whatsapp ? (
-              <a href={whatsapp} className={textLink} target="_blank" rel="noopener noreferrer">
-                {copy.footer.whatsapp}
-              </a>
-            ) : null}
             {email ? (
               <a href={`mailto:${email}`} className={textLink}>
                 {email}

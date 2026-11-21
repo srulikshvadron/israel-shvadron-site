@@ -1,5 +1,3 @@
-import { googlePolicyLinks, youtubeScope } from "@/content/site";
-
 export type Locale = "he" | "en";
 
 export type LegalBlock = {
@@ -68,6 +66,7 @@ export type Copy = {
     phone: string;
   };
   a11y: { title: string; large: string; contrast: string; statement: string; button: string };
+  notFound: { kicker: string; title: string; line: string };
   pages: {
     privacy: { title: string; description: string; kicker: string; intro: string; updated: string };
     terms: { title: string; description: string; kicker: string; intro: string; updated: string };
@@ -196,10 +195,15 @@ const he: Copy = {
     statement: "הצהרת נגישות",
     button: "נגישות",
   },
+  notFound: {
+    kicker: "404",
+    title: "אופס, זה עוד לא עובד.",
+    line: "העמוד הזה אינו קיים.",
+  },
   pages: {
     privacy: {
       title: "מדיניות פרטיות",
-      description: "איזה מידע נאסף באתר ובחיבור ליוטיוב, וכיצד ניתן לבקש מחיקה.",
+      description: "איזה מידע נאסף באתר, וכיצד ניתן לבקש מחיקה.",
       kicker: "שרוליק",
       intro: "מסמך זה מתאר איזה מידע נאסף, לאיזה צורך, וכיצד ניתן לבקש מחיקה.",
       updated: "עודכן: 21 בנובמבר 2026",
@@ -242,35 +246,11 @@ const he: Copy = {
       ],
     },
     {
-      id: "youtube",
-      title: "חיבור ליוטיוב",
-      paragraphs: [
-        "חיבור ערוץ יוטיוב נעשה רק אם בעל החשבון מאשר זאת בעצמו.",
-        "ההרשאה המבוקשת היא העלאת סרטונים לערוץ שאושר. אין בקשת גישה לדואר, לכונן או לסיסמה.",
-        "המידע משמש להעלאת סרטון שאושר, ולהצגת מצב ההעלאה. הוא אינו נמכר ואינו משמש לפרסום.",
-        "השימוש במידע שהתקבל מגוגל כפוף למדיניות הנתונים של גוגל, לרבות כללי השימוש המוגבל.",
-        "השירות משתמש בשירותי יוטיוב. חלים גם תנאי יוטיוב ומדיניות הפרטיות של גוגל.",
-      ],
-      bullets: [
-        "נשמרים: כתובת החשבון, מזהה הערוץ, אסימוני גישה, וכותרת הסרטון שאושר.",
-        "אדם אינו קורא מידע זה, אלא אם ביקשתם זאת, או שהדבר נדרש לאבטחה או לפי דין.",
-        "ניתן לבטל את הגישה בכל עת בהגדרות החשבון בגוגל.",
-      ],
-      links: [
-        { href: googlePolicyLinks.userDataPolicy, label: "מדיניות הנתונים של גוגל" },
-        { href: googlePolicyLinks.youtubeTerms, label: "תנאי יוטיוב" },
-        { href: googlePolicyLinks.privacy, label: "מדיניות הפרטיות של גוגל" },
-        { href: googlePolicyLinks.permissions, label: "הגדרות הגישה בגוגל" },
-      ],
-    },
-    {
       id: "delete",
       title: "שמירה ומחיקה",
       paragraphs: [
-        "האסימונים נשמרים כל עוד החיבור פעיל, בשרתים של העסק. הגישה אליהם מוגבלת למפעיל.",
-        "בקשת מחיקה, או ניתוק מולנו, תושלם בתוך שבעה ימים. בניתוק מולנו האסימון מבוטל מיד.",
-        "ניתוק דרך גוגל, או אסימון שאינו תקף, יוביל למחיקה בתוך שלושים יום.",
-        "מחיקה אצלנו אינה מוחקת סרטון שכבר עלה ליוטיוב. מחיקת סרטון נעשית ביוטיוב.",
+        "פניות מהטופס נשמרות כדי שנוכל לחזור אליכם. הגישה אליהן מוגבלת למפעיל.",
+        "בקשת מחיקה תושלם בתוך שבעה ימים.",
       ],
     },
   ],
@@ -289,10 +269,9 @@ const he: Copy = {
       title: "אחריות הלקוח",
       paragraphs: [
         "הלקוח אחראי לתוכן שהוא מבקש לשלוח או לפרסם, ולזכותו להשתמש בו.",
-        "חיבור חשבון וואטסאפ או יוטיוב נעשה בהרשאת בעל החשבון בלבד.",
+        "חיבור חשבון וואטסאפ נעשה בהרשאת בעל החשבון בלבד.",
         "אנו רשאים לסרב לתוכן שאינו חוקי, או שאינו עומד בכללי הפלטפורמה.",
       ],
-      links: [{ href: googlePolicyLinks.youtubeTerms, label: "תנאי יוטיוב" }],
     },
     {
       id: "pay",
@@ -457,10 +436,15 @@ const en: Copy = {
     statement: "Accessibility statement",
     button: "Accessibility",
   },
+  notFound: {
+    kicker: "404",
+    title: "Oops, this doesn't work yet.",
+    line: "This page does not exist.",
+  },
   pages: {
     privacy: {
       title: "Privacy policy",
-      description: "What information is collected on the site and through YouTube, and how to request deletion.",
+      description: "What information is collected on the site, and how to request deletion.",
       kicker: "Srulik",
       intro: "This page states what information is collected, why it is used, and how to request deletion.",
       updated: "Updated: 21 November 2026",
@@ -503,35 +487,11 @@ const en: Copy = {
       ],
     },
     {
-      id: "youtube",
-      title: "YouTube connection",
-      paragraphs: [
-        "A YouTube channel is connected only when the account owner approves it.",
-        `The requested permission is the YouTube upload scope: ${youtubeScope}. It does not include Gmail, Drive, or your password.`,
-        "The data is used to upload a video you approved, and to show the upload status. It is not sold and it is not used for advertising.",
-        "Srulik's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.",
-        "The service uses YouTube API Services. The YouTube Terms of Service and Google’s Privacy Policy also apply.",
-      ],
-      bullets: [
-        "We store the account email, channel id, access and refresh tokens, and the title of a video you approved.",
-        "People do not read this data unless you ask, or it is required for security or by law.",
-        "You can revoke access at any time in your Google Account permissions.",
-      ],
-      links: [
-        { href: googlePolicyLinks.userDataPolicy, label: "Google API Services User Data Policy" },
-        { href: googlePolicyLinks.youtubeTerms, label: "YouTube Terms of Service" },
-        { href: googlePolicyLinks.privacy, label: "Google Privacy Policy" },
-        { href: googlePolicyLinks.permissions, label: "Google Account permissions" },
-      ],
-    },
-    {
       id: "delete",
       title: "Storage and deletion",
       paragraphs: [
-        "Tokens are kept while the connection is active, on the business’s servers. Access is limited to the operator.",
-        "A deletion request, or a disconnect with us, is completed within 7 days. On a disconnect with us, the token is revoked immediately.",
-        "A disconnect through Google, or a token that can no longer be refreshed, leads to deletion within 30 days.",
-        "Deleting data we store does not delete a video already uploaded to YouTube. Delete that video in YouTube.",
+        "Form messages are kept so we can reply. Access is limited to the operator.",
+        "A deletion request is completed within 7 days.",
       ],
     },
   ],
@@ -550,10 +510,9 @@ const en: Copy = {
       title: "The customer’s responsibility",
       paragraphs: [
         "You are responsible for content you ask us to send or publish, and for your right to use it.",
-        "A WhatsApp or YouTube account is connected only with the account owner’s permission.",
-        "We may refuse content that is unlawful or that breaks a platform’s rules.",
+        "A WhatsApp account is connected only with the account owner's permission.",
+        "We may refuse content that is unlawful or that breaks a platform's rules.",
       ],
-      links: [{ href: googlePolicyLinks.youtubeTerms, label: "YouTube Terms of Service" }],
     },
     {
       id: "pay",

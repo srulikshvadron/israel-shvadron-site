@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
 import { Container } from "@/components/ui/Container";
-import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
@@ -13,7 +12,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname() || "/";
-  const whatsapp = whatsappHref();
   const home = pathForLocale(locale, "/");
 
   useEffect(() => {
@@ -66,7 +64,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           name={copy.brand}
           tagline={copy.footer.tagline}
           taglineClassName="hidden md:block"
-          playIntro
         />
 
         <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
@@ -111,13 +108,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               EN
             </a>
           </nav>
-          <a
-            href={whatsapp ?? sectionHref("contact")}
-            className="btn-primary btn-compact"
-            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {copy.whatsappShort}
-          </a>
           <button
             ref={menuButtonRef}
             type="button"
@@ -149,14 +139,6 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               {item.label}
             </a>
           ))}
-          <a
-            href={whatsapp ?? sectionHref("contact")}
-            className="btn-primary mt-2"
-            onClick={closeMenu}
-            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          >
-            {copy.contact.whatsappCta}
-          </a>
         </nav>
       </div>
     </header>

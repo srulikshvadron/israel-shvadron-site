@@ -67,7 +67,6 @@ export function TextPage({
             <ContactChannels
               formHref={`${pathForLocale(locale, "/")}#contact`}
               formLabel={copy.contact.title}
-              whatsappLabel={copy.footer.whatsapp}
               phoneLabel={copy.footer.phone}
             />
           </div>
