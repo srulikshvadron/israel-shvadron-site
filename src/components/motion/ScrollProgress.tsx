@@ -16,6 +16,8 @@ export function ScrollProgress() {
       const doc = document.documentElement;
       const max = doc.scrollHeight - doc.clientHeight;
       const progress = max > 0 ? Math.min(1, Math.max(0, doc.scrollTop / max)) : 0;
+      indicator.style.transformOrigin =
+        document.documentElement.dir === "ltr" ? "0% 50%" : "100% 50%";
       indicator.style.transform = `scaleX(${progress})`;
     }
 

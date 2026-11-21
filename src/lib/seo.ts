@@ -1,53 +1,47 @@
 import type { Metadata } from "next";
+import { getCopy, pathForLocale, type Locale } from "@/content/copy";
 import { siteConfig } from "@/content/site";
 
-export function createMetadata({
-  title,
-  description,
-  path = "/",
-}: {
-  title?: string;
-  description?: string;
-  path?: string;
-} = {}): Metadata {
-  const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.title;
-  const pageDescription = description ?? siteConfig.description;
-  const url = new URL(path, siteConfig.url).toString();
+export function createMetadata(
+  locale: Locale,
+  {
+    title,
+    description,
+    path = "/",
+  }: {
+    title?: string;
+    description?: string;
+    path?: string;
+  } = {},
+): Metadata {
+  const copy = getCopy(locale);
+  const pageTitle = title ? `${title} | ${copy.meta.siteName}` : copy.meta.title;
+  const pageDescription = description ?? copy.meta.description;
+  const canonicalPath = pathForLocale(locale, path);
+  const url = new URL(canonicalPath, siteConfig.url).toString();
+  const heUrl = new URL(pathForLocale("he", path), siteConfig.url).toString();
+  const enUrl = new URL(pathForLocale("en", path), siteConfig.url).toString();
 
   return {
     metadataBase: new URL(siteConfig.url),
-    title: title
-      ? title
-      : {
-          default: siteConfig.title,
-          template: `%s | ${siteConfig.name}`,
-        },
+    title: { absolute: pageTitle },
     description: pageDescription,
-    applicationName: siteConfig.name,
-    authors: [{ name: siteConfig.name, url: siteConfig.url }],
-    creator: siteConfig.name,
-    publisher: siteConfig.name,
-    keywords: [
-      "שרוליק פתרונות",
-      "Srulik Solutions",
-      "בניית אתרים",
-      "דפי נחיתה",
-      "בוט וואטסאפ",
-      "אוטומציה לעסקים",
-      "מערכת תוכן",
-      "הפצת תוכן",
-      "יוטיוב",
-      "עסקים קטנים",
-      "מוסדות",
-    ],
+    applicationName: copy.meta.siteName,
+    authors: [{ name: copy.meta.siteName, url: siteConfig.url }],
+    creator: copy.meta.siteName,
+    publisher: copy.meta.siteName,
     alternates: {
       canonical: url,
+      languages: {
+        he: heUrl,
+        en: enUrl,
+      },
     },
     openGraph: {
       type: "website",
-      locale: siteConfig.locale,
+      locale: copy.meta.locale,
       url,
-      siteName: siteConfig.name,
+      siteName: copy.meta.siteName,
       title: pageTitle,
       description: pageDescription,
     },

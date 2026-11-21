@@ -81,9 +81,13 @@ export const siteConfig = {
 
 export const publicPages = [
   { path: "/", changeFrequency: "monthly", priority: 1 },
+  { path: "/en", changeFrequency: "monthly", priority: 0.9 },
   { path: "/privacy", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/en/privacy", changeFrequency: "yearly", priority: 0.5 },
   { path: "/terms", changeFrequency: "yearly", priority: 0.5 },
+  { path: "/en/terms", changeFrequency: "yearly", priority: 0.5 },
   { path: "/accessibility", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/en/accessibility", changeFrequency: "yearly", priority: 0.3 },
 ] as const;
 
 export const navigation = [

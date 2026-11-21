@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { contact } from "@/content/site";
+import type { Copy, Locale } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/Button";
@@ -11,7 +11,8 @@ type FormStatus = "idle" | "loading" | "success" | "error";
 
 const fieldClass = "field";
 
-export function Contact() {
+export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
+  const contact = copy.contact;
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -31,7 +32,7 @@ export function Contact() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, phone, email, message, company }),
+        body: JSON.stringify({ name, phone, email, message, company, locale }),
       });
 
       const data = (await response.json().catch(() => null)) as {
@@ -41,7 +42,7 @@ export function Contact() {
 
       if (!response.ok) {
         setStatus("error");
-        setErrorMessage(data?.error ?? "שליחת ההודעה נכשלה. נסו שוב.");
+        setErrorMessage(data?.error ?? contact.fallbackError);
         return;
       }
 
@@ -54,7 +55,7 @@ export function Contact() {
       setCompany("");
     } catch {
       setStatus("error");
-      setErrorMessage("לא ניתן להתחבר לשרת. בדקו את החיבור ונסו שוב.");
+      setErrorMessage(contact.fallbackError);
     }
   }
 
@@ -66,7 +67,6 @@ export function Contact() {
       id={contact.id}
       title={contact.title}
       subtitle={contact.subtitle}
-      eyebrow={contact.eyebrow}
       className="border-t border-line"
     >
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
@@ -85,9 +85,7 @@ export function Contact() {
               >
                 {contact.whatsappCta}
               </Button>
-            ) : (
-              <p className="mt-6 leading-relaxed text-fg">{contact.whatsappPending}</p>
-            )}
+            ) : null}
           </div>
         </Reveal>
 
@@ -99,7 +97,7 @@ export function Contact() {
           aria-busy={isLoading}
         >
           <div className="hp-field" aria-hidden="true">
-            <label htmlFor="contact-company">חברה</label>
+            <label htmlFor="contact-company">{contact.honeypot}</label>
             <input
               id="contact-company"
               name="company"
@@ -112,7 +110,7 @@ export function Contact() {
           </div>
             <div className="space-y-2">
               <label htmlFor="contact-name" className="block text-sm font-medium text-fg">
-                {contact.form.nameLabel}
+                {contact.nameLabel}
               </label>
               <input
                 id="contact-name"
@@ -121,7 +119,7 @@ export function Contact() {
                 autoComplete="name"
                 value={name}
                 onChange={(event) => setName(event.target.value)}
-                placeholder={contact.form.namePlaceholder}
+                placeholder={contact.namePlaceholder}
                 className={fieldClass}
                 required
                 disabled={isLoading}
@@ -132,8 +130,8 @@ export function Contact() {
 
             <div className="space-y-2">
               <label htmlFor="contact-phone" className="block text-sm font-medium text-fg">
-                {contact.form.phoneLabel}
-                <span className="ms-2 font-normal text-muted">{contact.form.phoneHint}</span>
+                {contact.phoneLabel}
+                <span className="ms-2 font-normal text-muted">{contact.phoneHint}</span>
               </label>
               <input
                 id="contact-phone"
@@ -143,7 +141,7 @@ export function Contact() {
                 autoComplete="tel"
                 value={phone}
                 onChange={(event) => setPhone(event.target.value)}
-                placeholder={contact.form.phonePlaceholder}
+                placeholder={contact.phonePlaceholder}
                 className={fieldClass}
                 disabled={isLoading}
                 aria-invalid={hasError || undefined}
@@ -153,7 +151,7 @@ export function Contact() {
 
             <div className="space-y-2">
               <label htmlFor="contact-email" className="block text-sm font-medium text-fg">
-                {contact.form.emailLabel}
+                {contact.emailLabel}
               </label>
               <input
                 id="contact-email"
@@ -162,7 +160,7 @@ export function Contact() {
                 autoComplete="email"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                placeholder={contact.form.emailPlaceholder}
+                placeholder={contact.emailPlaceholder}
                 className={fieldClass}
                 required
                 disabled={isLoading}
@@ -173,7 +171,7 @@ export function Contact() {
 
             <div className="space-y-2">
               <label htmlFor="contact-message" className="block text-sm font-medium text-fg">
-                {contact.form.messageLabel}
+                {contact.messageLabel}
               </label>
               <textarea
                 id="contact-message"
@@ -181,7 +179,7 @@ export function Contact() {
                 rows={5}
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
-                placeholder={contact.form.messagePlaceholder}
+                placeholder={contact.messagePlaceholder}
                 className={`${fieldClass} resize-y`}
                 required
                 disabled={isLoading}
@@ -195,7 +193,7 @@ export function Contact() {
               disabled={isLoading}
               className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
-              {isLoading ? "שולח..." : contact.form.submitLabel}
+              {isLoading ? contact.sending : contact.submit}
             </button>
 
             {status === "success" ? (

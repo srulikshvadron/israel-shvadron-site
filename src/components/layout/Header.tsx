@@ -1,18 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { hero, navigation } from "@/content/site";
+import { usePathname } from "next/navigation";
+import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
 import { Container } from "@/components/ui/Container";
 import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
-export function Header() {
+export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname() || "/";
   const whatsapp = whatsappHref();
-  const contactHref = whatsapp ?? "/#contact";
+  const home = pathForLocale(locale, "/");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -30,14 +32,12 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
         setOpen(false);
         menuButtonRef.current?.focus();
       }
     }
-
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
@@ -45,6 +45,10 @@ export function Header() {
   function closeMenu() {
     setOpen(false);
     menuButtonRef.current?.focus();
+  }
+
+  function sectionHref(id: string) {
+    return `${home === "/" ? "/" : home}#${id}`;
   }
 
   return (
@@ -57,13 +61,13 @@ export function Header() {
       )}
     >
       <Container className="flex h-16 items-center justify-between gap-3">
-        <BrandLink />
+        <BrandLink href={home} name={copy.brand} />
 
-        <nav aria-label="ניווט ראשי" className="hidden items-center gap-6 lg:flex">
-          {navigation.map((item) => (
+        <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
+          {copy.nav.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.id}
+              href={sectionHref(item.id)}
               className="nav-link text-sm text-muted transition-colors hover:text-fg"
             >
               {item.label}
@@ -72,14 +76,41 @@ export function Header() {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
+          <nav aria-label={copy.langLabel} className="flex items-center gap-1 text-sm">
+            <a
+              href={pathForLocale("he", pathname)}
+              hrefLang="he"
+              lang="he"
+              aria-current={locale === "he" ? "true" : undefined}
+              className={cn(
+                "rounded-md px-2 py-1",
+                locale === "he" ? "text-accent" : "text-muted hover:text-fg",
+              )}
+            >
+              HE
+            </a>
+            <span aria-hidden className="text-muted">
+              /
+            </span>
+            <a
+              href={pathForLocale("en", pathname)}
+              hrefLang="en"
+              lang="en"
+              aria-current={locale === "en" ? "true" : undefined}
+              className={cn(
+                "rounded-md px-2 py-1",
+                locale === "en" ? "text-accent" : "text-muted hover:text-fg",
+              )}
+            >
+              EN
+            </a>
+          </nav>
           <a
-            href={contactHref}
+            href={whatsapp ?? sectionHref("contact")}
             className="btn-primary btn-compact"
-            {...(whatsapp
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
+            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
-            וואטסאפ
+            {copy.whatsappShort}
           </a>
           <button
             ref={menuButtonRef}
@@ -87,46 +118,25 @@ export function Header() {
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-fg lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
-            aria-label={open ? "סגירת תפריט" : "פתיחת תפריט"}
+            aria-label={open ? copy.menuClose : copy.menuOpen}
             onClick={() => setOpen((value) => !value)}
           >
-            <span className="sr-only">{open ? "סגירה" : "תפריט"}</span>
+            <span className="sr-only">{copy.menuSr}</span>
             <span aria-hidden className="flex flex-col gap-1.5">
-              <span
-                className={cn(
-                  "block h-0.5 w-5 bg-current transition-transform",
-                  open && "translate-y-2 rotate-45",
-                )}
-              />
-              <span
-                className={cn(
-                  "block h-0.5 w-5 bg-current transition-opacity",
-                  open && "opacity-0",
-                )}
-              />
-              <span
-                className={cn(
-                  "block h-0.5 w-5 bg-current transition-transform",
-                  open && "-translate-y-2 -rotate-45",
-                )}
-              />
+              <span className={cn("block h-0.5 w-5 bg-current transition-transform", open && "translate-y-2 rotate-45")} />
+              <span className={cn("block h-0.5 w-5 bg-current transition-opacity", open && "opacity-0")} />
+              <span className={cn("block h-0.5 w-5 bg-current transition-transform", open && "-translate-y-2 -rotate-45")} />
             </span>
           </button>
         </div>
       </Container>
 
-      <div
-        id="mobile-nav"
-        className={cn(
-          "border-t border-line bg-bg lg:hidden",
-          open ? "block" : "hidden",
-        )}
-      >
-        <nav aria-label="ניווט נייד" className="flex flex-col gap-1 px-5 py-4">
-          {navigation.map((item) => (
+      <div id="mobile-nav" className={cn("border-t border-line bg-bg lg:hidden", open ? "block" : "hidden")}>
+        <nav aria-label={copy.mobileNavLabel} className="flex flex-col gap-1 px-5 py-4">
+          {copy.nav.map((item) => (
             <a
-              key={item.href}
-              href={item.href}
+              key={item.id}
+              href={sectionHref(item.id)}
               className="rounded-lg px-3 py-3 text-base text-fg hover:bg-accent-soft"
               onClick={closeMenu}
             >
@@ -134,14 +144,12 @@ export function Header() {
             </a>
           ))}
           <a
-            href={contactHref}
+            href={whatsapp ?? sectionHref("contact")}
             className="btn-primary mt-2"
             onClick={closeMenu}
-            {...(whatsapp
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
+            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
-            {hero.primaryCta}
+            {copy.offer.cta}
           </a>
         </nav>
       </div>

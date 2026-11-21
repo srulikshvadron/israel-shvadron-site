@@ -5,12 +5,14 @@ const linkClass =
   "text-accent underline decoration-accent/40 underline-offset-4 hover:text-accent-strong";
 
 type ContactChannelsProps = {
+  formHref: string;
   formLabel: string;
   whatsappLabel: string;
   phoneLabel: string;
 };
 
 export function ContactChannels({
+  formHref,
   formLabel,
   whatsappLabel,
   phoneLabel,
@@ -22,7 +24,7 @@ export function ContactChannels({
   return (
     <ul className="list-disc space-y-2 ps-5">
       <li>
-        <Link href="/#contact" className={linkClass}>
+        <Link href={formHref} className={linkClass}>
           {formLabel}
         </Link>
       </li>

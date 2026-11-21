@@ -281,6 +281,12 @@ body {
   padding: 0.45rem 0.75rem;
 }
 
+@media (max-width: 639px) {
+  .btn-primary.btn-compact {
+    display: none;
+  }
+}
+
 .btn-secondary {
   border: 1px solid var(--line);
   background: rgba(17, 26, 43, 0.45);

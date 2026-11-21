@@ -1,25 +1,27 @@
+import { getCopy, type Locale } from "@/content/copy";
 import { operator, siteConfig } from "@/content/site";
 import { phoneTel, publicEmail, publicPhone } from "@/lib/contact";
 
-export function JsonLd() {
+export function JsonLd({ locale }: { locale: Locale }) {
+  const copy = getCopy(locale);
   const data: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    name: siteConfig.name,
-    alternateName: siteConfig.nameEn,
+    name: copy.brand,
+    alternateName: locale === "he" ? siteConfig.nameEn : siteConfig.name,
     url: siteConfig.url,
-    description: siteConfig.description,
-    inLanguage: "he",
+    description: copy.meta.description,
+    inLanguage: locale,
     areaServed: "IL",
     address: {
       "@type": "PostalAddress",
-      addressLocality: operator.localityHe,
+      addressLocality: locale === "he" ? operator.localityHe : operator.localityEn,
       addressCountry: "IL",
     },
     founder: {
       "@type": "Person",
-      name: operator.givenHe,
-      alternateName: operator.legalNameHe,
+      name: locale === "he" ? operator.givenHe : operator.givenEn,
+      alternateName: locale === "he" ? operator.legalNameHe : operator.legalNameEn,
     },
   };
 

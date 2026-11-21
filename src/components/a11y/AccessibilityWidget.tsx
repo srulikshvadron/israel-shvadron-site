@@ -34,7 +34,13 @@ function applyPrefs(prefs: Prefs) {
   root.classList.toggle("a11y-high-contrast", prefs.highContrast);
 }
 
-export function AccessibilityWidget() {
+export function AccessibilityWidget({
+  labels,
+  statementHref,
+}: {
+  labels: { title: string; large: string; contrast: string; statement: string; button: string };
+  statementHref: string;
+}) {
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -99,7 +105,7 @@ export function AccessibilityWidget() {
           className="w-64 rounded-xl border border-line bg-bg-elevated p-4 shadow-lg"
         >
           <p className="mb-3 font-display text-sm font-semibold text-fg">
-            נגישות
+            {labels.title}
           </p>
           <div className="flex flex-col gap-2">
             <button
@@ -115,7 +121,7 @@ export function AccessibilityWidget() {
                 updatePrefs({ ...prefs, largeText: !prefs.largeText })
               }
             >
-              טקסט גדול
+              {labels.large}
             </button>
             <button
               type="button"
@@ -130,14 +136,14 @@ export function AccessibilityWidget() {
                 updatePrefs({ ...prefs, highContrast: !prefs.highContrast })
               }
             >
-              ניגודיות גבוהה
+              {labels.contrast}
             </button>
             <Link
-              href="/accessibility"
+              href={statementHref}
               className="rounded-lg border border-line px-3 py-2 text-sm text-muted transition-colors hover:text-fg"
               onClick={() => setOpen(false)}
             >
-              הצהרת נגישות
+              {labels.statement}
             </Link>
           </div>
         </div>
@@ -155,7 +161,7 @@ export function AccessibilityWidget() {
         <span aria-hidden className="text-base leading-none">
           A
         </span>
-        נגישות
+        {labels.button}
       </button>
     </div>
   );
