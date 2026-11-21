@@ -1,13 +1,8 @@
 /**
  * Site content and public settings for שרוליק פתרונות.
  *
- * Contact details are intentionally empty until they are decided.
- * TODO: whatsappE164 — digits only, country code, no plus (shape: 9725XXXXXXXX).
- * TODO: email — the business inbox.
- * TODO: phone — only if it should be shown separately from WhatsApp.
- * Do not invent numbers or addresses here.
- *
  * Product name: change `productName.he` and `productName.en` only.
+ * Public email stays empty until a real address is chosen.
  */
 
 const DEFAULT_SITE_URL = "https://israel-shvadron-site.vercel.app";
@@ -78,9 +73,9 @@ export const siteConfig = {
   locale: "he_IL",
   url: getSiteUrl(),
   contact: {
-    whatsappE164: "",
+    whatsappE164: "972535271942",
     email: "",
-    phone: "",
+    phone: "053-5271942",
   },
 } as const;
 
@@ -251,7 +246,7 @@ export const contact = {
     submitLabel: "שליחת פנייה",
     namePlaceholder: "השם המלא או שם העסק",
     phonePlaceholder: "מספר לחזרה",
-    emailPlaceholder: "name@email.com",
+    emailPlaceholder: "אימייל לחזרה",
     messagePlaceholder:
       "ספרו בקצרה מה צריך: אתר, בוט בוואטסאפ, אוטומציה, תוכן — או שאלה כללית.",
   },

@@ -1,5 +1,5 @@
 import { operator, siteConfig } from "@/content/site";
-import { publicEmail, publicPhone } from "@/lib/contact";
+import { phoneTel, publicEmail, publicPhone } from "@/lib/contact";
 
 export function JsonLd() {
   const data: Record<string, unknown> = {
@@ -26,7 +26,7 @@ export function JsonLd() {
   const email = publicEmail();
   const phone = publicPhone();
   if (email) data.email = email;
-  if (phone) data.telephone = phone;
+  if (phone) data.telephone = phoneTel(phone);
 
   return (
     <script

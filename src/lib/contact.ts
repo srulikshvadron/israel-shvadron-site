@@ -20,6 +20,15 @@ export function publicPhone() {
   return phone.length > 0 ? phone : null;
 }
 
+/** Display stays local (053-…). The tel link uses +972. */
 export function phoneHref(phone: string) {
-  return `tel:${phone.replace(/[^\d+]/g, "")}`;
+  const digits = phone.replace(/\D/g, "");
+  if (!digits) return "tel:";
+  if (digits.startsWith("972")) return `tel:+${digits}`;
+  if (digits.startsWith("0")) return `tel:+972${digits.slice(1)}`;
+  return `tel:+${digits}`;
+}
+
+export function phoneTel(phone: string) {
+  return phoneHref(phone).slice(4);
 }

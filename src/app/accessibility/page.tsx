@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { operator, siteConfig } from "@/content/site";
-import { publicEmail, publicPhone, whatsappHref } from "@/lib/contact";
+import { phoneHref, publicEmail, publicPhone, whatsappHref } from "@/lib/contact";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = createMetadata({
@@ -95,7 +95,7 @@ export default function AccessibilityPage() {
               <>
                 {" "}
                 או בטלפון{" "}
-                <a href={`tel:${phone.replace(/[^\d+]/g, "")}`} className={linkClass}>
+                <a href={phoneHref(phone)} className={linkClass}>
                   {phone}
                 </a>
               </>
