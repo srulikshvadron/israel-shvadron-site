@@ -39,7 +39,6 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
   const copy = getCopy(locale);
   const dir = locale === "en" ? "ltr" : "rtl";
   const align = locale === "en" ? "left" : "right";
-  const place = locale === "en" ? operator.localityEn : operator.localityHe;
   return `<!DOCTYPE html>
 <html lang="${locale}" dir="${dir}">
   <head>
@@ -65,7 +64,7 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
             </tr>
             <tr>
               <td style="padding:0 24px 22px;text-align:${align};font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:1.6;color:#5d7084;">
-                ${escapeHtml(copy.brand)} · ${escapeHtml(place)}
+                ${escapeHtml(copy.brand)}
               </td>
             </tr>
           </table>
