@@ -10,9 +10,7 @@ export function createMetadata({
   description?: string;
   path?: string;
 } = {}): Metadata {
-  const pageTitle = title
-    ? `${title} | ${siteConfig.name}`
-    : siteConfig.title;
+  const pageTitle = title ? `${title} | ${siteConfig.name}` : siteConfig.title;
   const pageDescription = description ?? siteConfig.description;
   const url = new URL(path, siteConfig.url).toString();
 
@@ -26,19 +24,21 @@ export function createMetadata({
         },
     description: pageDescription,
     applicationName: siteConfig.name,
-    authors: [{ name: siteConfig.name }],
+    authors: [{ name: siteConfig.name, url: siteConfig.url }],
     creator: siteConfig.name,
     publisher: siteConfig.name,
     keywords: [
-      "ישראל שוודרון",
+      "שרוליק פתרונות",
+      "Srulik Solutions",
       "בניית אתרים",
       "דפי נחיתה",
       "בוט וואטסאפ",
       "אוטומציה לעסקים",
-      "אתר לעסק",
-      "שירותים דיגיטליים",
-      "מוסדות",
+      "מערכת תוכן",
+      "הפצת תוכן",
+      "יוטיוב",
       "עסקים קטנים",
+      "מוסדות",
     ],
     alternates: {
       canonical: url,
@@ -52,7 +52,7 @@ export function createMetadata({
       description: pageDescription,
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title: pageTitle,
       description: pageDescription,
     },

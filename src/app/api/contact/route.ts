@@ -1,28 +1,84 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
+import { getSiteUrl } from "@/content/site";
+import { whatsappHref } from "@/lib/contact";
+import {
+  ownerNotificationEmail,
+  visitorConfirmationEmail,
+} from "@/lib/contact-email";
+import { allowContactSubmission, clientAddress } from "@/lib/contact-guard";
 
-const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const phonePattern = /^[\d+\-\s()]{7,40}$/;
+const MAX_BODY_BYTES = 20_000;
 
 type ContactBody = {
   name?: unknown;
   email?: unknown;
+  phone?: unknown;
   message?: unknown;
+  company?: unknown;
 };
 
 function asTrimmedString(value: unknown) {
   return typeof value === "string" ? value.trim() : "";
 }
 
+function stripControls(value: string) {
+  return value.replace(/[\u0000-\u001F\u007F]/g, "");
+}
+
+function sanitizeMessage(value: string) {
+  return value.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
+}
+
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as ContactBody;
-    const name = asTrimmedString(body.name);
-    const email = asTrimmedString(body.email);
-    const message = asTrimmedString(body.message);
+    const declaredLength = Number(request.headers.get("content-length") ?? "0");
+    if (Number.isFinite(declaredLength) && declaredLength > MAX_BODY_BYTES) {
+      return NextResponse.json(
+        { error: "הבקשה ארוכה מדי." },
+        { status: 413 },
+      );
+    }
+
+    let body: ContactBody;
+    try {
+      body = (await request.json()) as ContactBody;
+    } catch {
+      return NextResponse.json(
+        { error: "הבקשה אינה תקינה." },
+        { status: 400 },
+      );
+    }
+
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+      return NextResponse.json(
+        { error: "הבקשה אינה תקינה." },
+        { status: 400 },
+      );
+    }
+
+    const honeypot = asTrimmedString(body.company);
+    const name = stripControls(asTrimmedString(body.name));
+    const email = stripControls(asTrimmedString(body.email));
+    const phone = stripControls(asTrimmedString(body.phone));
+    const message = sanitizeMessage(asTrimmedString(body.message));
+
+    if (honeypot) {
+      return NextResponse.json({ ok: true, confirmationSent: false });
+    }
 
     if (!name || name.length > 120) {
       return NextResponse.json(
         { error: "נא להזין שם תקין." },
+        { status: 400 },
+      );
+    }
+
+    if (phone && !phonePattern.test(phone)) {
+      return NextResponse.json(
+        { error: "נא להזין מספר טלפון תקין, או להשאיר את השדה ריק." },
         { status: 400 },
       );
     }
@@ -43,23 +99,39 @@ export async function POST(request: Request) {
 
     const apiKey = process.env.RESEND_API_KEY;
     const toEmail = process.env.CONTACT_TO_EMAIL;
-    const fromEmail =
-      process.env.CONTACT_FROM_EMAIL ?? "onboarding@resend.dev";
+    const configuredFrom = process.env.CONTACT_FROM_EMAIL?.trim() ?? "";
+    const fromEmail = configuredFrom || "onboarding@resend.dev";
+
+    if (!allowContactSubmission(clientAddress(request), email)) {
+      return NextResponse.json(
+        { error: "יותר מדי פניות. נסו שוב מאוחר יותר." },
+        { status: 429, headers: { "Retry-After": "600" } },
+      );
+    }
 
     if (!apiKey || !toEmail) {
       return NextResponse.json(
-        { error: "שליחת מייל אינה מוגדרת בשרת." },
+        { error: "שליחת ההודעה נכשלה. נסו שוב בעוד רגע." },
         { status: 500 },
       );
     }
 
     const resend = new Resend(apiKey);
+    const siteUrl = getSiteUrl();
+    const ownerMail = ownerNotificationEmail({
+      name,
+      email,
+      phone,
+      message,
+      siteUrl,
+    });
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
       replyTo: email,
-      subject: `בקשת הצעת מחיר / ייעוץ — ${name}`,
-      text: `שם: ${name}\nאימייל: ${email}\n\n${message}`,
+      subject: ownerMail.subject,
+      html: ownerMail.html,
+      text: ownerMail.text,
     });
 
     if (error) {
@@ -69,7 +141,32 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true });
+    let confirmationSent = false;
+    if (configuredFrom) {
+      const visitorMail = visitorConfirmationEmail({
+        name,
+        siteUrl,
+        whatsappUrl: whatsappHref(),
+      });
+      try {
+        const confirmation = await resend.emails.send({
+          from: configuredFrom,
+          to: [email],
+          replyTo: toEmail,
+          subject: visitorMail.subject,
+          html: visitorMail.html,
+          text: visitorMail.text,
+        });
+        confirmationSent = !confirmation.error;
+        if (confirmation.error) {
+          console.error("Visitor confirmation email failed");
+        }
+      } catch {
+        console.error("Visitor confirmation email failed");
+      }
+    }
+
+    return NextResponse.json({ ok: true, confirmationSent });
   } catch {
     return NextResponse.json(
       { error: "אירעה שגיאה בשליחה. נסו שוב." },

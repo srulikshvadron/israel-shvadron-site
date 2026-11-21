@@ -30,7 +30,8 @@ export function Section({
         <Reveal>
           <header className="mb-10 max-w-3xl sm:mb-14">
             {eyebrow ? (
-              <p className="mb-3 text-sm font-medium tracking-wide text-accent">
+              <p className="mb-3 flex items-center gap-3 text-sm font-medium tracking-wide text-accent">
+                <span aria-hidden className="h-px w-8 bg-accent/70" />
                 {eyebrow}
               </p>
             ) : null}

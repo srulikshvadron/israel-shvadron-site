@@ -3,6 +3,8 @@ import { Heebo, Rubik } from "next/font/google";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { AccessibilityWidget } from "@/components/a11y/AccessibilityWidget";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { ScrollProgress } from "@/components/motion/ScrollProgress";
 import { createMetadata } from "@/lib/seo";
 import "./globals.css";
 
@@ -35,6 +37,8 @@ export default function RootLayout({
         <a href="#main-content" className="skip-link">
           דילוג לתוכן הראשי
         </a>
+        <JsonLd />
+        <ScrollProgress />
         <Header />
         <div className="flex flex-1 flex-col">{children}</div>
         <Footer />

@@ -8,12 +8,12 @@ export function Values() {
       id={values.id}
       title={values.title}
       subtitle={values.subtitle}
-      eyebrow="עקרונות"
+      eyebrow={values.eyebrow}
     >
-      <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {values.items.map((item) => (
-          <Reveal key={item.title}>
-            <li>
+      <ul className="grid gap-5 sm:grid-cols-2">
+        {values.items.map((item, index) => (
+          <Reveal key={item.title} delay={index * 80}>
+            <li className="studio-card">
               <h3 className="font-display text-xl font-semibold text-fg">
                 {item.title}
               </h3>

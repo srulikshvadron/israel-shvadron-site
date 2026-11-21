@@ -6,9 +6,10 @@ import { cn } from "@/lib/utils";
 type RevealProps = {
   children: ReactNode;
   className?: string;
+  delay?: number;
 };
 
-export function Reveal({ children, className }: RevealProps) {
+export function Reveal({ children, className, delay = 0 }: RevealProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -47,6 +48,7 @@ export function Reveal({ children, className }: RevealProps) {
         visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
         className,
       )}
+      style={delay > 0 ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}
     </div>
