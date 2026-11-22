@@ -151,7 +151,7 @@ const he: Copy = {
   hero: {
     eyebrow: "אתרים, בוטים ומערכות לעסקים",
     headline: "מה שמציק לך בעסק, אצלי זה כבר משימה.",
-    line: "ניהלתי עובדים, מחסן ודוחות. היום אני מפתח מערכות במשרה מלאה. את שני העולמות אני מביא לעסק שלך.",
+    line: "הזמנות בוואטסאפ, לקוחות במחברת ותשלומים בראש? בוא נשים את הכול במקום אחד.",
     aside: "אופס, זה כבר עובד.",
     primary: "נדבר בוואטסאפ",
     secondary: "מה אני עושה",
@@ -478,7 +478,7 @@ const en: Copy = {
   hero: {
     eyebrow: "Websites, bots and systems for businesses",
     headline: "What bugs you about your business is my next job.",
-    line: "I've managed workers, a warehouse, and reports. Today I'm a full-time systems developer. I bring both worlds to your business.",
+    line: "Orders on WhatsApp, customers in a notebook, payments in your head? Let's put it all in one place.",
     aside: "Oops, it already works.",
     primary: "Let's talk on WhatsApp",
     secondary: "What I do",
