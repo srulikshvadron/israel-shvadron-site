@@ -11,40 +11,58 @@ import { cn } from "@/lib/utils";
 
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const scaleRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
   const pathname = usePathname() || "/";
   const home = pathForLocale(locale, "/");
   const whatsapp = whatsappHref(copy.whatsappPrefill);
 
   useEffect(() => {
-    const node = scaleRef.current;
+    const node = headerRef.current;
     if (!node) return;
-    let frame = 0;
-    let scrolledNow = false;
-    const distance = 120;
 
-    const apply = () => {
-      const y = window.scrollY;
-      const next = y > 12;
-      if (next !== scrolledNow) {
-        scrolledNow = next;
-        setScrolled(next);
+    const distance = 100;
+    const smoothing = 50;
+    const maxSpeed = 220;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const targetNow = () => Math.min(1, Math.max(0, window.scrollY / distance));
+
+    let target = targetNow();
+    let current = target;
+    let frame = 0;
+    let last = 0;
+
+    const paint = () => node.style.setProperty("--hp", current.toFixed(4));
+
+    const tick = (time: number) => {
+      const dt = last ? Math.min(64, time - last) : 16;
+      last = time;
+      const delta = target - current;
+      const cap = dt / maxSpeed;
+      const step = delta * (1 - Math.exp(-dt / smoothing));
+      current += Math.abs(step) > cap ? Math.sign(step) * cap : step;
+      if (Math.abs(target - current) < 0.002) {
+        current = target;
+        paint();
+        frame = 0;
+        last = 0;
+        return;
       }
-      const progress = Math.min(1, Math.max(0, y / distance));
-      const scale = 1 - progress * 0.58;
-      node.style.transform = `scale(${scale})`;
-      const captions = node.querySelector<HTMLElement>(".brand-captions");
-      if (captions) captions.style.opacity = String(1 - progress);
+      paint();
+      frame = requestAnimationFrame(tick);
     };
 
     const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(apply);
+      target = targetNow();
+      if (reduced) {
+        current = target;
+        paint();
+        return;
+      }
+      if (!frame) frame = requestAnimationFrame(tick);
     };
 
-    apply();
+    paint();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       cancelAnimationFrame(frame);
@@ -81,17 +99,10 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   }
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 border-b transition-colors duration-300",
-        scrolled || open
-          ? "is-scrolled border-line bg-bg/90 backdrop-blur-md"
-          : "border-transparent bg-transparent",
-      )}
-    >
+    <header ref={headerRef} className={cn("site-header sticky top-0 z-50", open && "is-open")}>
       <Container className="flex items-center justify-between gap-2 py-2 sm:gap-3">
         <div className="header-logo-slot">
-          <div ref={scaleRef} className="header-logo-scale">
+          <div className="header-logo-scale">
             <BrandLink
               href={home}
               name={copy.brand}

@@ -15,30 +15,43 @@ type RevealProps = {
 const STAGGER_MS = 90;
 const MAX_STEPS = 5;
 
-const pending = new Map<Element, () => void>();
-let observer: IntersectionObserver | null = null;
+let enterObserver: IntersectionObserver | null = null;
+let leaveObserver: IntersectionObserver | null = null;
 
-function sharedObserver() {
-  observer ??= new IntersectionObserver(
+function byDocumentOrder(a: Element, b: Element) {
+  return a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1;
+}
+
+function observers() {
+  // Show once a card is a little inside the viewport. Hide again only when it is
+  // completely off screen, so nothing can flicker while it sits near an edge.
+  enterObserver ??= new IntersectionObserver(
     (entries) => {
-      const hits = entries
-        .filter((entry) => entry.isIntersecting)
-        .map((entry) => entry.target)
-        .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
-
-      hits.forEach((node, index) => {
-        (node as HTMLElement).style.setProperty(
-          "--reveal-delay",
-          `${Math.min(index, MAX_STEPS) * STAGGER_MS}ms`,
-        );
-        pending.get(node)?.();
-        pending.delete(node);
-        observer?.unobserve(node);
-      });
+      entries
+        .filter((entry) => entry.isIntersecting && !entry.target.classList.contains("is-shown"))
+        .map((entry) => entry.target as HTMLElement)
+        .sort(byDocumentOrder)
+        .forEach((node, index) => {
+          node.style.setProperty("--reveal-delay", `${Math.min(index, MAX_STEPS) * STAGGER_MS}ms`);
+          node.classList.add("is-shown");
+        });
     },
     { threshold: 0.12, rootMargin: "0px 0px -6% 0px" },
   );
-  return observer;
+
+  leaveObserver ??= new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting && entry.target.classList.contains("is-shown")) {
+          (entry.target as HTMLElement).style.setProperty("--reveal-delay", "0ms");
+          entry.target.classList.remove("is-shown");
+        }
+      }
+    },
+    { threshold: 0 },
+  );
+
+  return { enter: enterObserver, leave: leaveObserver };
 }
 
 export function Reveal({ children, className, variant = "pop" }: RevealProps) {
@@ -57,15 +70,17 @@ export function Reveal({ children, className, variant = "pop" }: RevealProps) {
 
     const rect = node.getBoundingClientRect();
     const onScreenAtLoad = rect.top < window.innerHeight - 48 && rect.bottom > 0;
-    if (onScreenAtLoad) return;
 
     node.classList.add("reveal-arm");
-    pending.set(node, () => node.classList.add("is-shown"));
-    sharedObserver().observe(node);
+    if (onScreenAtLoad) node.classList.add("is-shown");
+
+    const { enter, leave } = observers();
+    enter.observe(node);
+    leave.observe(node);
 
     return () => {
-      pending.delete(node);
-      observer?.unobserve(node);
+      enter.unobserve(node);
+      leave.unobserve(node);
       node.classList.remove("reveal-arm", "is-shown");
     };
   }, []);
