@@ -5,6 +5,8 @@ import type { Copy, Locale } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { PulseDot } from "@/components/brand/PulseDot";
+import { Button } from "@/components/ui/Button";
+import { whatsappHref } from "@/lib/contact";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -12,6 +14,7 @@ const fieldClass = "field";
 
 export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   const contact = copy.contact;
+  const whatsapp = whatsappHref();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -66,7 +69,29 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
       subtitle={contact.subtitle}
       className="border-t border-line"
     >
-      <div className="mx-auto max-w-2xl">
+      <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
+        <Reveal>
+          <div className="studio-card studio-card-quiet">
+            <h3 className="font-display text-xl font-semibold text-fg">{contact.briefTitle}</h3>
+            <ol className="mt-4 space-y-2 text-muted">
+              {contact.briefItems.map((item, index) => (
+                <li key={item} className="flex gap-3">
+                  <span className="font-semibold text-accent">{index + 1}</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ol>
+            <h3 className="mt-8 font-display text-xl font-semibold text-fg">{contact.afterTitle}</h3>
+            <p className="mt-3 leading-relaxed text-muted">{contact.after}</p>
+            <Button
+              href={whatsapp ?? "#contact"}
+              className="mt-6 w-full sm:w-auto"
+              {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {contact.whatsappCta}
+            </Button>
+          </div>
+        </Reveal>
         <Reveal>
           <form
             onSubmit={handleSubmit}

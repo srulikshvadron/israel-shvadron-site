@@ -18,14 +18,28 @@ export type Copy = {
   menuClose: string;
   menuSr: string;
   whatsappShort: string;
+  headerCta: { label: string; short: string };
   langLabel: string;
   nav: { id: string; label: string }[];
-  hero: { eyebrow: string; headline: string; line: string; aside: string; secondary: string };
+  hero: { eyebrow: string; headline: string; line: string; aside: string; primary: string; secondary: string };
   services: {
     id: string;
     eyebrow: string;
     title: string;
-    items: { title: string; line: string }[];
+    items: { title: string; lines: [string, string] }[];
+  };
+  process: {
+    id: string;
+    eyebrow: string;
+    title: string;
+    steps: { title: string; line: string }[];
+  };
+  examples: {
+    id: string;
+    eyebrow: string;
+    title: string;
+    labels: { problem: string; solution: string; result: string };
+    items: { title: string; problem: string; solution: string; result: string }[];
   };
   about: { id: string; eyebrow: string; title: string; paragraphs: string[] };
   contact: {
@@ -36,6 +50,10 @@ export type Copy = {
     whatsappTitle: string;
     whatsappBody: string;
     whatsappCta: string;
+    briefTitle: string;
+    briefItems: string[];
+    afterTitle: string;
+    after: string;
     nameLabel: string;
     phoneLabel: string;
     phoneHint: string;
@@ -113,9 +131,12 @@ const he: Copy = {
   menuClose: "סגירת תפריט",
   menuSr: "תפריט",
   whatsappShort: "וואטסאפ",
+  headerCta: { label: "בואו נדבר", short: "נדבר" },
   langLabel: "שפה",
   nav: [
     { id: "services", label: "שירותים" },
+    { id: "process", label: "איך זה עובד" },
+    { id: "examples", label: "דוגמאות" },
     { id: "about", label: "אודות" },
     { id: "contact", label: "יצירת קשר" },
   ],
@@ -124,6 +145,7 @@ const he: Copy = {
     headline: "אתרים ובוטים לעסקים",
     line: "אתם מציגים את הבעיה, אנחנו מוצאים את הפתרון.",
     aside: "אופס, זה כבר עובד.",
+    primary: "בואו נדבר",
     secondary: "לשירותים",
   },
   services: {
@@ -131,12 +153,76 @@ const he: Copy = {
     eyebrow: "שירותים",
     title: "שירותים",
     items: [
-      { title: "אתרים", line: "אתר ברור שמוביל לפנייה." },
-      { title: "בוטים לוואטסאפ", line: "מענה אוטומטי, ושליחת הודעות ועדכוני סטטוס." },
-      { title: "אוטומציה", line: "חיבור בין טפסים, דוא״ל ווואטסאפ." },
+      {
+        title: "אתרים",
+        lines: [
+          "אתר קצר שמסביר מה אתם עושים, ומוביל לפנייה.",
+          "מי שמגיע מבין את השירות, ואתם מקבלים פנייה מסודרת.",
+        ],
+      },
+      {
+        title: "בוטים לוואטסאפ",
+        lines: [
+          "מענה אוטומטי לשאלות שחוזרות, ושליחת הודעות ועדכוני סטטוס.",
+          "פחות תשובות ביד, ויותר פניות שמקבלות מענה.",
+        ],
+      },
+      {
+        title: "אוטומציה",
+        lines: [
+          "חיבור בין טפסים, דוא״ל ווואטסאפ.",
+          "מה שנכנס במקום אחד ממשיך הלאה, בלי להעתיק ביד.",
+        ],
+      },
       {
         title: "מערכות מותאמות אישית",
-        line: "מערכות ניהול, חיבור בין מערכות ופתרונות מורכבים לפי צרכי העסק.",
+        lines: [
+          "מערכת ניהול או חיבור בין מערכות, לפי העבודה אצלכם.",
+          "מקום אחד לעבודה, במקום גיליונות וקבצים מפוזרים.",
+        ],
+      },
+    ],
+  },
+  process: {
+    id: "process",
+    eyebrow: "הדרך",
+    title: "איך זה עובד",
+    steps: [
+      { title: "מבינים את הצורך", line: "קודם שומעים מה מפריע ביום־יום, ורק אחר כך מדברים על כלים." },
+      { title: "מתכננים פתרון", line: "בוחרים את הדרך הפשוטה שפותרת את זה, ומגדירים מה נבנה." },
+      { title: "בונים בשקיפות", line: "אתם רואים את ההתקדמות. בלי הפתעות, ובלי שפה סגורה." },
+      { title: "מעלים לאוויר וממשיכים ללוות", line: "אחרי העלייה לאוויר אני נשאר, עד שזה רץ אצלכם." },
+    ],
+  },
+  examples: {
+    id: "examples",
+    eyebrow: "מצבים",
+    title: "מבעיה לתוצאה",
+    labels: { problem: "הבעיה", solution: "הפתרון", result: "התוצאה" },
+    items: [
+      {
+        title: "אתר",
+        problem: "אין מקום ברור ברשת, והפניות מגיעות רק בטלפון.",
+        solution: "אתר קצר שמסביר את השירות ומוביל לפנייה.",
+        result: "מי שמחפש אתכם מבין מה אתם עושים, ויכול לפנות.",
+      },
+      {
+        title: "בוט לוואטסאפ",
+        problem: "אותן שאלות חוזרות בוואטסאפ, ועונים להן ביד.",
+        solution: "בוט שעונה על השאלות הקבועות, ושולח עדכון כשצריך.",
+        result: "פחות הודעות חוזרות, וזמן פנוי לפניות שצריכות אדם.",
+      },
+      {
+        title: "אוטומציה",
+        problem: "פרטים עוברים ביד מטופס לדוא״ל ולוואטסאפ.",
+        solution: "חיבור שמעביר את הפנייה הלאה ברגע שהיא נכנסת.",
+        result: "פחות העתקה, ופחות פניות שהולכות לאיבוד.",
+      },
+      {
+        title: "מערכת",
+        problem: "העבודה מפוזרת בגיליונות, וקשה לראות מה המצב.",
+        solution: "מערכת קטנה לפי תהליך העבודה אצלכם.",
+        result: "מקום אחד לעבודה, במקום לחפש בין קבצים.",
       },
     ],
   },
@@ -159,6 +245,10 @@ const he: Copy = {
     whatsappTitle: "וואטסאפ",
     whatsappBody: "לפנייה ישירה.",
     whatsappCta: "כתבו בוואטסאפ",
+    briefTitle: "בשיחה הראשונה",
+    briefItems: ["נכיר את הצורך", "נגדיר מטרה", "נציע פתרון", "נקבע צעד הבא"],
+    afterTitle: "אחרי השליחה",
+    after: "אחרי שליחת הטופס אחזור אליכם. אם נוח יותר, אפשר לכתוב בוואטסאפ עכשיו.",
     nameLabel: "שם",
     phoneLabel: "טלפון",
     phoneHint: "לא חובה",
@@ -351,9 +441,12 @@ const en: Copy = {
   menuClose: "Close menu",
   menuSr: "Menu",
   whatsappShort: "WhatsApp",
+  headerCta: { label: "Let's talk", short: "Talk" },
   langLabel: "Language",
   nav: [
     { id: "services", label: "Services" },
+    { id: "process", label: "How it works" },
+    { id: "examples", label: "Examples" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
   ],
@@ -362,6 +455,7 @@ const en: Copy = {
     headline: "Websites and bots for businesses",
     line: "You bring the problem. We find the solution.",
     aside: "Oops, it already works.",
+    primary: "Let's talk",
     secondary: "Services",
   },
   services: {
@@ -369,15 +463,76 @@ const en: Copy = {
     eyebrow: "Services",
     title: "Services",
     items: [
-      { title: "Websites", line: "A clear site that leads to an inquiry." },
+      {
+        title: "Websites",
+        lines: [
+          "A short site that explains what you do, and leads to an inquiry.",
+          "People understand the service, and you get a clear inquiry.",
+        ],
+      },
       {
         title: "WhatsApp bots",
-        line: "Automatic replies, plus sending messages and status updates.",
+        lines: [
+          "Automatic replies to questions that repeat, plus messages and status updates.",
+          "Less answering by hand, and more inquiries that get a reply.",
+        ],
       },
-      { title: "Automation", line: "Forms, email, and WhatsApp, connected." },
+      {
+        title: "Automation",
+        lines: [
+          "Forms, email, and WhatsApp, connected.",
+          "What comes in one place continues on, without copying by hand.",
+        ],
+      },
       {
         title: "Custom systems",
-        line: "Management systems, integrations, and complex solutions built around your business.",
+        lines: [
+          "A management system, or a link between systems, built around your work.",
+          "One place to work, instead of scattered spreadsheets and files.",
+        ],
+      },
+    ],
+  },
+  process: {
+    id: "process",
+    eyebrow: "The path",
+    title: "How it works",
+    steps: [
+      { title: "Understand the need", line: "First I listen to what gets in the way of the day, and only then we talk about tools." },
+      { title: "Plan the solution", line: "We choose the simple path that solves it, and define what gets built." },
+      { title: "Build in the open", line: "You see the progress. No surprises, and no closed language." },
+      { title: "Launch and stay", line: "After launch I stay, until it runs in your day." },
+    ],
+  },
+  examples: {
+    id: "examples",
+    eyebrow: "Situations",
+    title: "From problem to result",
+    labels: { problem: "Problem", solution: "Solution", result: "Result" },
+    items: [
+      {
+        title: "Website",
+        problem: "There is no clear place online, and inquiries come only by phone.",
+        solution: "A short site that explains the service and leads to an inquiry.",
+        result: "People who look for you understand what you do, and can get in touch.",
+      },
+      {
+        title: "WhatsApp bot",
+        problem: "The same WhatsApp questions come back, and someone answers them by hand.",
+        solution: "A bot that answers the fixed questions, and sends an update when needed.",
+        result: "Fewer repeated messages, and time left for inquiries that need a person.",
+      },
+      {
+        title: "Automation",
+        problem: "Details move by hand from a form to email and WhatsApp.",
+        solution: "A connection that passes the inquiry on as soon as it arrives.",
+        result: "Less copying, and fewer inquiries that get lost.",
+      },
+      {
+        title: "System",
+        problem: "The work is spread across spreadsheets, and it is hard to see the status.",
+        solution: "A small system built around how you work.",
+        result: "One place to work, instead of searching through files.",
       },
     ],
   },
@@ -400,6 +555,10 @@ const en: Copy = {
     whatsappTitle: "WhatsApp",
     whatsappBody: "For a direct message.",
     whatsappCta: "Message on WhatsApp",
+    briefTitle: "In the first conversation",
+    briefItems: ["We learn the need", "We set a goal", "I suggest a solution", "We agree the next step"],
+    afterTitle: "After you send",
+    after: "After the form is sent, I get back to you. If it is easier, you can write on WhatsApp now.",
     nameLabel: "Name",
     phoneLabel: "Phone",
     phoneHint: "Optional",

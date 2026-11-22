@@ -294,8 +294,11 @@ body {
   transform: translateY(0);
 }
 
-.btn-primary.btn-compact {
-  padding: 0.45rem 0.75rem;
+.btn-primary.btn-compact,
+.btn-primary.header-cta {
+  padding: 0.45rem 0.7rem;
+  font-size: 0.8125rem;
+  white-space: nowrap;
 }
 
 @media (max-width: 639px) {
