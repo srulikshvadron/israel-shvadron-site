@@ -1,5 +1,6 @@
 import type { Copy } from "@/content/copy";
 import { Container } from "@/components/ui/Container";
+import { WhatsAppCta } from "@/components/ui/WhatsAppCta";
 
 export function Process({ copy }: { copy: Copy }) {
   const process = copy.process;
@@ -20,6 +21,9 @@ export function Process({ copy }: { copy: Copy }) {
             </span>
           ))}
         </h2>
+        <div className="mt-8">
+          <WhatsAppCta copy={copy} />
+        </div>
       </Container>
     </section>
   );

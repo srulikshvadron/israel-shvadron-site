@@ -1,5 +1,7 @@
 export type Locale = "he" | "en";
 
+export type IconName = "site" | "system" | "loop" | "support" | "person" | "key" | "tag";
+
 export type LegalBlock = {
   id: string;
   title: string;
@@ -27,7 +29,7 @@ export type Copy = {
     id: string;
     eyebrow: string;
     title: string;
-    items: { title: string; lines: string[]; quiet?: boolean }[];
+    items: { icon: IconName; title: string; lines: string[]; quiet?: boolean }[];
   };
   process: {
     id: string;
@@ -48,13 +50,16 @@ export type Copy = {
     whatsappTitle: string;
     whatsappBody: string;
     whatsappCta: string;
+    callCta: string;
+    phoneLine: string;
+    trust: { icon: IconName; title: string; text: string }[];
+    reachHint: string;
     briefTitle: string;
     briefItems: string[];
     afterTitle: string;
     after: string;
     nameLabel: string;
     phoneLabel: string;
-    phoneHint: string;
     emailLabel: string;
     messageLabel: string;
     submit: string;
@@ -105,6 +110,7 @@ export type Copy = {
     name: string;
     phone: string;
     email: string;
+    contact: string;
     message: string;
     rate: string;
     send: string;
@@ -140,10 +146,10 @@ const he: Copy = {
     { id: "process", label: "איך מתחילים" },
     { id: "examples", label: "לפני ואחרי" },
     { id: "about", label: "מי אני" },
-    { id: "contact", label: "דברו איתי" },
+    { id: "contact", label: "דבר איתי" },
   ],
   hero: {
-    eyebrow: "",
+    eyebrow: "אתרים, בוטים ומערכות לעסקים",
     headline: "מה שמציק לך בעסק, אצלי זה כבר משימה.",
     line: "ניהלתי עובדים, מחסן ודוחות. היום אני מפתח מערכות במשרה מלאה. את שני העולמות אני מביא לעסק שלך.",
     aside: "אופס, זה כבר עובד.",
@@ -156,6 +162,7 @@ const he: Copy = {
     title: "אני לוקח את הצד הטכני. כולו.",
     items: [
       {
+        icon: "site",
         title: "אתר שעונה לפני שמתקשרים",
         lines: [
           "מה אתה עושה, למי זה מתאים ואיך פונים: ברור מהשנייה הראשונה.",
@@ -163,6 +170,7 @@ const he: Copy = {
         ],
       },
       {
+        icon: "system",
         title: "מערכת שתפורה לעסק שלך",
         lines: [
           "לא תוכנה מהמדף שהעסק צריך להתאים את עצמו אליה, אלא מערכת שנבנית סביב הדרך שבה אתה כבר עובד.",
@@ -170,11 +178,13 @@ const he: Copy = {
         ],
       },
       {
+        icon: "loop",
         title: "פחות העתק-הדבק",
         lines: ["מה שאתה עושה ידנית כל יום, חיבור קטן או בוט יכולים לעשות במקומך."],
         quiet: true,
       },
       {
+        icon: "support",
         title: "יש למי להתקשר",
         lines: [
           "אני לא נעלם אחרי שהכול עולה.",
@@ -217,8 +227,8 @@ const he: Copy = {
     paragraphs: [
       "אני שרוליק שוודרון, מפתח תוכנה.",
       "לפני הקוד ניהלתי עבודה בחברת שליחויות: עובדים, מחסן, דוחות, ובעצם כל מה שלא היה לו אחראי אחר.",
-      "מערכות זה לא תחביב אצלי, זו העבודה שלי, כל יום. ביום אני בונה מערכות גדולות שאנשים סומכים עליהן, ובשבילך אני בונה בדיוק כאלה, רק בגודל של העסק שלך.",
       "שם ראיתי כמה זמן הולך על חיפוש בפתקים, על אקסל שאף אחד לא מבין ועל טלפון שמצלצל באמצע הכול.",
+      "מערכות זה לא תחביב אצלי, זו העבודה שלי, כל יום. ביום אני בונה מערכות גדולות שאנשים סומכים עליהן, ובשבילך אני בונה בדיוק כאלה, רק בגודל של העסק שלך.",
       "היום אני בונה את הכלים שהיו חסרים לי אז. אתה מספר מה מציק, ואני כבר יודע איך זה נראה מבפנים ומה צריך לבנות.",
       "בגובה העיניים, בלי מונחים, ובלי שתצטרך ללמוד שום דבר.",
     ],
@@ -230,7 +240,27 @@ const he: Copy = {
     subtitle: "וואטסאפ או טופס, מה שנוח לך. כל פנייה מגיעה ישירות אליי.",
     whatsappTitle: "וואטסאפ",
     whatsappBody: "הדרך הקצרה ביותר. כותבים שורה, ואני חוזר.",
-    whatsappCta: "פתיחת שיחה בוואטסאפ",
+    whatsappCta: "נדבר בוואטסאפ",
+    callCta: "להתקשר",
+    phoneLine: "או בטלפון:",
+    trust: [
+      {
+        icon: "person",
+        title: "עונה אישית",
+        text: "כשאתה כותב, אני זה שעונה. לא מוקד ולא בוט. בדרך כלל עוד באותו יום.",
+      },
+      {
+        icon: "key",
+        title: "בלי שלשלאות",
+        text: "בלי חוזה שתוקע אותך ובלי אותיות קטנות. האתר, הקוד והדומיין רשומים על שמך. זה שלך, נקודה.",
+      },
+      {
+        icon: "tag",
+        title: "מחיר בלי הפתעות",
+        text: "המחיר נקבע לפי מה שהעסק באמת צריך. אחרי השיחה הראשונה אתה מקבל הצעה מסודרת וברורה, ומתחילים רק אחרי שאמרת כן.",
+      },
+    ],
+    reachHint: "איך חוזרים אליך? מספיק טלפון או אימייל, אחד מהם.",
     briefTitle: "מה קורה בשיחה הראשונה",
     briefItems: [
       "אתה מספר מה מציק",
@@ -241,7 +271,6 @@ const he: Copy = {
     after: "הפנייה מגיעה ישירות אליי, ואני חוזר אליך. ממהר? הוואטסאפ פתוח.",
     nameLabel: "שם",
     phoneLabel: "טלפון",
-    phoneHint: "לא חובה",
     emailLabel: "אימייל",
     messageLabel: "מה מציק?",
     submit: "שליחה",
@@ -267,7 +296,7 @@ const he: Copy = {
     accessibility: "הצהרת נגישות",
     whatsapp: "וואטסאפ",
     phone: "טלפון",
-    credit: "נבנה ע״י שרוליק. מה חשבתם?",
+    credit: "נבנה ע״י שרוליק. מה חשבת?",
   },
   a11y: {
     title: "נגישות",
@@ -330,7 +359,7 @@ const he: Copy = {
       id: "delete",
       title: "שמירה ומחיקה",
       paragraphs: [
-        "פניות מהטופס נשמרות כדי שנוכל לחזור אליכם. הגישה אליהן מוגבלת למפעיל.",
+        "פניות מהטופס נשמרות כדי שנוכל לחזור אליך. הגישה אליהן מוגבלת למפעיל.",
         "בקשת מחיקה תושלם בתוך שבעה ימים.",
       ],
     },
@@ -384,7 +413,7 @@ const he: Copy = {
     {
       id: "contact",
       title: "פנייה",
-      paragraphs: ["אם נתקלתם בקושי, נשמח שתכתבו לנו ונתקן."],
+      paragraphs: ["אם נתקלת בקושי, נשמח שתכתוב לנו ונתקן."],
     },
   ],
   api: {
@@ -393,6 +422,7 @@ const he: Copy = {
     name: "איך קוראים לך? חסר שם.",
     phone: "המספר לא נראה תקין. כדאי לבדוק שוב.",
     email: "כתובת המייל לא נראית תקינה.",
+    contact: "השאר טלפון או אימייל, כדי שאוכל לחזור אליך.",
     message: "כתוב בכמה מילים מה מציק.",
     rate: "נשלחו הרבה פניות ברצף. נסה שוב בעוד כמה דקות.",
     send: "אופס, הפעם זה לא עבד. נסה שוב, או שלח לי וואטסאפ.",
@@ -420,9 +450,9 @@ const he: Copy = {
 
 const en: Copy = {
   meta: {
-    title: "Srulik | Websites and systems for businesses. Oops, it already works.",
+    title: "Srulik | Websites and systems. Oops, it already works.",
     description:
-      "Websites and custom systems built around your business, with support after launch. A developer who used to run workers, a warehouse, and reports, and knows business problems from the inside.",
+      "Websites and custom systems built around your business, with support after launch. By a developer who has run workers, a warehouse and reports.",
     socialTitle: "Srulik | What bugs you about your business is my next job.",
     siteName: "Srulik",
     locale: "en_US",
@@ -446,7 +476,7 @@ const en: Copy = {
     { id: "contact", label: "Talk to me" },
   ],
   hero: {
-    eyebrow: "",
+    eyebrow: "Websites, bots and systems for businesses",
     headline: "What bugs you about your business is my next job.",
     line: "I've managed workers, a warehouse, and reports. Today I'm a full-time systems developer. I bring both worlds to your business.",
     aside: "Oops, it already works.",
@@ -459,6 +489,7 @@ const en: Copy = {
     title: "I take the technical side. All of it.",
     items: [
       {
+        icon: "site",
         title: "A site that answers before they call",
         lines: [
           "What you do, who it's for, and how to reach you, clear in a second.",
@@ -466,6 +497,7 @@ const en: Copy = {
         ],
       },
       {
+        icon: "system",
         title: "A system made for your business",
         lines: [
           "Not off-the-shelf software you bend to fit, but one built around how you already work.",
@@ -473,11 +505,13 @@ const en: Copy = {
         ],
       },
       {
+        icon: "loop",
         title: "Less copy-paste",
         lines: ["The things you do by hand every day, a small connection or bot can do for you."],
         quiet: true,
       },
       {
+        icon: "support",
         title: "Someone to call",
         lines: [
           "I don't vanish after launch.",
@@ -520,8 +554,8 @@ const en: Copy = {
     paragraphs: [
       "I'm Srulik Shvadron, a software developer.",
       "Before code, I was a work manager at a courier company: workers, a warehouse, reports, and pretty much anything nobody else owned.",
-      "Systems aren't a hobby for me, they're my job, every day. By day I build large systems people rely on, and for you I build exactly that, sized for your business.",
       "I saw how much time goes on digging through notes, on spreadsheets nobody understands, and on a phone that rings in the middle of everything.",
+      "Systems aren't a hobby for me, they're my job, every day. By day I build large systems people rely on, and for you I build exactly that, sized for your business.",
       "Now I build the tools I was missing back then. You tell me what's bugging you, and I already know what it looks like from the inside and what needs building.",
       "Straight talk, no jargon, nothing for you to learn.",
     ],
@@ -533,7 +567,27 @@ const en: Copy = {
     subtitle: "WhatsApp or the form, whichever is easier. Every message comes straight to me.",
     whatsappTitle: "WhatsApp",
     whatsappBody: "The shortest way. Write a line, and I'll get back to you.",
-    whatsappCta: "Open a WhatsApp chat",
+    whatsappCta: "Let's talk on WhatsApp",
+    callCta: "Call",
+    phoneLine: "Or by phone:",
+    trust: [
+      {
+        icon: "person",
+        title: "I answer personally",
+        text: "Not a call center, not a bot. Usually the same day.",
+      },
+      {
+        icon: "key",
+        title: "No lock-in",
+        text: "No binding contract, no fine print. The site, the code and the domain are in your name.",
+      },
+      {
+        icon: "tag",
+        title: "No-surprise pricing",
+        text: "Pricing fits what your business actually needs. A clear quote after the first call, and nothing starts until you say yes.",
+      },
+    ],
+    reachHint: "How do I reach you? A phone number or an email is enough, either one.",
     briefTitle: "What happens on the first call",
     briefItems: [
       "You tell me what's bugging you",
@@ -544,7 +598,6 @@ const en: Copy = {
     after: "Every message comes straight to me, and I'll get back to you. In a hurry? WhatsApp is open.",
     nameLabel: "Name",
     phoneLabel: "Phone",
-    phoneHint: "Optional",
     emailLabel: "Email",
     messageLabel: "What's bugging you?",
     submit: "Send",
@@ -698,6 +751,7 @@ const en: Copy = {
     name: "What's your name?",
     phone: "That number doesn't look right.",
     email: "That email doesn't look right.",
+    contact: "Leave a phone number or an email so I can get back to you.",
     message: "Tell me in a few words what's bugging you.",
     rate: "Too many messages in a row. Try again in a few minutes.",
     send: "Oops, that didn't go through. Try again, or WhatsApp me.",

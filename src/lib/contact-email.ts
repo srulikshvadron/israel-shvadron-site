@@ -95,18 +95,25 @@ export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {
   const safeEmail = oneLine(input.email);
   const subject = `${mail.subject} — ${safeName}`;
   const phone = oneLine(input.phone) || "—";
-  const replyHref = `mailto:${safeEmail}?subject=${encodeURIComponent(`${mail.reply} — ${safeName}`)}`;
+  const phoneDigits = input.phone.replace(/\D/g, "");
+  const callHref = phoneDigits
+    ? `tel:${phoneDigits.startsWith("972") ? "+" + phoneDigits : phoneDigits.startsWith("0") ? "+972" + phoneDigits.slice(1) : "+" + phoneDigits}`
+    : "";
+  const replyHref = safeEmail
+    ? `mailto:${safeEmail}?subject=${encodeURIComponent(`${mail.reply} — ${safeName}`)}`
+    : callHref;
+  const emailShown = safeEmail || "—";
   const html = shell(
     mail.title,
     `<p style="margin:0 0 16px;">${escapeHtml(mail.intro)}</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" dir="rtl" style="border-collapse:collapse;">
       ${fieldRow("שם", safeName)}
       ${fieldRow("טלפון או וואטסאפ", phone)}
-      ${fieldRow("אימייל", safeEmail)}
+      ${fieldRow("אימייל", emailShown)}
     </table>
     <p style="margin:18px 0 8px;font-weight:700;">הודעה</p>
     <div style="white-space:pre-wrap;background:#f4f8fb;border:1px solid #e1ebf3;border-radius:12px;padding:14px;">${escapeHtml(input.message)}</div>
-    <p style="margin:20px 0 0;">${button(replyHref, mail.reply)}</p>
+    ${replyHref ? `<p style="margin:20px 0 0;">${button(replyHref, mail.reply)}</p>` : ""}
     <p style="margin:16px 0 0;font-size:13px;color:#5d7084;">${escapeHtml(mail.site)}: ${escapeHtml(input.siteUrl)}</p>`,
   );
   const text = [
@@ -114,12 +121,12 @@ export function ownerNotificationEmail(input: OwnerEmailInput): RenderedEmail {
     "",
     `שם: ${safeName}`,
     `טלפון או וואטסאפ: ${phone}`,
-    `אימייל: ${safeEmail}`,
+    `אימייל: ${emailShown}`,
     "",
     "הודעה:",
     input.message,
     "",
-    `מענה: ${replyHref}`,
+    replyHref ? `מענה: ${replyHref}` : "",
     `האתר: ${input.siteUrl}`,
   ].join("\n");
 

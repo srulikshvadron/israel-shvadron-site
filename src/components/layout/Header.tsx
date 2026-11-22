@@ -88,7 +88,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           : "border-transparent bg-transparent",
       )}
     >
-      <Container className="flex items-center justify-between gap-3 py-2">
+      <Container className="flex items-center justify-between gap-2 py-2 sm:gap-3">
         <div className="header-logo-slot">
           <div ref={scaleRef} className="header-logo-scale">
             <BrandLink
@@ -114,20 +114,20 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <nav aria-label={copy.langLabel} className="flex items-center gap-1 text-sm">
+          <nav aria-label={copy.langLabel} className="flex items-center text-sm">
             <a
               href={pathForLocale("he", pathname)}
               hrefLang="he"
               lang="he"
               aria-current={locale === "he" ? "true" : undefined}
               className={cn(
-                "rounded-md px-2 py-1",
-                locale === "he" ? "text-accent" : "text-muted hover:text-fg",
+                "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2",
+                locale === "he" ? "text-accent max-sm:hidden" : "text-muted hover:text-fg",
               )}
             >
               HE
             </a>
-            <span aria-hidden className="text-muted">
+            <span aria-hidden className="text-muted max-sm:hidden">
               /
             </span>
             <a
@@ -136,8 +136,8 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               lang="en"
               aria-current={locale === "en" ? "true" : undefined}
               className={cn(
-                "rounded-md px-2 py-1",
-                locale === "en" ? "text-accent" : "text-muted hover:text-fg",
+                "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2",
+                locale === "en" ? "text-accent max-sm:hidden" : "text-muted hover:text-fg",
               )}
             >
               EN
@@ -154,7 +154,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           <button
             ref={menuButtonRef}
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-line text-fg lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line text-fg lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? copy.menuClose : copy.menuOpen}

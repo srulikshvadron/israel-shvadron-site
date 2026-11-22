@@ -95,7 +95,7 @@ export function AccessibilityWidget({
   }
 
   return (
-    <div className="fixed bottom-5 start-5 z-[60] flex flex-col items-start gap-3">
+    <div className="fixed bottom-3 start-3 z-[60] flex flex-col items-start gap-3 sm:bottom-5 sm:start-5">
       {open ? (
         <div
           ref={panelRef}
@@ -152,7 +152,7 @@ export function AccessibilityWidget({
       <button
         ref={buttonRef}
         type="button"
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-bg-elevated text-sm font-semibold text-fg shadow-lg transition-colors hover:border-accent/50 hover:bg-accent-soft"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line bg-bg-elevated text-sm font-semibold text-fg shadow-lg transition-colors hover:border-accent/50 hover:bg-accent-soft sm:h-10 sm:w-10"
         aria-expanded={open}
         aria-controls={panelId}
         aria-haspopup="dialog"

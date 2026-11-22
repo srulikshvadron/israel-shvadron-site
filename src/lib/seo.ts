@@ -36,6 +36,7 @@ export function createMetadata(
       languages: {
         he: heUrl,
         en: enUrl,
+        "x-default": heUrl,
       },
     },
     openGraph: {
