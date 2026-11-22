@@ -21,6 +21,7 @@ const heebo = Heebo({
 const rubik = Rubik({
   variable: "--font-rubik",
   subsets: ["hebrew", "latin"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 

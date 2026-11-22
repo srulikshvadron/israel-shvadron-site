@@ -11,7 +11,15 @@ export function Examples({ copy }: { copy: Copy }) {
           <Reveal key={item.before} delay={index * 80}>
             <li className="studio-card">
               <p className="text-sm font-semibold text-muted">{examples.labels.before}</p>
-              <p className="mt-2 font-display text-xl leading-snug text-fg">{item.before}</p>
+              <p
+                className={
+                  item.before.startsWith('"') && item.before.endsWith('"')
+                    ? "mt-2 font-display text-xl italic leading-snug text-slate-400"
+                    : "mt-2 font-display text-xl leading-snug text-fg"
+                }
+              >
+                {item.before}
+              </p>
               <p className="mt-5 text-sm font-semibold text-accent">{examples.labels.after}</p>
               <p className="mt-2 font-display text-xl leading-snug text-fg">{item.after}</p>
             </li>
