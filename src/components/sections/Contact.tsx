@@ -14,7 +14,7 @@ const fieldClass = "field";
 
 export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   const contact = copy.contact;
-  const whatsapp = whatsappHref();
+  const whatsapp = whatsappHref(copy.whatsappPrefill);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -65,31 +65,35 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   return (
     <Section
       id={contact.id}
+      eyebrow={contact.eyebrow}
       title={contact.title}
       subtitle={contact.subtitle}
       className="border-t border-line"
     >
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <Reveal>
-          <div className="studio-card studio-card-quiet">
-            <h3 className="font-display text-xl font-semibold text-fg">{contact.briefTitle}</h3>
-            <ol className="mt-4 space-y-2 text-muted">
-              {contact.briefItems.map((item, index) => (
-                <li key={item} className="flex gap-3">
-                  <span className="font-semibold text-accent">{index + 1}</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ol>
-            <h3 className="mt-8 font-display text-xl font-semibold text-fg">{contact.afterTitle}</h3>
-            <p className="mt-3 leading-relaxed text-muted">{contact.after}</p>
-            <Button
-              href={whatsapp ?? "#contact"}
-              className="mt-6 w-full sm:w-auto"
-              {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              {contact.whatsappCta}
-            </Button>
+          <div className="space-y-5">
+            <div className="studio-card">
+              <h3 className="font-display text-xl font-semibold text-fg">{contact.whatsappTitle}</h3>
+              <p className="mt-3 leading-relaxed text-muted">{contact.whatsappBody}</p>
+              <Button
+                href={whatsapp ?? "#contact"}
+                className="mt-6 w-full sm:w-auto"
+                {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                {contact.whatsappCta}
+              </Button>
+            </div>
+            <div className="studio-card studio-card-quiet">
+              <h3 className="font-display text-xl font-semibold text-fg">{contact.briefTitle}</h3>
+              <ul className="mt-4 space-y-2 text-muted">
+                {contact.briefItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <h3 className="mt-8 font-display text-xl font-semibold text-fg">{contact.afterTitle}</h3>
+              <p className="mt-3 leading-relaxed text-muted">{contact.after}</p>
+            </div>
           </div>
         </Reveal>
         <Reveal>

@@ -7,7 +7,7 @@ import { whatsappHref } from "@/lib/contact";
 
 export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
   const servicesHref = `${pathForLocale(locale, "/")}#services`;
-  const whatsapp = whatsappHref();
+  const whatsapp = whatsappHref(copy.whatsappPrefill);
 
   return (
     <section aria-labelledby="hero-heading" className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">

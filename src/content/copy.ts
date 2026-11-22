@@ -9,7 +9,8 @@ export type LegalBlock = {
 };
 
 export type Copy = {
-  meta: { title: string; description: string; siteName: string; locale: string };
+  meta: { title: string; description: string; socialTitle: string; siteName: string; locale: string };
+  whatsappPrefill: string;
   skip: string;
   brand: string;
   navLabel: string;
@@ -79,6 +80,7 @@ export type Copy = {
     accessibility: string;
     whatsapp: string;
     phone: string;
+    credit: string;
   };
   a11y: { title: string; large: string; contrast: string; statement: string; button: string };
   notFound: { kicker: string; title: string; line: string };
@@ -109,17 +111,20 @@ export type Copy = {
   };
   emails: {
     owner: { subject: string; title: string; intro: string; reply: string; site: string };
-    visitor: { subject: string; title: string; hello: string; body: string; next: string; whatsapp: string; reply: string };
+    visitor: { subject: string; title: string; hello: string; body: string; next: string; sign: string; whatsapp: string; reply: string };
   };
 };
 
 const he: Copy = {
   meta: {
-    title: "שרוליק | יש לך עסק. לי יש את הצד הטכני.",
-    description: "אתה מספר לי מה מציק, ואני דואג שזה יעבוד. בלי הדרכות, בלי מונחים ובלי \"תנסה לעשות ריסטרט\".",
+    title: "שרוליק | אתרים ומערכות לעסקים. אופס, זה כבר עובד.",
+    description:
+      "אתרים ומערכות שנתפרים לעסק, וליווי גם אחרי שהכול עולה. מפתח תוכנה שניהל בעבר עובדים, מחסן ודוחות, ומכיר את הבעיות של עסק מבפנים.",
+    socialTitle: "שרוליק | מה שמציק לך בעסק, אצלי זה כבר משימה.",
     siteName: "שרוליק",
     locale: "he_IL",
   },
+  whatsappPrefill: "היי שרוליק, הגעתי מהאתר. יש משהו בעסק שמציק לי, אפשר לדבר?",
   skip: "דילוג לתוכן",
   brand: "שרוליק",
   navLabel: "ניווט",
@@ -128,120 +133,128 @@ const he: Copy = {
   menuClose: "סגירת תפריט",
   menuSr: "תפריט",
   whatsappShort: "וואטסאפ",
-  headerCta: { label: "בואו נדבר", short: "נדבר" },
+  headerCta: { label: "נדבר בוואטסאפ", short: "נדבר" },
   langLabel: "שפה",
   nav: [
-    { id: "services", label: "שירותים" },
-    { id: "process", label: "הדרך" },
+    { id: "services", label: "מה אני עושה" },
+    { id: "process", label: "איך מתחילים" },
     { id: "examples", label: "לפני ואחרי" },
-    { id: "about", label: "אודות" },
-    { id: "contact", label: "יצירת קשר" },
+    { id: "about", label: "מי אני" },
+    { id: "contact", label: "דברו איתי" },
   ],
   hero: {
     eyebrow: "",
-    headline: "יש לך עסק. לי יש את הצד הטכני.",
-    line: "אתה מספר לי מה מציק, ואני דואג שזה יעבוד. בלי הדרכות, בלי מונחים ובלי \"תנסה לעשות ריסטרט\".",
+    headline: "מה שמציק לך בעסק, אצלי זה כבר משימה.",
+    line: "ניהלתי עובדים, מחסן ודוחות. היום אני מפתח מערכות במשרה מלאה. את שני העולמות אני מביא לעסק שלך.",
     aside: "אופס, זה כבר עובד.",
-    primary: "בואו נדבר",
-    secondary: "לשירותים",
+    primary: "נדבר בוואטסאפ",
+    secondary: "מה אני עושה",
   },
   services: {
     id: "services",
-    eyebrow: "שירותים",
-    title: "שירותים",
+    eyebrow: "מה אני עושה",
+    title: "אני לוקח את הצד הטכני. כולו.",
     items: [
       {
-        title: "הלקוחות מוצאים אותך",
+        title: "אתר שעונה לפני שמתקשרים",
         lines: [
-          "אתר שאומר מה אתה עושה, בלי שתסביר את זה שוב בטלפון.",
-          "הלקוח קורא, מבין, ושולח וואטסאפ.",
+          "מה אתה עושה, למי זה מתאים ואיך פונים: ברור מהשנייה הראשונה.",
+          "הלקוח קורא, מבין, ושולח הודעה.",
         ],
       },
       {
-        title: "הכול במקום אחד",
+        title: "מערכת שתפורה לעסק שלך",
         lines: [
-          "מערכת שנבנית לעסק שלך, לא תוכנה מן המוכן שמתאימים בכוח.",
-          "הזמנות, תשלומים ולקוחות יושבים במקום אחד.",
+          "לא תוכנה מהמדף שהעסק צריך להתאים את עצמו אליה, אלא מערכת שנבנית סביב הדרך שבה אתה כבר עובד.",
+          "הזמנות, לקוחות, תשלומים ומלאי, במסך אחד.",
         ],
       },
       {
-        title: "פחות עבודה ידנית",
-        lines: ["בוט קטן, או חיבור קטן, רק איפה שאתה חוזר על אותו דבר."],
+        title: "פחות העתק-הדבק",
+        lines: ["מה שאתה עושה ידנית כל יום, חיבור קטן או בוט יכולים לעשות במקומך."],
         quiet: true,
       },
       {
         title: "יש למי להתקשר",
         lines: [
-          "אחרי שזה עובד, אני נשאר.",
-          "נתקע משהו? מתקשרים. בלי \"תנסה לעשות ריסטרט\".",
+          "אני לא נעלם אחרי שהכול עולה.",
+          "נתקע משהו? מתקשרים אליי, לא למוקד. ובלי «תנסה לעשות ריסטרט».",
         ],
       },
     ],
   },
   process: {
     id: "process",
-    beats: ["מתקשרים.", "מספרים.", "אופס, זה כבר עובד."],
+    beats: ["שולחים הודעה.", "מספרים מה מציק.", "אופס, זה כבר עובד."],
   },
   examples: {
     id: "examples",
-    title: "לפני / אחרי",
+    title: "מכיר את זה?",
     labels: { before: "לפני", after: "אחרי" },
     items: [
       {
-        before: "מי שילם? רגע, אני בודק במחברת",
-        after: "פותחים את הטלפון ורואים",
+        before: "«מי שילם? רגע, אני מחפש במחברת.»",
+        after: "פותחים את הטלפון ורואים.",
       },
       {
-        before: "עסק בלי אתר",
-        after: "לקוחות שולחים וואטסאפ מהאתר",
+        before: "מסביר שוב בטלפון מה אתה עושה.",
+        after: "שולח קישור, וזהו.",
       },
       {
-        before: "הזמנות על פתקים",
-        after: "הכול במקום אחד",
+        before: "הזמנות על פתקים, ופתקים בכיסים.",
+        after: "כל ההזמנות במסך אחד.",
       },
       {
-        before: "לקוחות שוכחים תורים",
-        after: "תזכורת יוצאת לבד",
+        before: "סוף חודש הולך על ערב שלם של דוחות.",
+        after: "הדוח מוכן כשאתה צריך אותו.",
       },
     ],
   },
   about: {
     id: "about",
-    eyebrow: "אודות",
-    title: "אודות",
+    eyebrow: "מי אני",
+    title: "אני מכיר את העסק שלך מבפנים.",
     paragraphs: [
-      "אני שרוליק, מפתח תוכנה.",
-      "אני עושה את הטכנולוגיה בשבילכם, כדי שלא תצטרכו ללמוד אותה.",
+      "אני שרוליק שוודרון, מפתח תוכנה.",
+      "לפני הקוד ניהלתי עבודה בחברת שליחויות: עובדים, מחסן, דוחות, ובעצם כל מה שלא היה לו אחראי אחר.",
+      "מערכות זה לא תחביב אצלי, זו העבודה שלי, כל יום. ביום אני בונה מערכות גדולות שאנשים סומכים עליהן, ובשבילך אני בונה בדיוק כאלה, רק בגודל של העסק שלך.",
+      "שם ראיתי כמה זמן הולך על חיפוש בפתקים, על אקסל שאף אחד לא מבין ועל טלפון שמצלצל באמצע הכול.",
+      "היום אני בונה את הכלים שהיו חסרים לי אז. אתה מספר מה מציק, ואני כבר יודע איך זה נראה מבפנים ומה צריך לבנות.",
+      "בגובה העיניים, בלי מונחים, ובלי שתצטרך ללמוד שום דבר.",
     ],
   },
   contact: {
     id: "contact",
-    eyebrow: "פנייה",
-    title: "יצירת קשר",
-    subtitle: "וואטסאפ, או הטופס. מה שנוח לך.",
+    eyebrow: "נדבר?",
+    title: "ספר לי מה מציק. משם זה עליי.",
+    subtitle: "וואטסאפ או טופס, מה שנוח לך. כל פנייה מגיעה ישירות אליי.",
     whatsappTitle: "וואטסאפ",
-    whatsappBody: "אם יותר קל לדבר עכשיו.",
-    whatsappCta: "בואו נדבר",
-    briefTitle: "בשיחה",
-    briefItems: ["אתה מספר מה מציק", "אני אומר מה אפשר לעשות", "מחליטים אם מתחילים", "ואם כן, מתי"],
-    afterTitle: "אחרי הטופס",
-    after: "שולחים, ואני חוזר. אם יותר קל לדבר עכשיו, הוואטסאפ פתוח.",
+    whatsappBody: "הדרך הקצרה ביותר. כותבים שורה, ואני חוזר.",
+    whatsappCta: "פתיחת שיחה בוואטסאפ",
+    briefTitle: "מה קורה בשיחה הראשונה",
+    briefItems: [
+      "אתה מספר מה מציק",
+      "אני אומר בפשטות מה אפשר לעשות",
+      "מחליטים יחד אם ומתי מתחילים",
+    ],
+    afterTitle: "אחרי השליחה",
+    after: "הפנייה מגיעה ישירות אליי, ואני חוזר אליך. ממהר? הוואטסאפ פתוח.",
     nameLabel: "שם",
     phoneLabel: "טלפון",
     phoneHint: "לא חובה",
     emailLabel: "אימייל",
-    messageLabel: "הודעה",
+    messageLabel: "מה מציק?",
     submit: "שליחה",
-    sending: "שולח",
-    namePlaceholder: "השם",
-    phonePlaceholder: "טלפון",
-    emailPlaceholder: "אימייל",
-    messagePlaceholder: "תוכן הפנייה",
-    note: "אחזור אליך.",
-    successTitle: "אופס, זה כבר עובד ✓",
-    success: "אחזור אליך.",
-    successConfirmed: "אישור נשלח לאימייל. אחזור אליך.",
-    fallbackError: "השליחה נכשלה. נסו שוב.",
+    sending: "שולח…",
+    namePlaceholder: "איך לפנות אליך?",
+    phonePlaceholder: "מספר לחזרה",
+    emailPlaceholder: "כתובת לחזרה",
+    messagePlaceholder: "כמה מילים מספיקות. למשל: ההזמנות מתפזרות לי בין וואטסאפ לפתקים.",
+    note: "אני חוזר לכל פנייה.",
+    successTitle: "אופס, זה כבר עובד.",
+    success: "הפנייה אצלי. אחזור אליך בקרוב.",
+    successConfirmed: "הפנייה אצלי, ואישור נשלח למייל שלך. אחזור אליך בקרוב.",
+    fallbackError: "אופס, הפעם זה לא עבד. נסה שוב, או שלח לי וואטסאפ.",
     honeypot: "חברה",
   },
   footer: {
@@ -254,6 +267,7 @@ const he: Copy = {
     accessibility: "הצהרת נגישות",
     whatsapp: "וואטסאפ",
     phone: "טלפון",
+    credit: "נבנה ע״י שרוליק. מה חשבתם?",
   },
   a11y: {
     title: "נגישות",
@@ -265,7 +279,7 @@ const he: Copy = {
   notFound: {
     kicker: "404",
     title: "אופס, זה עוד לא עובד.",
-    line: "העמוד הזה אינו קיים.",
+    line: "העמוד הזה לא קיים, אבל דף הבית קיים.",
   },
   pages: {
     privacy: {
@@ -374,14 +388,14 @@ const he: Copy = {
     },
   ],
   api: {
-    tooLong: "הבקשה ארוכה מדי.",
-    invalid: "הבקשה אינה תקינה.",
-    name: "יש להזין שם.",
-    phone: "מספר הטלפון אינו תקין.",
-    email: "יש להזין אימייל תקין.",
-    message: "יש להזין את תוכן הפנייה.",
-    rate: "נשלחו פניות רבות. נסו שוב מאוחר יותר.",
-    send: "השליחה נכשלה. נסו שוב.",
+    tooLong: "ההודעה ארוכה מדי. אפשר לקצר, או להמשיך בוואטסאפ.",
+    invalid: "משהו בפנייה לא תקין. נסה שוב.",
+    name: "איך קוראים לך? חסר שם.",
+    phone: "המספר לא נראה תקין. כדאי לבדוק שוב.",
+    email: "כתובת המייל לא נראית תקינה.",
+    message: "כתוב בכמה מילים מה מציק.",
+    rate: "נשלחו הרבה פניות ברצף. נסה שוב בעוד כמה דקות.",
+    send: "אופס, הפעם זה לא עבד. נסה שוב, או שלח לי וואטסאפ.",
   },
   emails: {
     owner: {
@@ -392,24 +406,28 @@ const he: Copy = {
       site: "האתר",
     },
     visitor: {
-      subject: "הפנייה התקבלה",
-      title: "הפנייה התקבלה",
+      subject: "הפנייה שלך אצלי",
+      title: "הפנייה שלך אצלי",
       hello: "שלום",
-      body: "הפנייה התקבלה. אין צורך לשלוח אותה שוב.",
-      next: "נחזור אליכם.",
-      whatsapp: "לשיחה בוואטסאפ",
-      reply: "ניתן גם להשיב להודעה זו.",
+      body: "קיבלתי את הפנייה, אין צורך לשלוח אותה שוב.",
+      next: "אחזור אליך בקרוב.",
+      sign: "שרוליק",
+      whatsapp: "להמשך בוואטסאפ",
+      reply: "אפשר גם פשוט להשיב למייל הזה.",
     },
   },
 };
 
 const en: Copy = {
   meta: {
-    title: "Srulik | You have a business. I have the technical side.",
-    description: "You tell me what's bugging you, and I make sure it works. No tutorials, no jargon, and no \"try restarting it\".",
+    title: "Srulik | Websites and systems for businesses. Oops, it already works.",
+    description:
+      "Websites and custom systems built around your business, with support after launch. A developer who used to run workers, a warehouse, and reports, and knows business problems from the inside.",
+    socialTitle: "Srulik | What bugs you about your business is my next job.",
     siteName: "Srulik",
     locale: "en_US",
   },
+  whatsappPrefill: "Hi Srulik, I found you through the website. Something in my business is bugging me. Can we talk?",
   skip: "Skip to content",
   brand: "Srulik",
   navLabel: "Navigation",
@@ -418,120 +436,128 @@ const en: Copy = {
   menuClose: "Close menu",
   menuSr: "Menu",
   whatsappShort: "WhatsApp",
-  headerCta: { label: "Let's talk", short: "Talk" },
+  headerCta: { label: "Let's talk on WhatsApp", short: "Let's talk" },
   langLabel: "Language",
   nav: [
-    { id: "services", label: "Services" },
-    { id: "process", label: "The path" },
-    { id: "examples", label: "Before / after" },
-    { id: "about", label: "About" },
-    { id: "contact", label: "Contact" },
+    { id: "services", label: "What I do" },
+    { id: "process", label: "Getting started" },
+    { id: "examples", label: "Before & after" },
+    { id: "about", label: "Who I am" },
+    { id: "contact", label: "Talk to me" },
   ],
   hero: {
     eyebrow: "",
-    headline: "You have a business. I have the technical side.",
-    line: "You tell me what's bugging you, and I make sure it works. No tutorials, no jargon, and no \"try restarting it\".",
+    headline: "What bugs you about your business is my next job.",
+    line: "I've managed workers, a warehouse, and reports. Today I'm a full-time systems developer. I bring both worlds to your business.",
     aside: "Oops, it already works.",
-    primary: "Let's talk",
-    secondary: "Services",
+    primary: "Let's talk on WhatsApp",
+    secondary: "What I do",
   },
   services: {
     id: "services",
-    eyebrow: "Services",
-    title: "Services",
+    eyebrow: "What I do",
+    title: "I take the technical side. All of it.",
     items: [
       {
-        title: "Customers find you",
+        title: "A site that answers before they call",
         lines: [
-          "A site that says what you do, so you don't explain it again on the phone.",
-          "They read it, they get it, they send a WhatsApp.",
+          "What you do, who it's for, and how to reach you, clear in a second.",
+          "They read it, get it, and send a message.",
         ],
       },
       {
-        title: "Everything in one place",
+        title: "A system made for your business",
         lines: [
-          "A system built for your business, not a ready-made tool we force to fit.",
-          "Orders, payments, and customers sit in one place.",
+          "Not off-the-shelf software you bend to fit, but one built around how you already work.",
+          "Orders, customers, payments, and stock on one screen.",
         ],
       },
       {
-        title: "Less work by hand",
-        lines: ["A small bot, or a small connection, only where you keep repeating yourself."],
+        title: "Less copy-paste",
+        lines: ["The things you do by hand every day, a small connection or bot can do for you."],
         quiet: true,
       },
       {
         title: "Someone to call",
         lines: [
-          "After it works, I stay.",
-          "Something stuck? You call. No \"try restarting it\".",
+          "I don't vanish after launch.",
+          "Stuck? You call me, not a call center. And no \"try restarting it.\"",
         ],
       },
     ],
   },
   process: {
     id: "process",
-    beats: ["You call.", "You tell me.", "Oops, it already works."],
+    beats: ["Send a message.", "Tell me what's bugging you.", "Oops, it already works."],
   },
   examples: {
     id: "examples",
-    title: "Before / after",
+    title: "Sound familiar?",
     labels: { before: "Before", after: "After" },
     items: [
       {
-        before: "Who paid? Hang on, I'm checking the notebook",
-        after: "You open the phone and see",
+        before: "\"Who paid? Hang on, checking the notebook.\"",
+        after: "Open your phone and see.",
       },
       {
-        before: "A business with no website",
-        after: "Customers send a WhatsApp from the site",
+        before: "Explaining again on the phone what you do.",
+        after: "Send a link, done.",
       },
       {
-        before: "Orders on scraps of paper",
-        after: "Everything in one place",
+        before: "Orders on notes, notes in pockets.",
+        after: "Every order on one screen.",
       },
       {
-        before: "Customers forgetting appointments",
-        after: "A reminder goes out on its own",
+        before: "End of month means a whole evening of reports.",
+        after: "The report's ready when you need it.",
       },
     ],
   },
   about: {
     id: "about",
-    eyebrow: "About",
-    title: "About",
+    eyebrow: "Who I am",
+    title: "I know your business from the inside.",
     paragraphs: [
-      "I'm Srulik, a software developer.",
-      "I do the technology for you, so you don't have to learn it.",
+      "I'm Srulik Shvadron, a software developer.",
+      "Before code, I was a work manager at a courier company: workers, a warehouse, reports, and pretty much anything nobody else owned.",
+      "Systems aren't a hobby for me, they're my job, every day. By day I build large systems people rely on, and for you I build exactly that, sized for your business.",
+      "I saw how much time goes on digging through notes, on spreadsheets nobody understands, and on a phone that rings in the middle of everything.",
+      "Now I build the tools I was missing back then. You tell me what's bugging you, and I already know what it looks like from the inside and what needs building.",
+      "Straight talk, no jargon, nothing for you to learn.",
     ],
   },
   contact: {
     id: "contact",
-    eyebrow: "Inquiry",
-    title: "Contact",
-    subtitle: "WhatsApp, or the form. Whichever is easier.",
+    eyebrow: "Let's talk?",
+    title: "Tell me what's bugging you. I'll take it from there.",
+    subtitle: "WhatsApp or the form, whichever is easier. Every message comes straight to me.",
     whatsappTitle: "WhatsApp",
-    whatsappBody: "If it's easier to talk now.",
-    whatsappCta: "Let's talk",
-    briefTitle: "On the call",
-    briefItems: ["You tell me what's bugging you", "I say what we can do", "We decide if we start", "And if we do, when"],
-    afterTitle: "After the form",
-    after: "You send it, and I get back to you. If it's easier to talk now, WhatsApp is open.",
+    whatsappBody: "The shortest way. Write a line, and I'll get back to you.",
+    whatsappCta: "Open a WhatsApp chat",
+    briefTitle: "What happens on the first call",
+    briefItems: [
+      "You tell me what's bugging you",
+      "I tell you plainly what can be done",
+      "We decide together if and when to start",
+    ],
+    afterTitle: "After you send",
+    after: "Every message comes straight to me, and I'll get back to you. In a hurry? WhatsApp is open.",
     nameLabel: "Name",
     phoneLabel: "Phone",
     phoneHint: "Optional",
     emailLabel: "Email",
-    messageLabel: "Message",
+    messageLabel: "What's bugging you?",
     submit: "Send",
-    sending: "Sending",
-    namePlaceholder: "Your name",
-    phonePlaceholder: "Phone",
-    emailPlaceholder: "Email",
-    messagePlaceholder: "Your message",
-    note: "I'll get back to you.",
-    successTitle: "Oops, it already works ✓",
-    success: "I'll get back to you.",
-    successConfirmed: "A confirmation went to your email. I'll get back to you.",
-    fallbackError: "The message could not be sent. Please try again.",
+    sending: "Sending…",
+    namePlaceholder: "What should I call you?",
+    phonePlaceholder: "Number to call back",
+    emailPlaceholder: "Where to reply",
+    messagePlaceholder: "A few words is enough. For example: my orders are scattered between WhatsApp and notes.",
+    note: "I reply to every message.",
+    successTitle: "Oops, it already works.",
+    success: "Got it. I'll get back to you soon.",
+    successConfirmed: "Got it, and a confirmation is in your inbox. I'll get back to you soon.",
+    fallbackError: "Oops, that didn't go through. Try again, or WhatsApp me.",
     honeypot: "Company",
   },
   footer: {
@@ -544,6 +570,7 @@ const en: Copy = {
     accessibility: "Accessibility statement",
     whatsapp: "WhatsApp",
     phone: "Phone",
+    credit: "Built by Srulik. Naturally.",
   },
   a11y: {
     title: "Accessibility",
@@ -555,7 +582,7 @@ const en: Copy = {
   notFound: {
     kicker: "404",
     title: "Oops, this doesn't work yet.",
-    line: "This page does not exist.",
+    line: "This page doesn't exist, but the home page does.",
   },
   pages: {
     privacy: {
@@ -579,7 +606,7 @@ const en: Copy = {
       intro: "We work so the site can be used by people with disabilities.",
       updated: "Updated: November 2026",
     },
-    back: "Back to the home page",
+    back: "Back to home",
   },
   privacy: [
     {
@@ -666,14 +693,14 @@ const en: Copy = {
     },
   ],
   api: {
-    tooLong: "The request is too long.",
-    invalid: "The request is not valid.",
-    name: "Please enter a name.",
-    phone: "The phone number is not valid.",
-    email: "Please enter a valid email address.",
-    message: "Please enter a message.",
-    rate: "Too many messages. Please try again later.",
-    send: "The message could not be sent. Please try again.",
+    tooLong: "That's a bit long. Shorten it, or continue on WhatsApp.",
+    invalid: "Something in the form isn't right. Please try again.",
+    name: "What's your name?",
+    phone: "That number doesn't look right.",
+    email: "That email doesn't look right.",
+    message: "Tell me in a few words what's bugging you.",
+    rate: "Too many messages in a row. Try again in a few minutes.",
+    send: "Oops, that didn't go through. Try again, or WhatsApp me.",
   },
   emails: {
     owner: {
@@ -684,13 +711,14 @@ const en: Copy = {
       site: "Website",
     },
     visitor: {
-      subject: "We received your message",
-      title: "Message received",
+      subject: "Your message is with me",
+      title: "Your message is with me",
       hello: "Hello",
-      body: "We received your message. You do not need to send it again.",
-      next: "We will get back to you.",
-      whatsapp: "Message on WhatsApp",
-      reply: "You can also reply to this email.",
+      body: "I got your message, no need to send it again.",
+      next: "I'll get back to you soon.",
+      sign: "Srulik",
+      whatsapp: "Continue on WhatsApp",
+      reply: "You can also just reply to this email.",
     },
   },
 };

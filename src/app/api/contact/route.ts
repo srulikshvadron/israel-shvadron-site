@@ -150,7 +150,7 @@ export async function POST(request: Request) {
       const visitorMail = visitorConfirmationEmail({
         name,
         siteUrl,
-        whatsappUrl: whatsappHref(),
+        whatsappUrl: whatsappHref(getCopy(locale).whatsappPrefill),
         locale,
       });
       try {

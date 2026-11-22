@@ -13,11 +13,6 @@ export function JsonLd({ locale }: { locale: Locale }) {
     description: copy.meta.description,
     inLanguage: locale,
     areaServed: "IL",
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: locale === "he" ? operator.localityHe : operator.localityEn,
-      addressCountry: "IL",
-    },
     founder: {
       "@type": "Person",
       name: locale === "he" ? operator.personHe : operator.personEn,

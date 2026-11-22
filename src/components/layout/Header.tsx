@@ -15,7 +15,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const scaleRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname() || "/";
   const home = pathForLocale(locale, "/");
-  const whatsapp = whatsappHref();
+  const whatsapp = whatsappHref(copy.whatsappPrefill);
 
   useEffect(() => {
     const node = scaleRef.current;

@@ -133,13 +133,15 @@ export function visitorConfirmationEmail(input: VisitorEmailInput): RenderedEmai
   const subject = `${mail.subject} — ${brand}`;
   const whatsappBlock = input.whatsappUrl
     ? `<p style="margin:18px 0 0;">${button(input.whatsappUrl, mail.whatsapp)}</p>`
-    : `<p style="margin:18px 0 0;">${escapeHtml(mail.reply)}</p>`;
+    : "";
   const html = shell(
     mail.title,
     `<p style="margin:0 0 12px;">${escapeHtml(mail.hello)} ${escapeHtml(safeName)},</p>
     <p style="margin:0 0 12px;">${escapeHtml(mail.body)}</p>
-    <p style="margin:0;">${escapeHtml(mail.next)}</p>
+    <p style="margin:0 0 12px;">${escapeHtml(mail.next)}</p>
+    <p style="margin:0;">${escapeHtml(mail.sign)}</p>
     ${whatsappBlock}
+    <p style="margin:18px 0 0;font-size:13px;color:#5d7084;">${escapeHtml(mail.reply)}</p>
     <p style="margin:18px 0 0;font-size:13px;color:#5d7084;"><a href="${escapeHtml(input.siteUrl)}" style="color:#0f766e;">${escapeHtml(input.siteUrl)}</a></p>`,
     input.locale,
   );
@@ -148,7 +150,10 @@ export function visitorConfirmationEmail(input: VisitorEmailInput): RenderedEmai
     "",
     mail.body,
     mail.next,
-    input.whatsappUrl ? `${mail.whatsapp}: ${input.whatsappUrl}` : mail.reply,
+    mail.sign,
+    "",
+    input.whatsappUrl ? `${mail.whatsapp}: ${input.whatsappUrl}` : "",
+    mail.reply,
     "",
     input.siteUrl,
     "",

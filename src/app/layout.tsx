@@ -63,7 +63,7 @@ export default async function RootLayout({
           labels={copy.a11y}
           statementHref={pathForLocale(locale, "/accessibility")}
         />
-        <WhatsAppFloat label={copy.whatsappShort} />
+        <WhatsAppFloat label={copy.whatsappShort} prefill={copy.whatsappPrefill} />
       </body>
     </html>
   );

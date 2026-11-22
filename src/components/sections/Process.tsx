@@ -11,6 +11,12 @@ export function Process({ copy }: { copy: Copy }) {
           {process.beats.map((beat, index) => (
             <span key={beat} className={index === process.beats.length - 1 ? "is-punch" : undefined}>
               {beat}
+              {index < process.beats.length - 1 ? (
+                <span className="process-sep" aria-hidden="true">
+                  {" "}
+                  ·
+                </span>
+              ) : null}
             </span>
           ))}
         </h2>

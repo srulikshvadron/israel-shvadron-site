@@ -1,7 +1,7 @@
 import { whatsappHref } from "@/lib/contact";
 
-export function WhatsAppFloat({ label }: { label: string }) {
-  const href = whatsappHref();
+export function WhatsAppFloat({ label, prefill }: { label: string; prefill: string }) {
+  const href = whatsappHref(prefill);
   if (!href) return null;
 
   return (

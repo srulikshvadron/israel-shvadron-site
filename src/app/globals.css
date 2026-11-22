@@ -717,8 +717,14 @@ header .brand-logo {
   color: var(--fg);
 }
 
-.process-strip span.is-punch {
+.process-strip span.is-punch,
+.process-strip span.process-sep {
   color: var(--accent);
+}
+
+.process-strip span.process-sep {
+  font-size: 1.35rem;
+  font-weight: 400;
 }
 
 .section-heading {
