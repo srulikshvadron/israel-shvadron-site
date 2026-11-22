@@ -9,7 +9,7 @@ export function Services({ copy }: { copy: Copy }) {
       <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2">
         {services.items.map((item, index) => (
           <Reveal key={item.title} delay={index * 90}>
-            <li className="studio-card">
+            <li className={item.quiet ? "studio-card studio-card-quiet" : "studio-card"}>
               <h3 className="font-display text-xl font-semibold text-fg">{item.title}</h3>
               {item.lines.map((line) => (
                 <p key={line} className="mt-3 leading-relaxed text-muted">

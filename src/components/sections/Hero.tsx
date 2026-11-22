@@ -25,7 +25,7 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
             <span className="heading-dot" aria-hidden="true" />
             {copy.hero.headline}
           </h1>
-          <p className="animate-fade-up-delay mt-6 max-w-2xl font-display text-2xl font-medium leading-snug text-fg sm:text-3xl">
+          <p className="animate-fade-up-delay mt-6 max-w-2xl text-lg leading-relaxed text-fg/90 sm:text-xl">
             {copy.hero.line}
           </p>
           <p className="animate-fade-up-delay mt-4 text-sm font-medium text-accent">{copy.hero.aside}</p>

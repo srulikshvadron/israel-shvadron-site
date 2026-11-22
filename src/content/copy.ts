@@ -26,20 +26,17 @@ export type Copy = {
     id: string;
     eyebrow: string;
     title: string;
-    items: { title: string; lines: [string, string] }[];
+    items: { title: string; lines: string[]; quiet?: boolean }[];
   };
   process: {
     id: string;
-    eyebrow: string;
-    title: string;
-    steps: { title: string; line: string }[];
+    beats: [string, string, string];
   };
   examples: {
     id: string;
-    eyebrow: string;
     title: string;
-    labels: { problem: string; solution: string; result: string };
-    items: { title: string; problem: string; solution: string; result: string }[];
+    labels: { before: string; after: string };
+    items: { before: string; after: string }[];
   };
   about: { id: string; eyebrow: string; title: string; paragraphs: string[] };
   contact: {
@@ -118,8 +115,8 @@ export type Copy = {
 
 const he: Copy = {
   meta: {
-    title: "שרוליק | אתרים, בוטים ומערכות לעסקים",
-    description: "אתרים, בוטים ומערכות לעסקים. את העבודה אנו מבצעים עבורכם.",
+    title: "שרוליק | יש לך עסק. לי יש את הצד הטכני.",
+    description: "אתה מספר לי מה מציק, ואני דואג שזה יעבוד. בלי הדרכות, בלי מונחים ובלי \"תנסה לעשות ריסטרט\".",
     siteName: "שרוליק",
     locale: "he_IL",
   },
@@ -135,15 +132,15 @@ const he: Copy = {
   langLabel: "שפה",
   nav: [
     { id: "services", label: "שירותים" },
-    { id: "process", label: "איך זה עובד" },
-    { id: "examples", label: "דוגמאות" },
+    { id: "process", label: "הדרך" },
+    { id: "examples", label: "לפני ואחרי" },
     { id: "about", label: "אודות" },
     { id: "contact", label: "יצירת קשר" },
   ],
   hero: {
     eyebrow: "",
-    headline: "אתרים ובוטים לעסקים",
-    line: "אתם מציגים את הבעיה, אנחנו מוצאים את הפתרון.",
+    headline: "יש לך עסק. לי יש את הצד הטכני.",
+    line: "אתה מספר לי מה מציק, ואני דואג שזה יעבוד. בלי הדרכות, בלי מונחים ובלי \"תנסה לעשות ריסטרט\".",
     aside: "אופס, זה כבר עובד.",
     primary: "בואו נדבר",
     secondary: "לשירותים",
@@ -154,75 +151,57 @@ const he: Copy = {
     title: "שירותים",
     items: [
       {
-        title: "אתרים",
+        title: "הלקוחות מוצאים אותך",
         lines: [
-          "אתר קצר שמסביר מה אתם עושים, ומוביל לפנייה.",
-          "מי שמגיע מבין את השירות, ואתם מקבלים פנייה מסודרת.",
+          "אתר שאומר מה אתה עושה, בלי שתסביר את זה שוב בטלפון.",
+          "הלקוח קורא, מבין, ושולח וואטסאפ.",
         ],
       },
       {
-        title: "בוטים לוואטסאפ",
+        title: "הכול במקום אחד",
         lines: [
-          "מענה אוטומטי לשאלות שחוזרות, ושליחת הודעות ועדכוני סטטוס.",
-          "פחות תשובות ביד, ויותר פניות שמקבלות מענה.",
+          "מערכת שנבנית לעסק שלך, לא תוכנה מן המוכן שמתאימים בכוח.",
+          "הזמנות, תשלומים ולקוחות יושבים במקום אחד.",
         ],
       },
       {
-        title: "אוטומציה",
-        lines: [
-          "חיבור בין טפסים, דוא״ל ווואטסאפ.",
-          "מה שנכנס במקום אחד ממשיך הלאה, בלי להעתיק ביד.",
-        ],
+        title: "פחות עבודה ידנית",
+        lines: ["בוט קטן, או חיבור קטן, רק איפה שאתה חוזר על אותו דבר."],
+        quiet: true,
       },
       {
-        title: "מערכות מותאמות אישית",
+        title: "יש למי להתקשר",
         lines: [
-          "מערכת ניהול או חיבור בין מערכות, לפי העבודה אצלכם.",
-          "מקום אחד לעבודה, במקום גיליונות וקבצים מפוזרים.",
+          "אחרי שזה עובד, אני נשאר.",
+          "נתקע משהו? מתקשרים. בלי \"תנסה לעשות ריסטרט\".",
         ],
       },
     ],
   },
   process: {
     id: "process",
-    eyebrow: "הדרך",
-    title: "איך זה עובד",
-    steps: [
-      { title: "מבינים את הצורך", line: "קודם שומעים מה מפריע ביום־יום, ורק אחר כך מדברים על כלים." },
-      { title: "מתכננים פתרון", line: "בוחרים את הדרך הפשוטה שפותרת את זה, ומגדירים מה נבנה." },
-      { title: "בונים בשקיפות", line: "אתם רואים את ההתקדמות. בלי הפתעות, ובלי שפה סגורה." },
-      { title: "מעלים לאוויר וממשיכים ללוות", line: "אחרי העלייה לאוויר אני נשאר, עד שזה רץ אצלכם." },
-    ],
+    beats: ["מתקשרים.", "מספרים.", "אופס, זה כבר עובד."],
   },
   examples: {
     id: "examples",
-    eyebrow: "מצבים",
-    title: "מבעיה לתוצאה",
-    labels: { problem: "הבעיה", solution: "הפתרון", result: "התוצאה" },
+    title: "לפני / אחרי",
+    labels: { before: "לפני", after: "אחרי" },
     items: [
       {
-        title: "אתר",
-        problem: "אין מקום ברור ברשת, והפניות מגיעות רק בטלפון.",
-        solution: "אתר קצר שמסביר את השירות ומוביל לפנייה.",
-        result: "מי שמחפש אתכם מבין מה אתם עושים, ויכול לפנות.",
+        before: "מי שילם? רגע, אני בודק במחברת",
+        after: "פותחים את הטלפון ורואים",
       },
       {
-        title: "בוט לוואטסאפ",
-        problem: "אותן שאלות חוזרות בוואטסאפ, ועונים להן ביד.",
-        solution: "בוט שעונה על השאלות הקבועות, ושולח עדכון כשצריך.",
-        result: "פחות הודעות חוזרות, וזמן פנוי לפניות שצריכות אדם.",
+        before: "עסק בלי אתר",
+        after: "לקוחות שולחים וואטסאפ מהאתר",
       },
       {
-        title: "אוטומציה",
-        problem: "פרטים עוברים ביד מטופס לדוא״ל ולוואטסאפ.",
-        solution: "חיבור שמעביר את הפנייה הלאה ברגע שהיא נכנסת.",
-        result: "פחות העתקה, ופחות פניות שהולכות לאיבוד.",
+        before: "הזמנות על פתקים",
+        after: "הכול במקום אחד",
       },
       {
-        title: "מערכת",
-        problem: "העבודה מפוזרת בגיליונות, וקשה לראות מה המצב.",
-        solution: "מערכת קטנה לפי תהליך העבודה אצלכם.",
-        result: "מקום אחד לעבודה, במקום לחפש בין קבצים.",
+        before: "לקוחות שוכחים תורים",
+        after: "תזכורת יוצאת לבד",
       },
     ],
   },
@@ -231,24 +210,22 @@ const he: Copy = {
     eyebrow: "אודות",
     title: "אודות",
     paragraphs: [
-      "אני שרוליק שוודרון, מפתח תוכנה.",
-      "בעלי עסקים רבים יודעים שטכנולוגיה יכולה לחסוך להם זמן, אך אין להם פנאי ללמוד אותה.",
-      "לשם כך אני כאן: מקים עבורם אתרים, בוטים ואוטומציות, ומלווה אותם גם לאחר העלייה לאוויר.",
-      "אתם מתמקדים בעסק, ואני מטפל בצד הטכנולוגי.",
+      "אני שרוליק, מפתח תוכנה.",
+      "אני עושה את הטכנולוגיה בשבילכם, כדי שלא תצטרכו ללמוד אותה.",
     ],
   },
   contact: {
     id: "contact",
     eyebrow: "פנייה",
     title: "יצירת קשר",
-    subtitle: "ניתן לכתוב בוואטסאפ, או להשאיר פנייה בטופס.",
+    subtitle: "וואטסאפ, או הטופס. מה שנוח לך.",
     whatsappTitle: "וואטסאפ",
-    whatsappBody: "לפנייה ישירה.",
-    whatsappCta: "כתבו בוואטסאפ",
-    briefTitle: "בשיחה הראשונה",
-    briefItems: ["נכיר את הצורך", "נגדיר מטרה", "נציע פתרון", "נקבע צעד הבא"],
-    afterTitle: "אחרי השליחה",
-    after: "אחרי שליחת הטופס אחזור אליכם. אם נוח יותר, אפשר לכתוב בוואטסאפ עכשיו.",
+    whatsappBody: "אם יותר קל לדבר עכשיו.",
+    whatsappCta: "בואו נדבר",
+    briefTitle: "בשיחה",
+    briefItems: ["אתה מספר מה מציק", "אני אומר מה אפשר לעשות", "מחליטים אם מתחילים", "ואם כן, מתי"],
+    afterTitle: "אחרי הטופס",
+    after: "שולחים, ואני חוזר. אם יותר קל לדבר עכשיו, הוואטסאפ פתוח.",
     nameLabel: "שם",
     phoneLabel: "טלפון",
     phoneHint: "לא חובה",
@@ -260,10 +237,10 @@ const he: Copy = {
     phonePlaceholder: "טלפון",
     emailPlaceholder: "אימייל",
     messagePlaceholder: "תוכן הפנייה",
-    note: "נחזור אליכם.",
+    note: "אחזור אליך.",
     successTitle: "אופס, זה כבר עובד ✓",
-    success: "נחזור אליכם.",
-    successConfirmed: "אישור נשלח לאימייל. נחזור אליכם.",
+    success: "אחזור אליך.",
+    successConfirmed: "אישור נשלח לאימייל. אחזור אליך.",
     fallbackError: "השליחה נכשלה. נסו שוב.",
     honeypot: "חברה",
   },
@@ -428,8 +405,8 @@ const he: Copy = {
 
 const en: Copy = {
   meta: {
-    title: "Srulik | Websites, bots and systems for businesses",
-    description: "Websites, bots and systems for businesses. We do the work for you.",
+    title: "Srulik | You have a business. I have the technical side.",
+    description: "You tell me what's bugging you, and I make sure it works. No tutorials, no jargon, and no \"try restarting it\".",
     siteName: "Srulik",
     locale: "en_US",
   },
@@ -445,15 +422,15 @@ const en: Copy = {
   langLabel: "Language",
   nav: [
     { id: "services", label: "Services" },
-    { id: "process", label: "How it works" },
-    { id: "examples", label: "Examples" },
+    { id: "process", label: "The path" },
+    { id: "examples", label: "Before / after" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
   ],
   hero: {
     eyebrow: "",
-    headline: "Websites and bots for businesses",
-    line: "You bring the problem. We find the solution.",
+    headline: "You have a business. I have the technical side.",
+    line: "You tell me what's bugging you, and I make sure it works. No tutorials, no jargon, and no \"try restarting it\".",
     aside: "Oops, it already works.",
     primary: "Let's talk",
     secondary: "Services",
@@ -464,75 +441,57 @@ const en: Copy = {
     title: "Services",
     items: [
       {
-        title: "Websites",
+        title: "Customers find you",
         lines: [
-          "A short site that explains what you do, and leads to an inquiry.",
-          "People understand the service, and you get a clear inquiry.",
+          "A site that says what you do, so you don't explain it again on the phone.",
+          "They read it, they get it, they send a WhatsApp.",
         ],
       },
       {
-        title: "WhatsApp bots",
+        title: "Everything in one place",
         lines: [
-          "Automatic replies to questions that repeat, plus messages and status updates.",
-          "Less answering by hand, and more inquiries that get a reply.",
+          "A system built for your business, not a ready-made tool we force to fit.",
+          "Orders, payments, and customers sit in one place.",
         ],
       },
       {
-        title: "Automation",
-        lines: [
-          "Forms, email, and WhatsApp, connected.",
-          "What comes in one place continues on, without copying by hand.",
-        ],
+        title: "Less work by hand",
+        lines: ["A small bot, or a small connection, only where you keep repeating yourself."],
+        quiet: true,
       },
       {
-        title: "Custom systems",
+        title: "Someone to call",
         lines: [
-          "A management system, or a link between systems, built around your work.",
-          "One place to work, instead of scattered spreadsheets and files.",
+          "After it works, I stay.",
+          "Something stuck? You call. No \"try restarting it\".",
         ],
       },
     ],
   },
   process: {
     id: "process",
-    eyebrow: "The path",
-    title: "How it works",
-    steps: [
-      { title: "Understand the need", line: "First I listen to what gets in the way of the day, and only then we talk about tools." },
-      { title: "Plan the solution", line: "We choose the simple path that solves it, and define what gets built." },
-      { title: "Build in the open", line: "You see the progress. No surprises, and no closed language." },
-      { title: "Launch and stay", line: "After launch I stay, until it runs in your day." },
-    ],
+    beats: ["You call.", "You tell me.", "Oops, it already works."],
   },
   examples: {
     id: "examples",
-    eyebrow: "Situations",
-    title: "From problem to result",
-    labels: { problem: "Problem", solution: "Solution", result: "Result" },
+    title: "Before / after",
+    labels: { before: "Before", after: "After" },
     items: [
       {
-        title: "Website",
-        problem: "There is no clear place online, and inquiries come only by phone.",
-        solution: "A short site that explains the service and leads to an inquiry.",
-        result: "People who look for you understand what you do, and can get in touch.",
+        before: "Who paid? Hang on, I'm checking the notebook",
+        after: "You open the phone and see",
       },
       {
-        title: "WhatsApp bot",
-        problem: "The same WhatsApp questions come back, and someone answers them by hand.",
-        solution: "A bot that answers the fixed questions, and sends an update when needed.",
-        result: "Fewer repeated messages, and time left for inquiries that need a person.",
+        before: "A business with no website",
+        after: "Customers send a WhatsApp from the site",
       },
       {
-        title: "Automation",
-        problem: "Details move by hand from a form to email and WhatsApp.",
-        solution: "A connection that passes the inquiry on as soon as it arrives.",
-        result: "Less copying, and fewer inquiries that get lost.",
+        before: "Orders on scraps of paper",
+        after: "Everything in one place",
       },
       {
-        title: "System",
-        problem: "The work is spread across spreadsheets, and it is hard to see the status.",
-        solution: "A small system built around how you work.",
-        result: "One place to work, instead of searching through files.",
+        before: "Customers forgetting appointments",
+        after: "A reminder goes out on its own",
       },
     ],
   },
@@ -541,24 +500,22 @@ const en: Copy = {
     eyebrow: "About",
     title: "About",
     paragraphs: [
-      "I'm Srulik Shvadron, a software developer.",
-      "Many business owners know technology can save them time, but have no time to learn it.",
-      "That's where I come in: I build websites, bots, and automations for them, and stay with them after launch.",
-      "You focus on your business; I handle the technology.",
+      "I'm Srulik, a software developer.",
+      "I do the technology for you, so you don't have to learn it.",
     ],
   },
   contact: {
     id: "contact",
     eyebrow: "Inquiry",
     title: "Contact",
-    subtitle: "Write on WhatsApp, or leave a message in the form.",
+    subtitle: "WhatsApp, or the form. Whichever is easier.",
     whatsappTitle: "WhatsApp",
-    whatsappBody: "For a direct message.",
-    whatsappCta: "Message on WhatsApp",
-    briefTitle: "In the first conversation",
-    briefItems: ["We learn the need", "We set a goal", "I suggest a solution", "We agree the next step"],
-    afterTitle: "After you send",
-    after: "After the form is sent, I get back to you. If it is easier, you can write on WhatsApp now.",
+    whatsappBody: "If it's easier to talk now.",
+    whatsappCta: "Let's talk",
+    briefTitle: "On the call",
+    briefItems: ["You tell me what's bugging you", "I say what we can do", "We decide if we start", "And if we do, when"],
+    afterTitle: "After the form",
+    after: "You send it, and I get back to you. If it's easier to talk now, WhatsApp is open.",
     nameLabel: "Name",
     phoneLabel: "Phone",
     phoneHint: "Optional",
@@ -570,10 +527,10 @@ const en: Copy = {
     phonePlaceholder: "Phone",
     emailPlaceholder: "Email",
     messagePlaceholder: "Your message",
-    note: "We will get back to you.",
+    note: "I'll get back to you.",
     successTitle: "Oops, it already works ✓",
-    success: "We will get back to you.",
-    successConfirmed: "A confirmation was sent to your email. We will get back to you.",
+    success: "I'll get back to you.",
+    successConfirmed: "A confirmation went to your email. I'll get back to you.",
     fallbackError: "The message could not be sent. Please try again.",
     honeypot: "Company",
   },

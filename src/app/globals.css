@@ -698,6 +698,29 @@ header .brand-logo {
   }
 }
 
+.process-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.process-strip span {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.65rem, 3.2vw, 2.75rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.process-strip span.is-punch {
+  color: var(--accent);
+}
+
 .section-heading {
   display: flex;
   align-items: center;
