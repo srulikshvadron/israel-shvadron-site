@@ -16,6 +16,7 @@ export function createMetadata(
 ): Metadata {
   const copy = getCopy(locale);
   const pageTitle = title ? `${title} | ${copy.meta.siteName}` : copy.meta.title;
+  const socialTitle = title ? pageTitle : copy.meta.socialTitle;
   const pageDescription = description ?? copy.meta.description;
   const canonicalPath = pathForLocale(locale, path);
   const url = new URL(canonicalPath, siteConfig.url).toString();
@@ -35,6 +36,7 @@ export function createMetadata(
       languages: {
         he: heUrl,
         en: enUrl,
+        "x-default": heUrl,
       },
     },
     openGraph: {
@@ -42,7 +44,7 @@ export function createMetadata(
       locale: copy.meta.locale,
       url,
       siteName: copy.meta.siteName,
-      title: pageTitle,
+      title: socialTitle,
       description: pageDescription,
       images: [
         {
@@ -55,7 +57,7 @@ export function createMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title: pageTitle,
+      title: socialTitle,
       description: pageDescription,
       images: ["/brand/logo-square.png"],
     },

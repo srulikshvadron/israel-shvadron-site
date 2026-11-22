@@ -7,7 +7,7 @@ import { whatsappHref } from "@/lib/contact";
 
 export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
   const servicesHref = `${pathForLocale(locale, "/")}#services`;
-  const whatsapp = whatsappHref();
+  const whatsapp = whatsappHref(copy.whatsappPrefill);
 
   return (
     <section aria-labelledby="hero-heading" className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">
@@ -16,7 +16,7 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
       <Container className="relative z-[2] flex min-h-[calc(100svh-4rem)] flex-col justify-center py-16 pb-28 sm:py-28">
         <div className="max-w-3xl">
           {copy.hero.eyebrow ? (
-            <p className="animate-fade-up flex items-center gap-3 text-sm font-medium tracking-wide text-accent">
+            <p className="animate-fade-up mb-5 flex items-center gap-3 text-base font-medium tracking-wide text-accent">
               <span aria-hidden className="h-px w-8 bg-accent/80" />
               {copy.hero.eyebrow}
             </p>
@@ -28,7 +28,7 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
           <p className="animate-fade-up-delay mt-6 max-w-2xl text-lg leading-relaxed text-fg/90 sm:text-xl">
             {copy.hero.line}
           </p>
-          <p className="animate-fade-up-delay mt-4 text-sm font-medium text-accent">{copy.hero.aside}</p>
+          <p className="animate-fade-up-delay mt-4 text-base font-semibold text-accent">{copy.hero.aside}</p>
           <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Button
               href={whatsapp ?? `${pathForLocale(locale, "/")}#contact`}

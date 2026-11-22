@@ -44,7 +44,7 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
               </Link>
             ))}
           </nav>
-          <BuiltByBadge locale={locale} />
+          <BuiltByBadge locale={locale} label={copy.footer.credit} />
           <p className="text-sm text-muted">
             © {year} {copy.brand}. {copy.footer.rights}
           </p>

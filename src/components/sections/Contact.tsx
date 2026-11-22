@@ -6,7 +6,8 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { PulseDot } from "@/components/brand/PulseDot";
 import { Button } from "@/components/ui/Button";
-import { whatsappHref } from "@/lib/contact";
+import { Icon } from "@/components/ui/Icon";
+import { phoneHref, publicPhone, whatsappHref } from "@/lib/contact";
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
@@ -14,7 +15,8 @@ const fieldClass = "field";
 
 export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   const contact = copy.contact;
-  const whatsapp = whatsappHref();
+  const whatsapp = whatsappHref(copy.whatsappPrefill);
+  const phoneNumber = publicPhone();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -25,8 +27,15 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   const [confirmationSent, setConfirmationSent] = useState(false);
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setStatus("loading");
     setErrorMessage("");
+
+    if (!phone.trim() && !email.trim()) {
+      setStatus("error");
+      setErrorMessage(copy.api.contact);
+      return;
+    }
+
+    setStatus("loading");
 
     try {
       const response = await fetch("/api/contact", {
@@ -65,31 +74,69 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
   return (
     <Section
       id={contact.id}
+      eyebrow={contact.eyebrow}
       title={contact.title}
       subtitle={contact.subtitle}
       className="border-t border-line"
     >
+      <Reveal className="mb-10">
+        <ul className="grid gap-4 md:grid-cols-3">
+          {contact.trust.map((item) => (
+            <li key={item.title} className="trust-item">
+              <span className="icon-badge" aria-hidden="true">
+                <Icon name={item.icon} />
+              </span>
+              <div>
+                <h3 className="font-display text-lg font-semibold text-fg">{item.title}</h3>
+                <p className="mt-1 text-[1.0625rem] leading-relaxed text-muted">{item.text}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </Reveal>
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <Reveal>
-          <div className="studio-card studio-card-quiet">
-            <h3 className="font-display text-xl font-semibold text-fg">{contact.briefTitle}</h3>
-            <ol className="mt-4 space-y-2 text-muted">
-              {contact.briefItems.map((item, index) => (
-                <li key={item} className="flex gap-3">
-                  <span className="font-semibold text-accent">{index + 1}</span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ol>
-            <h3 className="mt-8 font-display text-xl font-semibold text-fg">{contact.afterTitle}</h3>
-            <p className="mt-3 leading-relaxed text-muted">{contact.after}</p>
-            <Button
-              href={whatsapp ?? "#contact"}
-              className="mt-6 w-full sm:w-auto"
-              {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-            >
-              {contact.whatsappCta}
-            </Button>
+          <div className="space-y-5">
+            <div className="studio-card">
+              <h3 className="font-display text-xl font-semibold text-fg">{contact.whatsappTitle}</h3>
+              <p className="mt-3 text-[1.0625rem] leading-relaxed text-muted">{contact.whatsappBody}</p>
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button
+                  href={whatsapp ?? "#contact"}
+                  className="w-full sm:w-auto"
+                  {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {contact.whatsappCta}
+                </Button>
+                {phoneNumber ? (
+                  <Button href={phoneHref(phoneNumber)} variant="secondary" className="w-full sm:w-auto">
+                    {contact.callCta}
+                  </Button>
+                ) : null}
+              </div>
+              {phoneNumber ? (
+                <p className="mt-4 text-[1.0625rem] text-muted">
+                  {contact.phoneLine}{" "}
+                  <a
+                    href={phoneHref(phoneNumber)}
+                    dir="ltr"
+                    className="inline-block font-semibold text-fg underline-offset-4 hover:text-accent hover:underline"
+                  >
+                    {phoneNumber}
+                  </a>
+                </p>
+              ) : null}
+            </div>
+            <div className="studio-card studio-card-quiet">
+              <h3 className="font-display text-xl font-semibold text-fg">{contact.briefTitle}</h3>
+              <ul className="mt-4 space-y-2 text-[1.0625rem] text-muted">
+                {contact.briefItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+              <h3 className="mt-8 font-display text-xl font-semibold text-fg">{contact.afterTitle}</h3>
+              <p className="mt-3 text-[1.0625rem] leading-relaxed text-muted">{contact.after}</p>
+            </div>
           </div>
         </Reveal>
         <Reveal>
@@ -140,10 +187,13 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
               />
             </div>
 
+            <p id="contact-reach-hint" className="text-[1.0625rem] font-medium text-fg">
+              {contact.reachHint}
+            </p>
+
             <div className="space-y-2">
               <label htmlFor="contact-phone" className="block text-sm font-medium text-fg">
                 {contact.phoneLabel}
-                <span className="ms-2 font-normal text-muted">{contact.phoneHint}</span>
               </label>
               <input
                 id="contact-phone"
@@ -157,7 +207,7 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
                 className={fieldClass}
                 disabled={isLoading}
                 aria-invalid={hasError || undefined}
-                aria-describedby={hasError ? "contact-form-error" : undefined}
+                aria-describedby={hasError ? "contact-reach-hint contact-form-error" : "contact-reach-hint"}
               />
             </div>
 
@@ -174,10 +224,9 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
                 onChange={(event) => setEmail(event.target.value)}
                 placeholder={contact.emailPlaceholder}
                 className={fieldClass}
-                required
                 disabled={isLoading}
                 aria-invalid={hasError || undefined}
-                aria-describedby={hasError ? "contact-form-error" : undefined}
+                aria-describedby={hasError ? "contact-reach-hint contact-form-error" : "contact-reach-hint"}
               />
             </div>
 
@@ -188,17 +237,23 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
               <textarea
                 id="contact-message"
                 name="message"
-                rows={5}
+                rows={8}
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
                 placeholder={contact.messagePlaceholder}
-                className={`${fieldClass} resize-y`}
+                className={`${fieldClass} min-h-44 resize-y`}
                 required
                 disabled={isLoading}
                 aria-invalid={hasError || undefined}
                 aria-describedby={hasError ? "contact-form-error" : undefined}
               />
             </div>
+
+            {hasError ? (
+              <p id="contact-form-error" className="text-base font-medium text-red-300" role="alert">
+                {errorMessage}
+              </p>
+            ) : null}
 
             <button
               type="submit"
@@ -216,12 +271,6 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
             </button>
           </>
           )}
-
-            {hasError ? (
-              <p id="contact-form-error" className="text-sm text-red-300" role="alert">
-                {errorMessage}
-              </p>
-            ) : null}
 
             {status === "idle" ? (
               <p className="text-sm text-muted">{contact.note}</p>

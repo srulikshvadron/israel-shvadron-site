@@ -87,7 +87,14 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!email || !emailPattern.test(email) || email.length > 200) {
+    if (!phone && !email) {
+      return NextResponse.json(
+        { error: text.contact },
+        { status: 400 },
+      );
+    }
+
+    if (email && (!emailPattern.test(email) || email.length > 200)) {
       return NextResponse.json(
         { error: text.email },
         { status: 400 },
@@ -106,7 +113,7 @@ export async function POST(request: Request) {
     const configuredFrom = process.env.CONTACT_FROM_EMAIL?.trim() ?? "";
     const fromEmail = configuredFrom || "onboarding@resend.dev";
 
-    if (!allowContactSubmission(clientAddress(request), email)) {
+    if (!allowContactSubmission(clientAddress(request), email || phone)) {
       return NextResponse.json(
         { error: text.rate },
         { status: 429, headers: { "Retry-After": "600" } },
@@ -132,7 +139,7 @@ export async function POST(request: Request) {
     const { error } = await resend.emails.send({
       from: fromEmail,
       to: [toEmail],
-      replyTo: email,
+      ...(email ? { replyTo: email } : {}),
       subject: ownerMail.subject,
       html: ownerMail.html,
       text: ownerMail.text,
@@ -146,11 +153,11 @@ export async function POST(request: Request) {
     }
 
     let confirmationSent = false;
-    if (configuredFrom) {
+    if (configuredFrom && email) {
       const visitorMail = visitorConfirmationEmail({
         name,
         siteUrl,
-        whatsappUrl: whatsappHref(),
+        whatsappUrl: whatsappHref(getCopy(locale).whatsappPrefill),
         locale,
       });
       try {
