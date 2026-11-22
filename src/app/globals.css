@@ -583,8 +583,6 @@ html.a11y-high-contrast .scroll-progress {
   .logo-intro .logo-swoosh,
   .logo-intro .logo-arrow,
   .logo-intro .logo-dot,
-  .success-swoosh-line,
-  .success-arrow,
   .pulse-dot,
   .logo-dot,
   .logo-draw .swoosh-pen,
@@ -1033,22 +1031,10 @@ header .brand-logo {
   gap: 0.65rem;
 }
 
-.success-swoosh-line {
-  stroke-dasharray: 220;
-  stroke-dashoffset: 0;
-  animation: success-draw 0.9s cubic-bezier(0.4, 0, 0.15, 1) both;
-}
-
-.success-arrow {
-  animation: logo-in 0.25s ease 0.75s both;
-}
-
-@keyframes success-draw {
-  from {
-    stroke-dashoffset: 220;
-  }
-  to {
-    stroke-dashoffset: 0;
+@media (prefers-reduced-motion: no-preference) {
+  .success-swoosh .swoosh-pen {
+    stroke-dashoffset: 100;
+    animation: swoosh-stroke 1.05s cubic-bezier(0.4, 0, 0.15, 1) 0.1s forwards;
   }
 }
 

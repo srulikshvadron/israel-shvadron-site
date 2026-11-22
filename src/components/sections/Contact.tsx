@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import type { Copy, Locale } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
+import { SuccessSwoosh } from "@/components/brand/SuccessSwoosh";
 import { PulseDot } from "@/components/brand/PulseDot";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
@@ -150,6 +151,7 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
           >
           {status === "success" ? (
             <div className="success-panel" role="status">
+              <SuccessSwoosh className="success-swoosh h-9 w-52" />
               <p className="font-display text-xl font-semibold text-accent">{contact.successTitle}</p>
               <p className="text-sm text-muted">
                 {confirmationSent ? contact.successConfirmed : contact.success}
