@@ -27,7 +27,7 @@ export function Section({
       className={cn("scroll-mt-24 py-20 sm:py-28", className)}
     >
       <Container>
-        <Reveal>
+        <Reveal variant="rise">
           <header className="mb-10 max-w-3xl sm:mb-14">
             {eyebrow ? (
               <p className="mb-3 flex items-center gap-3 text-sm font-medium tracking-wide text-accent">

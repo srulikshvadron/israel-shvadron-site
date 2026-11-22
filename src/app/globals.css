@@ -478,12 +478,56 @@ body {
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  html.js-motion .reveal {
+    transition:
+      opacity 0.35s ease-out,
+      transform 0.6s cubic-bezier(0.22, 1.25, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
   html.js-motion .reveal.reveal-arm:not(.is-shown) {
+    opacity: 0;
+    transform: translateY(1.25rem) scale(0.96);
+  }
+
+  html.js-motion .reveal.reveal-rise.reveal-arm:not(.is-shown) {
     transform: translateY(0.875rem);
   }
 
-  html.js-motion .reveal {
-    transition: transform 0.35s ease-out;
+  html.js-motion .reveal.reveal-group {
+    transition: none;
+  }
+
+  html.js-motion .reveal.reveal-group.reveal-arm:not(.is-shown) {
+    opacity: 1;
+    transform: none;
+  }
+
+  html.js-motion .process-strip > span {
+    transition:
+      opacity 0.35s ease-out,
+      transform 0.6s cubic-bezier(0.22, 1.25, 0.36, 1);
+  }
+
+  html.js-motion .process-strip > span:nth-child(2) {
+    transition-delay: 0.14s;
+  }
+
+  html.js-motion .process-strip > span:nth-child(3) {
+    transition-delay: 0.28s;
+  }
+
+  html.js-motion .reveal-group.reveal-arm:not(.is-shown) .process-strip > span {
+    opacity: 0;
+    transform: translateY(0.75rem) scale(0.96);
+  }
+}
+
+@media print {
+  .reveal.reveal-arm:not(.is-shown),
+  .reveal-group.reveal-arm:not(.is-shown) .process-strip > span {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }
 
@@ -674,13 +718,31 @@ header .brand-logo {
   min-width: 0;
 }
 
+.site-header {
+  --hp: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--line) calc(var(--hp) * 100%), transparent);
+  background-color: color-mix(in srgb, var(--bg) calc(var(--hp) * 90%), transparent);
+  backdrop-filter: blur(calc(var(--hp) * 12px));
+  -webkit-backdrop-filter: blur(calc(var(--hp) * 12px));
+}
+
+.site-header.is-open {
+  border-bottom-color: var(--line);
+  background-color: var(--bg);
+}
+
 .header-logo-scale {
+  transform: scale(calc(1 - var(--hp) * 0.58));
   transform-origin: left center;
   will-change: transform;
 }
 
 [dir="rtl"] .header-logo-scale {
   transform-origin: right center;
+}
+
+.header-logo-scale .brand-captions {
+  opacity: calc(1 - var(--hp));
 }
 
 .brand-captions {
