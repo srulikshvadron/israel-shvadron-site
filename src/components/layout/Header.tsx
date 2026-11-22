@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
+import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { Container } from "@/components/ui/Container";
 import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
@@ -114,7 +115,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <nav aria-label={copy.langLabel} className="flex items-center text-sm">
+          <nav aria-label={copy.langLabel} className="flex items-center text-sm max-sm:hidden">
             <a
               href={pathForLocale("he", pathname)}
               hrefLang="he"
@@ -122,12 +123,12 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               aria-current={locale === "he" ? "true" : undefined}
               className={cn(
                 "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2",
-                locale === "he" ? "text-accent max-sm:hidden" : "text-muted hover:text-fg",
+                locale === "he" ? "text-accent" : "text-muted hover:text-fg",
               )}
             >
               HE
             </a>
-            <span aria-hidden className="text-muted max-sm:hidden">
+            <span aria-hidden className="text-muted">
               /
             </span>
             <a
@@ -137,7 +138,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               aria-current={locale === "en" ? "true" : undefined}
               className={cn(
                 "inline-flex min-h-11 min-w-11 items-center justify-center rounded-md px-2",
-                locale === "en" ? "text-accent max-sm:hidden" : "text-muted hover:text-fg",
+                locale === "en" ? "text-accent" : "text-muted hover:text-fg",
               )}
             >
               EN
@@ -148,7 +149,10 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
             className="btn-primary header-cta"
             {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
-            <span className="sm:hidden">{copy.headerCta.short}</span>
+            <span className="inline-flex items-center gap-1.5 sm:hidden">
+              <WhatsAppIcon className="h-[1.125rem] w-[1.125rem]" />
+              {copy.headerCta.short}
+            </span>
             <span className="hidden sm:inline">{copy.headerCta.label}</span>
           </a>
           <button
@@ -182,6 +186,15 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               {item.label}
             </a>
           ))}
+          <a
+            href={pathForLocale(locale === "he" ? "en" : "he", pathname)}
+            hrefLang={locale === "he" ? "en" : "he"}
+            lang={locale === "he" ? "en" : "he"}
+            className="rounded-lg px-3 py-3 text-base text-fg hover:bg-accent-soft sm:hidden"
+            onClick={closeMenu}
+          >
+            {locale === "he" ? "English" : "עברית"}
+          </a>
           <a
             href={whatsapp ?? sectionHref("contact")}
             className="btn-primary mt-2"

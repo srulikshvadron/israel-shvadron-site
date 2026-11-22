@@ -2,7 +2,7 @@
 
 אתר העסק של שרוליק, בעברית (RTL) ובאנגלית. בנוי עם Next.js, TypeScript ו-Tailwind CSS.
 
-האתר הציבורי הנוכחי: [https://israel-shvadron-site.vercel.app](https://israel-shvadron-site.vercel.app). הדומיין המתוכנן `sruliksolutions.com` עדיין לא מחובר.
+האתר הציבורי: [https://srulikshvadron.com](https://srulikshvadron.com).
 
 ## טכנולוגיות
 
@@ -61,7 +61,7 @@ npm run dev
 ## פריסה
 
 1. לחבר את ה-repository ל-Vercel
-2. אחרי חיבור הדומיין, להגדיר `NEXT_PUBLIC_SITE_URL` ל־`https://sruliksolutions.com`
+2. להשאיר את `NEXT_PUBLIC_SITE_URL` ריק, או להגדיר אותו ל־`https://srulikshvadron.com`
 3. Deploy
 
 ## רישיון

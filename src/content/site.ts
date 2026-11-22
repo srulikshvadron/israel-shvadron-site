@@ -3,9 +3,9 @@
  * Page copy lives in src/content/copy.ts.
  */
 
-const DEFAULT_SITE_URL = "https://israel-shvadron-site.vercel.app";
+const DEFAULT_SITE_URL = "https://srulikshvadron.com";
 
-/** Public deployment until sruliksolutions.com is connected. */
+/** Canonical public site URL. */
 export function getSiteUrl() {
   const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (!raw) return DEFAULT_SITE_URL;

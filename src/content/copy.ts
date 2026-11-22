@@ -139,7 +139,7 @@ const he: Copy = {
   menuClose: "סגירת תפריט",
   menuSr: "תפריט",
   whatsappShort: "וואטסאפ",
-  headerCta: { label: "נדבר בוואטסאפ", short: "נדבר" },
+  headerCta: { label: "נדבר בוואטסאפ", short: "וואטסאפ" },
   langLabel: "שפה",
   nav: [
     { id: "services", label: "מה אני עושה" },
@@ -466,7 +466,7 @@ const en: Copy = {
   menuClose: "Close menu",
   menuSr: "Menu",
   whatsappShort: "WhatsApp",
-  headerCta: { label: "Let's talk on WhatsApp", short: "Let's talk" },
+  headerCta: { label: "Let's talk on WhatsApp", short: "WhatsApp" },
   langLabel: "Language",
   nav: [
     { id: "services", label: "What I do" },
