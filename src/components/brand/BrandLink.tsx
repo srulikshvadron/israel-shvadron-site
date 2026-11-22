@@ -10,7 +10,6 @@ export function BrandLink({
   name,
   tagline,
   slogan,
-  fit = false,
   draw = false,
   className,
 }: {
@@ -18,7 +17,6 @@ export function BrandLink({
   name: string;
   tagline?: string;
   slogan?: string;
-  fit?: boolean;
   draw?: boolean;
   className?: string;
 }) {
@@ -32,20 +30,26 @@ export function BrandLink({
   }, [draw]);
 
   useEffect(() => {
-    if (!fit) return;
     const root = ref.current;
     if (!root) return;
+    const logo = root.querySelector<HTMLElement>(".brand-logo");
+    const captions = root.querySelector<HTMLElement>(".brand-captions");
     const tag = root.querySelector<HTMLElement>(".brand-tagline");
     const line = root.querySelector<HTMLElement>(".brand-slogan");
+    if (!logo || !captions || !tag) return;
+
+    const fitTo = (el: HTMLElement, width: number) => {
+      el.style.fontSize = "32px";
+      const needed = el.scrollWidth;
+      el.style.fontSize = needed > 0 ? `${(32 * width) / needed}px` : "12px";
+    };
 
     const apply = () => {
-      const available = root.clientWidth;
-      if (!available || !tag) return;
-      tag.style.fontSize = "13px";
-      const needed = tag.scrollWidth;
-      const scale = needed > 0 ? Math.min(1, (available - 1) / needed) : 1;
-      tag.style.fontSize = `${13 * scale}px`;
-      if (line) line.style.fontSize = `${11 * scale}px`;
+      const width = Math.round(logo.offsetHeight * (620 / 280));
+      if (!width) return;
+      captions.style.width = `${width}px`;
+      fitTo(tag, width * 0.92);
+      if (line) fitTo(line, width * 0.7);
     };
 
     let frame = 0;
@@ -54,20 +58,20 @@ export function BrandLink({
       frame = requestAnimationFrame(apply);
     };
     const observer = new ResizeObserver(schedule);
-    observer.observe(root);
+    observer.observe(logo);
     schedule();
     return () => {
       cancelAnimationFrame(frame);
       observer.disconnect();
     };
-  }, [fit]);
+  }, []);
 
   return (
     <Link
       ref={ref}
       href={href}
       aria-label={name}
-      className={cn("brand-lockup min-w-0 flex-col gap-0", fit && "brand-lockup-fit", className)}
+      className={cn("brand-lockup min-w-0 flex-col gap-0", className)}
     >
       <LogoMark className="brand-logo" />
       {tagline || slogan ? (

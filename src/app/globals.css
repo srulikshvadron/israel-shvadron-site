@@ -577,7 +577,7 @@ html.a11y-high-contrast .scroll-progress {
 
 .brand-lockup {
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
   width: max-content;
   max-width: 100%;
   text-align: center;
@@ -586,6 +586,8 @@ html.a11y-high-contrast .scroll-progress {
 .brand-logo {
   height: 2.4rem;
   width: auto;
+  flex: 0 0 auto;
+  align-self: center;
 }
 
 header .brand-logo {
@@ -612,35 +614,32 @@ header .brand-logo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .brand-tagline,
 .brand-slogan {
   display: block;
-  width: 0;
-  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  white-space: nowrap;
   text-align: center;
-  line-height: 1.25;
-  transition:
-    max-height 280ms ease,
-    opacity 220ms ease,
-    margin 220ms ease;
+  line-height: 1.2;
 }
 
 .brand-tagline {
-  max-height: 2.2rem;
   margin-top: 0.2rem;
   color: #f4f7fb;
-  font-size: 0.58rem;
   font-weight: 500;
 }
 
 .brand-slogan {
-  max-height: 1.4rem;
-  margin-top: 0.12rem;
+  margin-top: 0.1rem;
   color: #0ed1cd;
-  font-size: 0.5rem;
   font-weight: 650;
 }
 
@@ -650,27 +649,8 @@ header .brand-logo {
   min-width: 0;
 }
 
-.brand-lockup-fit {
-  width: 100%;
-  max-width: 100%;
-  align-items: center;
-}
-
-.brand-lockup-fit .brand-logo {
-  margin-inline: auto;
-}
-
-.brand-lockup-fit .brand-captions,
-.brand-lockup-fit .brand-tagline,
-.brand-lockup-fit .brand-slogan {
-  width: 100%;
-  min-width: 0;
-  max-width: 100%;
-}
-
-.brand-lockup-fit .brand-tagline,
-.brand-lockup-fit .brand-slogan {
-  white-space: nowrap;
+.site-footer {
+  padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
 
 .logo-dot {
