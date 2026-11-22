@@ -577,7 +577,7 @@ html.a11y-high-contrast .scroll-progress {
 
 .brand-lockup {
   display: inline-flex;
-  align-items: stretch;
+  align-items: center;
   width: max-content;
   max-width: 100%;
   text-align: center;
@@ -586,52 +586,71 @@ html.a11y-high-contrast .scroll-progress {
 .brand-logo {
   height: 2.4rem;
   width: auto;
-  transition: height 280ms ease;
+  flex: 0 0 auto;
+  align-self: center;
 }
 
 header .brand-logo {
   height: 4.25rem;
 }
 
-header.is-compact .brand-logo {
-  height: 1.7rem;
+.header-logo-slot {
+  display: flex;
+  align-items: center;
+  height: 7.75rem;
+  min-width: 0;
+}
+
+.header-logo-scale {
+  transform-origin: left center;
+  will-change: transform;
+}
+
+[dir="rtl"] .header-logo-scale {
+  transform-origin: right center;
+}
+
+.brand-captions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .brand-tagline,
 .brand-slogan {
   display: block;
-  width: 0;
-  min-width: 100%;
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
+  white-space: nowrap;
   text-align: center;
-  line-height: 1.25;
-  transition:
-    max-height 280ms ease,
-    opacity 220ms ease,
-    margin 220ms ease;
+  line-height: 1.2;
 }
 
 .brand-tagline {
-  max-height: 2.2rem;
   margin-top: 0.2rem;
   color: #f4f7fb;
-  font-size: 0.58rem;
   font-weight: 500;
 }
 
 .brand-slogan {
-  max-height: 1.4rem;
-  margin-top: 0.12rem;
+  margin-top: 0.1rem;
   color: #0ed1cd;
-  font-size: 0.5rem;
   font-weight: 650;
 }
 
-.brand-lockup.is-compact .brand-tagline,
-.brand-lockup.is-compact .brand-slogan {
-  max-height: 0;
-  margin-top: 0;
-  opacity: 0;
+.footer-brand {
+  width: 100%;
+  max-width: 28rem;
+  min-width: 0;
+}
+
+.site-footer {
+  padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
 
 .logo-dot {
