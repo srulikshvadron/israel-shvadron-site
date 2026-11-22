@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { pathForLocale, type Copy, type Locale } from "@/content/copy";
 import { BrandLink } from "@/components/brand/BrandLink";
 import { Container } from "@/components/ui/Container";
+import { whatsappHref } from "@/lib/contact";
 import { cn } from "@/lib/utils";
 
 export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
@@ -14,6 +15,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
   const scaleRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname() || "/";
   const home = pathForLocale(locale, "/");
+  const whatsapp = whatsappHref();
 
   useEffect(() => {
     const node = scaleRef.current;
@@ -141,6 +143,14 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               EN
             </a>
           </nav>
+          <a
+            href={whatsapp ?? sectionHref("contact")}
+            className="btn-primary header-cta"
+            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            <span className="sm:hidden">{copy.headerCta.short}</span>
+            <span className="hidden sm:inline">{copy.headerCta.label}</span>
+          </a>
           <button
             ref={menuButtonRef}
             type="button"
@@ -172,6 +182,14 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
               {item.label}
             </a>
           ))}
+          <a
+            href={whatsapp ?? sectionHref("contact")}
+            className="btn-primary mt-2"
+            onClick={closeMenu}
+            {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {copy.hero.primary}
+          </a>
         </nav>
       </div>
     </header>

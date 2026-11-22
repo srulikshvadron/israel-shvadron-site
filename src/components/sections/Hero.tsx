@@ -3,9 +3,11 @@ import { pathForLocale } from "@/content/copy";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { HeroAtmosphere } from "@/components/motion/HeroAtmosphere";
+import { whatsappHref } from "@/lib/contact";
 
 export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
   const servicesHref = `${pathForLocale(locale, "/")}#services`;
+  const whatsapp = whatsappHref();
 
   return (
     <section aria-labelledby="hero-heading" className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden">
@@ -23,12 +25,19 @@ export function Hero({ locale, copy }: { locale: Locale; copy: Copy }) {
             <span className="heading-dot" aria-hidden="true" />
             {copy.hero.headline}
           </h1>
-          <p className="animate-fade-up-delay mt-6 max-w-2xl font-display text-2xl font-medium leading-snug text-fg sm:text-3xl">
+          <p className="animate-fade-up-delay mt-6 max-w-2xl text-lg leading-relaxed text-fg/90 sm:text-xl">
             {copy.hero.line}
           </p>
           <p className="animate-fade-up-delay mt-4 text-sm font-medium text-accent">{copy.hero.aside}</p>
-          <div className="animate-fade-up-delay-2 mt-10">
-            <Button href={servicesHref} className="w-full sm:w-auto">
+          <div className="animate-fade-up-delay-2 mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button
+              href={whatsapp ?? `${pathForLocale(locale, "/")}#contact`}
+              className="w-full sm:w-auto"
+              {...(whatsapp ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              {copy.hero.primary}
+            </Button>
+            <Button href={servicesHref} variant="secondary" className="w-full sm:w-auto">
               {copy.hero.secondary}
             </Button>
           </div>
