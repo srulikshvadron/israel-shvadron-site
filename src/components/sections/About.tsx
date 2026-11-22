@@ -5,13 +5,13 @@ import { Reveal } from "@/components/motion/Reveal";
 export function About({ copy }: { copy: Copy }) {
   return (
     <Section id={copy.about.id} eyebrow={copy.about.eyebrow} title={copy.about.title}>
-      <Reveal>
-        <div className="max-w-2xl space-y-4 text-lg leading-relaxed text-fg/90">
-          {copy.about.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-      </Reveal>
+      <div className="max-w-2xl space-y-4 text-lg leading-relaxed text-fg/90">
+        {copy.about.paragraphs.map((paragraph) => (
+          <Reveal key={paragraph} variant="rise">
+            <p>{paragraph}</p>
+          </Reveal>
+        ))}
+      </div>
     </Section>
   );
 }

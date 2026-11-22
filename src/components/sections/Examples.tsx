@@ -29,7 +29,7 @@ export function Examples({ copy }: { copy: Copy }) {
           </li>
         ))}
       </ul>
-      <Reveal className="mt-10">
+      <Reveal variant="rise" className="mt-10">
         <WhatsAppCta copy={copy} />
       </Reveal>
     </Section>

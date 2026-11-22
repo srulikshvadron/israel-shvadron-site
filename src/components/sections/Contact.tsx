@@ -79,23 +79,25 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
       subtitle={contact.subtitle}
       className="border-t border-line"
     >
-      <Reveal className="mb-10">
-        <ul className="grid gap-4 md:grid-cols-3">
-          {contact.trust.map((item) => (
-            <li key={item.title} className="trust-item">
-              <span className="icon-badge" aria-hidden="true">
-                <Icon name={item.icon} />
-              </span>
-              <div>
-                <h3 className="font-display text-lg font-semibold text-fg">{item.title}</h3>
-                <p className="mt-1 text-[1.0625rem] leading-relaxed text-muted">{item.text}</p>
+      <ul className="mb-10 grid gap-4 md:grid-cols-3">
+        {contact.trust.map((item) => (
+          <li key={item.title}>
+            <Reveal className="h-full">
+              <div className="trust-item">
+                <span className="icon-badge" aria-hidden="true">
+                  <Icon name={item.icon} />
+                </span>
+                <div>
+                  <h3 className="font-display text-lg font-semibold text-fg">{item.title}</h3>
+                  <p className="mt-1 text-[1.0625rem] leading-relaxed text-muted">{item.text}</p>
+                </div>
               </div>
-            </li>
-          ))}
-        </ul>
-      </Reveal>
+            </Reveal>
+          </li>
+        ))}
+      </ul>
       <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
-        <Reveal>
+        <Reveal variant="rise">
           <div className="space-y-5">
             <div className="studio-card">
               <h3 className="font-display text-xl font-semibold text-fg">{contact.whatsappTitle}</h3>
@@ -139,7 +141,7 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
             </div>
           </div>
         </Reveal>
-        <Reveal>
+        <Reveal variant="rise">
           <form
             onSubmit={handleSubmit}
             className="studio-card studio-card-quiet space-y-5"
