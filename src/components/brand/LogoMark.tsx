@@ -1,26 +1,61 @@
-import { useId } from "react";
 import { cn } from "@/lib/utils";
 
-/** Centerline of the original swoosh, from the right tip to the arrowhead. */
-const SWOOSH_PATH =
-  "M 568 203.5 L 543 213 L 518 220 L 493 225.5 L 468 230.5 L 443 234.5 L 418 238 L 393 241 L 368 243.5 L 343 245.5 L 318 247 L 293 248.5 L 268 249.5 L 243 250.5 L 218 250.5 L 193 250.5 L 168 249.5 L 143 248.5 L 118 247 L 93 245";
+const FLOW = "/brand/flow";
 
-/** Original mark, split into aligned transparent layers so the swoosh is the source artwork. */
-export function LogoMark({ className }: { className?: string }) {
-  const maskId = `swoosh-${useId().replace(/:/g, "")}`;
+type LogoMode = "static" | "sending" | "success" | "error";
+type LogoVariant = "lockup" | "gears" | "check";
+
+/** Layers cut from the profile logo. The header stacks the full picture; the form uses the gear and check crops. */
+export function LogoMark({
+  className,
+  mode = "static",
+  variant = "lockup",
+}: {
+  className?: string;
+  mode?: LogoMode;
+  variant?: LogoVariant;
+}) {
+  if (variant === "gears") {
+    return (
+      <span
+        className={cn(
+          "flow-gears",
+          mode === "sending" && "is-sending",
+          mode === "error" && "is-error",
+          className,
+        )}
+        aria-hidden="true"
+      >
+        <img src={`${FLOW}/gear-lg-mark.png`} alt="" className="flow-gear-mark" />
+        <img src={`${FLOW}/gear-sm-mark.png`} alt="" className="flow-gear-mark flow-gear-mark-sm" />
+        {mode === "error" ? <img src={`${FLOW}/dot-mark.png`} alt="" className="flow-dot-mark" /> : null}
+      </span>
+    );
+  }
+
+  if (variant === "check") {
+    return (
+      <img
+        src={`${FLOW}/check-mark.png`}
+        alt=""
+        aria-hidden="true"
+        className={cn("flow-check-mark", mode === "success" && "is-success", className)}
+      />
+    );
+  }
 
   return (
     <span className={cn("logo-mark", className)} aria-hidden="true">
-      <img src="/brand/logo-letters.png" alt="" className="logo-layer logo-word" />
-      <svg className="logo-layer logo-swoosh" viewBox="0 0 620 280">
-        <defs>
-          <mask id={maskId} maskUnits="userSpaceOnUse" x="0" y="0" width="620" height="280">
-            <path className="swoosh-pen" d={SWOOSH_PATH} pathLength={100} />
-          </mask>
-        </defs>
-        <image href="/brand/logo-swoosh.png" width="620" height="280" mask={`url(#${maskId})`} />
-      </svg>
-      <img src="/brand/logo-dot.png" alt="" className="logo-layer logo-dot" />
+      <img src={`${FLOW}/word.png`} alt="" className="flow-layer flow-word" />
+      <img src={`${FLOW}/line.png`} alt="" className="flow-layer flow-line" />
+      <img src={`${FLOW}/pip-4.png`} alt="" className="flow-layer flow-pip flow-pip-4" />
+      <img src={`${FLOW}/pip-3.png`} alt="" className="flow-layer flow-pip flow-pip-3" />
+      <img src={`${FLOW}/pip-2.png`} alt="" className="flow-layer flow-pip flow-pip-2" />
+      <img src={`${FLOW}/pip-1.png`} alt="" className="flow-layer flow-pip flow-pip-1" />
+      <img src={`${FLOW}/gear-lg.png`} alt="" className="flow-layer flow-gear-lg" />
+      <img src={`${FLOW}/gear-sm.png`} alt="" className="flow-layer flow-gear-sm" />
+      <img src={`${FLOW}/check.png`} alt="" className="flow-layer flow-check" />
+      <img src={`${FLOW}/dot.png`} alt="" className="flow-layer flow-dot" />
     </span>
   );
 }

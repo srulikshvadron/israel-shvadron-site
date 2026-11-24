@@ -55,7 +55,7 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
             <tr>
               <td style="background:#071422;padding:22px 24px;text-align:${align};">
                 <img src="${escapeHtml(logo)}" width="168" height="70" alt="${escapeHtml(copy.brand)}" style="display:block;width:168px;height:auto;border:0;" />
-                <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#d5e1ee;margin-top:8px;">${escapeHtml(copy.footer.tagline)}</div>
+                <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#d5e1ee;margin-top:8px;">${escapeHtml(copy.brandTagline)}</div>
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:22px;line-height:1.35;font-weight:700;color:#f4f8fc;margin-top:12px;">${escapeHtml(title)}</div>
               </td>
             </tr>

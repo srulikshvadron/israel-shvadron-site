@@ -1,0 +1,21 @@
+{
+  "source": "public/brand/logo-square.png",
+  "width": 691,
+  "height": 378,
+  "gears": {
+    "lg": {
+      "originX": 0.58032,
+      "originY": 0.86772,
+      "left": 0.51085,
+      "top": 0.74074,
+      "size": 0.13893
+    },
+    "sm": {
+      "originX": 0.66425,
+      "originY": 0.87566,
+      "left": 0.60926,
+      "top": 0.77513,
+      "size": 0.10999
+    }
+  }
+}
