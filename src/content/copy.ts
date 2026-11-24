@@ -55,6 +55,13 @@ export type Copy = {
     steps: string[];
     beats: [string, string, string];
   };
+  tech: {
+    id: string;
+    title: string;
+    subtitle: string;
+    items: { term: string; line: string }[];
+    closing: string;
+  };
   examples: {
     id: string;
     title: string;
@@ -168,13 +175,14 @@ const he: Copy = {
     { id: "services", label: "מה מציק" },
     { id: "building", label: "בפיתוח" },
     { id: "process", label: "איך זה עובד" },
+    { id: "tech", label: "מתחת למכסה" },
     { id: "about", label: "מי אני" },
     { id: "contact", label: "דבר איתי" },
   ],
   hero: {
     eyebrow: "מערכות ניהול לעסקים. וגם אתר או בוט, אם צריך.",
     headline: "יושב לך על הראש? אני אבנה לזה מערכת.",
-    line: "הזמנות, חובות, משמרות, מלאי, מי צריך לחזור למי. כל מה שאתה סוחב בראש עובר למסך אחד, ואתה חוזר לנהל את העסק.",
+    line: "הזמנות, חובות, משמרות, מלאי, מי צריך לחזור למי. כל מה שאתה סוחב בראש עובר למערכת אחת חכמה, עם בינה מלאכותית איפה שזה עוזר, ואתה חוזר לנהל את העסק.",
     aside: "אופס, זה כבר עובד.",
     primary: "ספר לי מה מציק",
     secondary: "תראה מה אפשר לבנות",
@@ -187,7 +195,7 @@ const he: Copy = {
       {
         title: "הזמנות שהולכות לאיבוד בוואטסאפ",
         line: "הזמנה נכנסת, נקברת תחת ארבעים הודעות, ומתגלה ביום חמישי.",
-        build: "הייתי בונה: מערכת הזמנות. כל הזמנה במקום אחד, עם סטטוס: התקבלה, בהכנה, יצאה.",
+        build: "הייתי בונה: מערכת הזמנות שקוראת את ההודעה בוואטסאפ (AI), מבינה מה הוזמן ושומרת אותו עם סטטוס: התקבלה, בהכנה, יצאה.",
         button: "זה בדיוק אני",
         prefill: "היי שרוליק, ההזמנות אצלי הולכות לאיבוד בוואטסאפ. זה בדיוק אני. אפשר לדבר?",
       },
@@ -256,6 +264,34 @@ const he: Copy = {
     ],
     beats: ["שולחים הודעה.", "מספרים מה מציק.", "אופס, זה כבר עובד."],
   },
+  tech: {
+    id: "tech",
+    title: "מה יש מתחת למכסה",
+    subtitle: "לא חייבים להבין את זה. כן כדאי לדעת שזה שם.",
+    items: [
+      {
+        term: "מערכות עם בינה מלאכותית (AI / LLM)",
+        line: "המערכת קוראת הודעות, מבינה מה ביקשו ומסדרת לבד. הזמנה שנכתבה בוואטסאפ בחופשיות נכנסת למקום הנכון, בלי שתעתיק.",
+      },
+      {
+        term: "אבטחה, כי הנתונים שלך",
+        line: "הצפנה, הרשאות לפי תפקיד (העובד רואה רק את שלו, השותף רואה עוד קצת, ואתה רואה הכול) וגיבויים אוטומטיים. הנתונים שייכים לך ולא לי.",
+      },
+      {
+        term: "חיבורים ואוטומציות (API)",
+        line: "וואטסאפ, מייל, חשבוניות והכלים שכבר יש לך מדברים עם המערכת. מה שעשית ידנית כל יום קורה לבד.",
+      },
+      {
+        term: "ענן ויציבות (Uptime ומעקב)",
+        line: "המערכת רצה בענן, זמינה גם כשאתה לא ליד המחשב, ואני עוקב אחריה. נתקע משהו? אני על זה.",
+      },
+      {
+        term: "בנויה למידה של העסק (ארכיטקטורה מותאמת)",
+        line: "לא תבנית שמותחים בכוח. מערכת שנתפרת לעסק היום, ויודעת לגדול איתו: עוד עובדים, עוד לקוחות, עוד סניף.",
+      },
+    ],
+    closing: "נשמע כבד? אתה רואה רק מסך אחד. כל השאר זה התפקיד שלי.",
+  },
   examples: {
     id: "examples",
     title: "מכיר את זה?",
@@ -294,7 +330,7 @@ const he: Copy = {
       "אני שרוליק שוודרון, מפתח תוכנה במשרה מלאה. את היום-יום שלי אני מעביר בבניית מערכות שאסור להן ליפול.",
       "לפני זה הייתי מנהל עבודה בחברת שליחויות: עובדים, מחסן, דוחות, וכל מה שלא היה לו אחראי אחר. את הבלגן הכרתי מבפנים, כי אני זה שהחזיק אותו.",
       "ראיתי כמה זמן הולך על חיפוש בפתקים, על אקסל שאף אחד לא מבין, ועל טלפון שמצלצל באמצע הכול. ותמיד חשבתי: למה אין לזה מערכת?",
-      "היום אני יודע לבנות אותה. באותה הקפדה שאני נותן למערכות שאסור להן ליפול, רק בגודל של העסק שלך.",
+      "היום אני יודע לבנות אותה. באותה הקפדה שאני נותן למערכות שאסור להן ליפול: אבטחה, גיבויים ומעקב, רק בגודל של העסק שלך.",
       "אתה מספר, אני מתרגם. בגובה העיניים, בלי מילים גדולות, ובלי שתצטרך ללמוד שום דבר.",
     ],
   },
@@ -317,7 +353,7 @@ const he: Copy = {
       {
         icon: "key",
         title: "בלי שלשלאות.",
-        text: "המערכת, הקוד והנתונים שלך. בלי חוזה שתוקע אותך ובלי אותיות קטנות. תרצה לקחת ולעבור? תיקח.",
+        text: "המערכת, הקוד והנתונים שלך, מוצפנים ומגובים, ומוגנים בהרשאות לפי תפקיד. בלי חוזה שתוקע אותך ובלי אותיות קטנות. תרצה לקחת ולעבור? תיקח.",
       },
       {
         icon: "system",
@@ -538,13 +574,14 @@ const en: Copy = {
     { id: "services", label: "What I do" },
     { id: "building", label: "In progress" },
     { id: "process", label: "Getting started" },
+    { id: "tech", label: "Under the hood" },
     { id: "about", label: "Who I am" },
     { id: "contact", label: "Talk to me" },
   ],
   hero: {
     eyebrow: "Websites, bots and systems for businesses",
     headline: "What bugs you about your business is my next job.",
-    line: "Orders on WhatsApp, customers in a notebook, payments in your head? Let's put it all in one place.",
+    line: "Orders, debts, shifts, stock, who needs a call back. What you carry in your head moves into one smart system, with AI where it helps, and you get back to running the business.",
     aside: "Oops, it already works.",
     primary: "Let's talk on WhatsApp",
     secondary: "What I do",
@@ -557,7 +594,7 @@ const en: Copy = {
       {
         title: "Orders getting lost on WhatsApp",
         line: "An order comes in, gets buried under forty messages, and turns up on Thursday.",
-        build: "I'd build: an orders system. Every order in one place, with a status: received, in progress, out.",
+        build: "I'd build: an orders system that reads the WhatsApp message (AI), understands what was ordered, and saves it with a status: received, in progress, out.",
         button: "That's me",
         prefill: "Hi Srulik, my orders get lost on WhatsApp. That's me. Can we talk?",
       },
@@ -626,6 +663,34 @@ const en: Copy = {
     ],
     beats: ["Send a message.", "Tell me what's bugging you.", "Oops, it already works."],
   },
+  tech: {
+    id: "tech",
+    title: "Under the hood",
+    subtitle: "You don't have to understand it. It helps to know it's there.",
+    items: [
+      {
+        term: "Systems with AI",
+        line: "The system reads messages, understands the request, and files it. A free-written WhatsApp order lands in the right place, without you copying it.",
+      },
+      {
+        term: "Security, because it's your data",
+        line: "Encryption, permissions by role, and automatic backups. The data belongs to you, not to me.",
+      },
+      {
+        term: "Connections and automations",
+        line: "WhatsApp, email, invoices, and the tools you already use talk to the system. The manual daily work happens on its own.",
+      },
+      {
+        term: "Cloud and uptime",
+        line: "The system runs in the cloud, available when you're away from the computer, and I keep an eye on it.",
+      },
+      {
+        term: "Built to the size of the business",
+        line: "Not a template stretched to fit. A system made for the business today that can grow with it.",
+      },
+    ],
+    closing: "Sounds heavy? You only see one screen. The rest is my job.",
+  },
   examples: {
     id: "examples",
     title: "Sound familiar?",
@@ -664,7 +729,7 @@ const en: Copy = {
       "I'm Srulik Shvadron, a software developer.",
       "Before code, I was a work manager at a courier company: workers, a warehouse, reports, and pretty much anything nobody else owned.",
       "I saw how much time goes on digging through notes, on spreadsheets nobody understands, and on a phone that rings in the middle of everything.",
-      "Systems aren't a hobby for me, they're my job, every day. By day I build large systems people rely on, and for you I build exactly that, sized for your business.",
+      "I build it with the same care I give systems that aren't allowed to fall: security, backups, and monitoring, sized for your business.",
       "Now I build the tools I was missing back then. You tell me what's bugging you, and I already know what it looks like from the inside and what needs building.",
       "Straight talk, no jargon, nothing for you to learn.",
     ],
@@ -688,7 +753,7 @@ const en: Copy = {
       {
         icon: "key",
         title: "No lock-in",
-        text: "The system, the code and your data. No contract that traps you, and no fine print. If you want to take it and leave, you can.",
+        text: "The system, the code, and your data, encrypted, backed up, and protected by role. No contract that traps you, and no fine print. If you want to take it and leave, you can.",
       },
       {
         icon: "system",
