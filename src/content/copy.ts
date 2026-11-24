@@ -15,6 +15,7 @@ export type Copy = {
   whatsappPrefill: string;
   skip: string;
   brand: string;
+  brandTagline: string;
   navLabel: string;
   mobileNavLabel: string;
   menuOpen: string;
@@ -27,17 +28,38 @@ export type Copy = {
   hero: { eyebrow: string; headline: string; line: string; aside: string; primary: string; secondary: string };
   services: {
     id: string;
-    eyebrow: string;
     title: string;
-    items: { icon: IconName; title: string; lines: string[]; quiet?: boolean }[];
+    intro: string;
+    items: {
+      title: string;
+      line: string;
+      build?: string;
+      button: string;
+      prefill: string;
+      distinct?: boolean;
+    }[];
+    quiet: string;
+  };
+  building: {
+    id: string;
+    title: string;
+    subtitle: string;
+    tag: string;
+    items: string[];
+    closing: string;
   };
   process: {
     id: string;
+    title: string;
+    subtitle: string;
+    steps: string[];
     beats: [string, string, string];
   };
   examples: {
     id: string;
     title: string;
+    quotes: string[];
+    closing: string;
     labels: { before: string; after: string };
     items: { before: string; after: string }[];
   };
@@ -123,16 +145,17 @@ export type Copy = {
 
 const he: Copy = {
   meta: {
-    title: "שרוליק | אתרים ומערכות לעסקים. אופס, זה כבר עובד.",
+    title: "שרוליק | מערכות ניהול לעסקים. אופס, זה כבר עובד.",
     description:
-      "אתרים ומערכות שנתפרים לעסק, וליווי גם אחרי שהכול עולה. מפתח תוכנה שניהל בעבר עובדים, מחסן ודוחות, ומכיר את הבעיות של עסק מבפנים.",
-    socialTitle: "שרוליק | מה שמציק לך בעסק, אצלי זה כבר משימה.",
+      "מערכות ניהול לעסקים: הזמנות, חובות, משמרות, מלאי ודוחות, הכול במסך אחד ובדיוק לפי איך שהעסק שלך עובד. נבנות על ידי מפתח תוכנה שניהל עסק מבפנים. וגם אתר או בוט, אם צריך.",
+    socialTitle: "שרוליק | יושב לך על הראש? אני אבנה לזה מערכת.",
     siteName: "שרוליק",
     locale: "he_IL",
   },
-  whatsappPrefill: "היי שרוליק, הגעתי מהאתר. יש משהו בעסק שמציק לי, אפשר לדבר?",
+  whatsappPrefill: "היי שרוליק, הגעתי מהאתר. יש משהו בעסק שיושב לי על הראש. אפשר לדבר?",
   skip: "דילוג לתוכן",
   brand: "שרוליק",
+  brandTagline: "מערכות ניהול לעסקים",
   navLabel: "ניווט",
   mobileNavLabel: "תפריט",
   menuOpen: "פתיחת תפריט",
@@ -142,95 +165,137 @@ const he: Copy = {
   headerCta: { label: "נדבר בוואטסאפ", short: "וואטסאפ" },
   langLabel: "שפה",
   nav: [
-    { id: "services", label: "מה אני עושה" },
-    { id: "process", label: "איך מתחילים" },
-    { id: "examples", label: "לפני ואחרי" },
+    { id: "services", label: "מה מציק" },
+    { id: "building", label: "בפיתוח" },
+    { id: "process", label: "איך זה עובד" },
     { id: "about", label: "מי אני" },
     { id: "contact", label: "דבר איתי" },
   ],
   hero: {
-    eyebrow: "אתרים, בוטים ומערכות לעסקים",
-    headline: "מה שמציק לך בעסק, אצלי זה כבר משימה.",
-    line: "הזמנות בוואטסאפ, לקוחות במחברת ותשלומים בראש? בוא נשים את הכול במקום אחד.",
+    eyebrow: "מערכות ניהול לעסקים. וגם אתר או בוט, אם צריך.",
+    headline: "יושב לך על הראש? אני אבנה לזה מערכת.",
+    line: "הזמנות, חובות, משמרות, מלאי, מי צריך לחזור למי. כל מה שאתה סוחב בראש עובר למסך אחד, ואתה חוזר לנהל את העסק.",
     aside: "אופס, זה כבר עובד.",
-    primary: "נדבר בוואטסאפ",
-    secondary: "מה אני עושה",
+    primary: "ספר לי מה מציק",
+    secondary: "תראה מה אפשר לבנות",
   },
   services: {
     id: "services",
-    eyebrow: "מה אני עושה",
-    title: "אני לוקח את הצד הטכני. כולו.",
+    title: "תבחר מה מציק. אני אגיד לך איזו מערכת הייתי בונה.",
+    intro: "לחץ על מה שהכי מזכיר את העסק שלך.",
     items: [
       {
-        icon: "site",
-        title: "אתר שעונה לפני שמתקשרים",
-        lines: [
-          "מה אתה עושה, למי זה מתאים ואיך פונים: ברור מהשנייה הראשונה.",
-          "הלקוח קורא, מבין, ושולח הודעה.",
-        ],
+        title: "הזמנות שהולכות לאיבוד בוואטסאפ",
+        line: "הזמנה נכנסת, נקברת תחת ארבעים הודעות, ומתגלה ביום חמישי.",
+        build: "הייתי בונה: מערכת הזמנות. כל הזמנה במקום אחד, עם סטטוס: התקבלה, בהכנה, יצאה.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, ההזמנות אצלי הולכות לאיבוד בוואטסאפ. זה בדיוק אני. אפשר לדבר?",
       },
       {
-        icon: "system",
-        title: "מערכת שתפורה לעסק שלך",
-        lines: [
-          "לא תוכנה מהמדף שהעסק צריך להתאים את עצמו אליה, אלא מערכת שנבנית סביב הדרך שבה אתה כבר עובד.",
-          "הזמנות, לקוחות, תשלומים ומלאי, במסך אחד.",
-        ],
+        title: "לא זוכר מי שילם",
+        line: "מי שילם, מי חייב, ומי אמר \"אעביר מחר\" לפני שלושה שבועות.",
+        build: "הייתי בונה: מערכת חובות ותשלומים. כרטיס לכל לקוח, רואים בטלפון מי חייב, ותזכורת נשלחת בלחיצה.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, אני לא זוכר מי שילם ומי לא. זה בדיוק אני. אפשר לדבר?",
       },
       {
-        icon: "loop",
-        title: "פחות העתק-הדבק",
-        lines: ["מה שאתה עושה ידנית כל יום, חיבור קטן או בוט יכולים לעשות במקומך."],
-        quiet: true,
+        title: "חצי יום מתקשר לעובדים",
+        line: "מי בא מחר, מי מחליף את מי, ומי בכלל ענה לך.",
+        build: "הייתי בונה: מערכת משמרות. סידור במסך, כל עובד רואה את שלו בטלפון ומאשר.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, אני מבלה חצי יום בטלפונים לעובדים. זה בדיוק אני. אפשר לדבר?",
       },
       {
-        icon: "support",
-        title: "יש למי להתקשר",
-        lines: [
-          "אני לא נעלם אחרי שהכול עולה.",
-          "נתקע משהו? מתקשרים אליי, לא למוקד. ובלי \"תנסה לעשות ריסטרט\".",
-        ],
+        title: "חשבתי שיש במלאי",
+        line: "\"יש לנו מזה, אני בטוח.\" ואז פותחים את המדף.",
+        build: "הייתי בונה: מערכת מלאי. כל כניסה ויציאה נרשמות, ויש התראה לפני שנגמר.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, אני חושב שיש לי במלאי ואז מתברר שאין. זה בדיוק אני. אפשר לדבר?",
+      },
+      {
+        title: "הגמ\"ח מתנהל במחברת",
+        line: "הלוואות, החזרות, ערבים ותאריכים, והכול בכתב יד של מישהו אחד.",
+        build: "הייתי בונה: מערכת לגמ\"ח. מי לווה, כמה החזיר, מה מגיע השבוע, והכול רק אצלך.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, הגמ\"ח שלנו מתנהל במחברת. זה בדיוק אני. אפשר לדבר?",
+      },
+      {
+        title: "סוף חודש = ערב של דוחות",
+        line: "כל החודש אתה אוסף, ובסוף יושב ומחבר.",
+        build: "הייתי בונה: דוחות שנבנים לבד מהנתונים שכבר נכנסו. פותחים, רואים, מדפיסים.",
+        button: "זה בדיוק אני",
+        prefill: "היי שרוליק, בסוף כל חודש אני יושב ערב שלם על דוחות. זה בדיוק אני. אפשר לדבר?",
+      },
+      {
+        title: "מה שמציק לי לא מופיע פה",
+        line: "אין בעיה. אני עושה כל מערכת שתצטרך. ספר לי מה יושב לך על הראש, ונראה איך נותנים לזה מסך.",
+        button: "אצלי זה משהו אחר",
+        prefill: "היי שרוליק, מה שמציק לי לא מופיע באתר. אפשר לספר לך מה זה?",
+        distinct: true,
       },
     ],
+    quiet: "צריך גם אתר או בוט לוואטסאפ? גם את זה אני עושה. רק שזה לא העיקר.",
+  },
+  building: {
+    id: "building",
+    title: "מערכות בפיתוח",
+    subtitle: "מה שעל השולחן שלי עכשיו.",
+    tag: "בבנייה",
+    items: ["מערכת לאיתור תוכן", "מערכת להפקת תכנים", "מערכת להפצה למקורות שונים"],
+    closing: "כשמשהו מוכן, הוא עולה לפה.",
   },
   process: {
     id: "process",
+    title: "איך זה עובד",
+    subtitle: "אתה צריך לעשות רק את הראשון.",
+    steps: [
+      "מספר לי מה מציק. בוואטסאפ, בשתי שורות, בלי מילים גדולות.",
+      "סקיצה לפני קוד. אני מראה לך איך זה ייראה על המסך. לא מתאים? משנים עכשיו, לפני שנכתבה שורה.",
+      "אני בונה, ואתה ממשיך לעבוד. בלי ישיבות ובלי שעות מולי. אני שואל רק מה שחייבים.",
+      "אני נשאר זמין. נתקע משהו? מתקשרים אליי, לא למוקד. ובלי \"תנסה לעשות ריסטרט\".",
+    ],
     beats: ["שולחים הודעה.", "מספרים מה מציק.", "אופס, זה כבר עובד."],
   },
   examples: {
     id: "examples",
     title: "מכיר את זה?",
+    quotes: [
+      "\"רגע, מי שילם?\"",
+      "\"באיזו קבוצה הוא כתב לי את זה?\"",
+      "\"את האקסל הזה רק מי שבנה אותו מבין. והוא כבר לא פה.\"",
+      "\"עוד מעט סוף חודש. יאללה, ערב של דוחות.\"",
+    ],
+    closing: "זה לא שאתה לא מסודר. פשוט העסק רץ יותר מהר מהפתקים.",
     labels: { before: "לפני", after: "אחרי" },
     items: [
       {
-        before: "\"מי שילם? רגע, אני מחפש במחברת.\"",
+        before: "פתקים בכיסים, הודעות בקבוצות, וטלפון שמצלצל באמצע.",
+        after: "מסך אחד.",
+      },
+      {
+        before: "\"מי שילם? רגע, אני מחפש.\"",
         after: "פותחים את הטלפון ורואים.",
       },
       {
-        before: "מסביר שוב בטלפון מה אתה עושה.",
-        after: "שולח קישור, וזהו.",
+        before: "חצי יום בטלפונים לעובדים: מי בא, מי מחליף, מי שכח.",
+        after: "הסידור בטלפון של כל אחד, ואתה רואה מי אישר.",
       },
       {
-        before: "הזמנות על פתקים, ופתקים בכיסים.",
-        after: "כל ההזמנות במסך אחד.",
-      },
-      {
-        before: "סוף חודש הולך על ערב שלם של דוחות.",
-        after: "הדוח מוכן כשאתה צריך אותו.",
+        before: "ערב שלם של דוחות בסוף החודש.",
+        after: "הדוח כבר מחכה לך.",
       },
     ],
   },
   about: {
     id: "about",
     eyebrow: "מי אני",
-    title: "אני מכיר את העסק שלך מבפנים.",
+    title: "ניהלתי את הבלגן. עכשיו אני בונה את המערכת שהייתה חסרה לי.",
     paragraphs: [
-      "אני שרוליק שוודרון, מפתח תוכנה.",
-      "לפני הקוד ניהלתי עבודה בחברת שליחויות: עובדים, מחסן, דוחות, ובעצם כל מה שלא היה לו אחראי אחר.",
-      "שם ראיתי כמה זמן הולך על חיפוש בפתקים, על אקסל שאף אחד לא מבין ועל טלפון שמצלצל באמצע הכול.",
-      "מערכות זה לא תחביב אצלי, זו העבודה שלי, כל יום. ביום אני בונה מערכות גדולות שאנשים סומכים עליהן, ובשבילך אני בונה בדיוק כאלה, רק בגודל של העסק שלך.",
-      "היום אני בונה את הכלים שהיו חסרים לי אז. אתה מספר מה מציק, ואני כבר יודע איך זה נראה מבפנים ומה צריך לבנות.",
-      "בגובה העיניים, בלי מונחים, ובלי שתצטרך ללמוד שום דבר.",
+      "אני שרוליק שוודרון, מפתח תוכנה במשרה מלאה. את היום-יום שלי אני מעביר בבניית מערכות שאסור להן ליפול.",
+      "לפני זה הייתי מנהל עבודה בחברת שליחויות: עובדים, מחסן, דוחות, וכל מה שלא היה לו אחראי אחר. את הבלגן הכרתי מבפנים, כי אני זה שהחזיק אותו.",
+      "ראיתי כמה זמן הולך על חיפוש בפתקים, על אקסל שאף אחד לא מבין, ועל טלפון שמצלצל באמצע הכול. ותמיד חשבתי: למה אין לזה מערכת?",
+      "היום אני יודע לבנות אותה. באותה הקפדה שאני נותן למערכות שאסור להן ליפול, רק בגודל של העסק שלך.",
+      "אתה מספר, אני מתרגם. בגובה העיניים, בלי מילים גדולות, ובלי שתצטרך ללמוד שום דבר.",
     ],
   },
   contact: {
@@ -246,25 +311,25 @@ const he: Copy = {
     trust: [
       {
         icon: "person",
-        title: "עונה אישית",
-        text: "כשאתה כותב, אני זה שעונה. לא מוקד ולא בוט. בדרך כלל עוד באותו יום.",
+        title: "עונה אישית.",
+        text: "כשאתה כותב, אני זה שעונה. לא מוקד ולא בוט.",
       },
       {
         icon: "key",
-        title: "בלי שלשלאות",
-        text: "בלי חוזה שתוקע אותך ובלי אותיות קטנות. האתר, הקוד והדומיין רשומים על שמך. זה שלך, נקודה.",
+        title: "בלי שלשלאות.",
+        text: "המערכת, הקוד והנתונים שלך. בלי חוזה שתוקע אותך ובלי אותיות קטנות. תרצה לקחת ולעבור? תיקח.",
       },
       {
-        icon: "tag",
-        title: "מחיר בלי הפתעות",
-        text: "המחיר נקבע לפי מה שהעסק באמת צריך. אחרי השיחה הראשונה אתה מקבל הצעה מסודרת וברורה, ומתחילים רק אחרי שאמרת כן.",
+        icon: "system",
+        title: "בלי הפתעות.",
+        text: "מה שמסכמים בהתחלה זה מה שיש בסוף. שום דבר לא מתחיל לפני שאמרת כן.",
       },
     ],
     reachHint: "איך חוזרים אליך? מספיק טלפון או אימייל, אחד מהם.",
     briefTitle: "מה קורה בשיחה הראשונה",
     briefItems: [
       "אתה מספר מה מציק",
-      "אני אומר בפשטות מה אפשר לעשות",
+      "אני אומר בפשטות איזו מערכת הייתי בונה",
       "מחליטים יחד אם ומתי מתחילים",
     ],
     afterTitle: "אחרי השליחה",
@@ -287,7 +352,7 @@ const he: Copy = {
     honeypot: "חברה",
   },
   footer: {
-    tagline: "אתרים, בוטים ומערכות לעסקים",
+    tagline: "מערכות ניהול לעסקים. וגם אתר או בוט, אם צריך.",
     operator: "שרוליק שוודרון",
     rights: "כל הזכויות שמורות.",
     navLabel: "מידע",
@@ -370,7 +435,7 @@ const he: Copy = {
       title: "השירות",
       paragraphs: [
         "שרוליק מופעל על ידי שרוליק שוודרון.",
-        "השירות כולל אתרים, בוטים לוואטסאפ, אוטומציה, ומערכות מותאמות אישית.",
+        "השירות כולל מערכות ניהול ואוטומציה מותאמות אישית, וגם אתרים ובוטים לוואטסאפ.",
         "אנו מבצעים את העבודה. אין כאן הדרכה או קורס.",
       ],
     },
@@ -460,6 +525,7 @@ const en: Copy = {
   whatsappPrefill: "Hi Srulik, I found you through the website. Something in my business is bugging me. Can we talk?",
   skip: "Skip to content",
   brand: "Srulik",
+  brandTagline: "Websites, bots and systems for businesses",
   navLabel: "Navigation",
   mobileNavLabel: "Menu",
   menuOpen: "Open menu",
@@ -470,8 +536,8 @@ const en: Copy = {
   langLabel: "Language",
   nav: [
     { id: "services", label: "What I do" },
+    { id: "building", label: "In progress" },
     { id: "process", label: "Getting started" },
-    { id: "examples", label: "Before & after" },
     { id: "about", label: "Who I am" },
     { id: "contact", label: "Talk to me" },
   ],
@@ -485,65 +551,108 @@ const en: Copy = {
   },
   services: {
     id: "services",
-    eyebrow: "What I do",
-    title: "I take the technical side. All of it.",
+    title: "Pick what's bugging you. I'll tell you which system I'd build.",
+    intro: "Tap the one that sounds most like your business.",
     items: [
       {
-        icon: "site",
-        title: "A site that answers before they call",
-        lines: [
-          "What you do, who it's for, and how to reach you, clear in a second.",
-          "They read it, get it, and send a message.",
-        ],
+        title: "Orders getting lost on WhatsApp",
+        line: "An order comes in, gets buried under forty messages, and turns up on Thursday.",
+        build: "I'd build: an orders system. Every order in one place, with a status: received, in progress, out.",
+        button: "That's me",
+        prefill: "Hi Srulik, my orders get lost on WhatsApp. That's me. Can we talk?",
       },
       {
-        icon: "system",
-        title: "A system made for your business",
-        lines: [
-          "Not off-the-shelf software you bend to fit, but one built around how you already work.",
-          "Orders, customers, payments, and stock on one screen.",
-        ],
+        title: "I can't remember who paid",
+        line: "Who paid, who owes, and who said \"I'll transfer tomorrow\" three weeks ago.",
+        build: "I'd build: a debts and payments system. A card per customer, you see who owes on your phone, and a reminder goes out in one tap.",
+        button: "That's me",
+        prefill: "Hi Srulik, I can't remember who paid and who didn't. That's me. Can we talk?",
       },
       {
-        icon: "loop",
-        title: "Less copy-paste",
-        lines: ["The things you do by hand every day, a small connection or bot can do for you."],
-        quiet: true,
+        title: "Half the day calling staff",
+        line: "Who's in tomorrow, who's covering whom, and who even answered.",
+        build: "I'd build: a shifts system. The rota on one screen, each person sees theirs on their phone and confirms.",
+        button: "That's me",
+        prefill: "Hi Srulik, I spend half the day on the phone with staff. That's me. Can we talk?",
       },
       {
-        icon: "support",
-        title: "Someone to call",
-        lines: [
-          "I don't vanish after launch.",
-          "Stuck? You call me, not a call center. And no \"try restarting it.\"",
-        ],
+        title: "I thought it was in stock",
+        line: "\"We have that, I'm sure.\" Then you open the shelf.",
+        build: "I'd build: a stock system. Every in and out is recorded, and there's an alert before it runs out.",
+        button: "That's me",
+        prefill: "Hi Srulik, I think something's in stock and then it isn't. That's me. Can we talk?",
+      },
+      {
+        title: "The gemach runs from a notebook",
+        line: "Loans, repayments, guarantors and dates, all in one person's handwriting.",
+        build: "I'd build: a gemach system. Who borrowed, how much came back, what's due this week, and it stays with you.",
+        button: "That's me",
+        prefill: "Hi Srulik, our gemach runs from a notebook. That's me. Can we talk?",
+      },
+      {
+        title: "Month-end means an evening of reports",
+        line: "All month you collect, and at the end you sit and add it up.",
+        build: "I'd build: reports that build themselves from the data already in. Open, see, print.",
+        button: "That's me",
+        prefill: "Hi Srulik, at the end of every month I spend a whole evening on reports. That's me. Can we talk?",
+      },
+      {
+        title: "What's bugging me isn't listed",
+        line: "That's fine. I build any system you need. Tell me what's on your mind, and we'll see how to give it a screen.",
+        button: "Mine is something else",
+        prefill: "Hi Srulik, what's bugging me isn't on the site. Can I tell you what it is?",
+        distinct: true,
       },
     ],
+    quiet: "Need a website or a WhatsApp bot as well? I do that too. It just isn't the main thing.",
+  },
+  building: {
+    id: "building",
+    title: "Systems in progress",
+    subtitle: "What's on my desk right now.",
+    tag: "Building",
+    items: ["A system for finding content", "A system for producing content", "A system for distributing to different sources"],
+    closing: "When something's ready, it shows up here.",
   },
   process: {
     id: "process",
+    title: "How it works",
+    subtitle: "You only need to do the first one.",
+    steps: [
+      "Tell me what's bugging you. On WhatsApp, in two lines, no big words.",
+      "A sketch before code. I show you how it will look on the screen. Not right? We change it now, before a line is written.",
+      "I build, and you keep working. No meetings and no hours across from me. I only ask what I have to.",
+      "I stay available. Something stuck? You call me, not a call center. And no \"try restarting it.\"",
+    ],
     beats: ["Send a message.", "Tell me what's bugging you.", "Oops, it already works."],
   },
   examples: {
     id: "examples",
     title: "Sound familiar?",
+    quotes: [
+      "\"Wait, who paid?\"",
+      "\"Which group did he send that in?\"",
+      "\"Only the person who built this spreadsheet understands it. And he's not here.\"",
+      "\"Month-end is soon. Great, an evening of reports.\"",
+    ],
+    closing: "It's not that you're disorganized. The business just moves faster than the notes.",
     labels: { before: "Before", after: "After" },
     items: [
       {
-        before: "\"Who paid? Hang on, checking the notebook.\"",
+        before: "Notes in pockets, messages in groups, and a phone ringing in the middle of it.",
+        after: "One screen.",
+      },
+      {
+        before: "\"Who paid? Hang on, I'm looking.\"",
         after: "Open your phone and see.",
       },
       {
-        before: "Explaining again on the phone what you do.",
-        after: "Send a link, done.",
+        before: "Half a day on the phone with staff: who's in, who's covering, who forgot.",
+        after: "The rota is on everyone's phone, and you see who confirmed.",
       },
       {
-        before: "Orders on notes, notes in pockets.",
-        after: "Every order on one screen.",
-      },
-      {
-        before: "End of month means a whole evening of reports.",
-        after: "The report's ready when you need it.",
+        before: "A whole evening of reports at the end of the month.",
+        after: "The report is already waiting.",
       },
     ],
   },
@@ -574,24 +683,24 @@ const en: Copy = {
       {
         icon: "person",
         title: "I answer personally",
-        text: "Not a call center, not a bot. Usually the same day.",
+        text: "When you write, I'm the one who answers. Not a call center and not a bot.",
       },
       {
         icon: "key",
         title: "No lock-in",
-        text: "No binding contract, no fine print. The site, the code and the domain are in your name.",
+        text: "The system, the code and your data. No contract that traps you, and no fine print. If you want to take it and leave, you can.",
       },
       {
-        icon: "tag",
-        title: "No-surprise pricing",
-        text: "Pricing fits what your business actually needs. A clear quote after the first call, and nothing starts until you say yes.",
+        icon: "system",
+        title: "No surprises",
+        text: "What we agree at the start is what you get at the end. Nothing starts before you say yes.",
       },
     ],
     reachHint: "How do I reach you? A phone number or an email is enough, either one.",
     briefTitle: "What happens on the first call",
     briefItems: [
       "You tell me what's bugging you",
-      "I tell you plainly what can be done",
+      "I say plainly which system I'd build",
       "We decide together if and when to start",
     ],
     afterTitle: "After you send",
@@ -697,7 +806,7 @@ const en: Copy = {
       title: "The service",
       paragraphs: [
         "Srulik is operated by Srulik Shvadron.",
-        "The service covers websites, WhatsApp bots, automation, and custom systems.",
+        "The service covers custom management systems and automation, and also websites and WhatsApp bots.",
         "We do the work. This is not a course.",
       ],
     },

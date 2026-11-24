@@ -106,7 +106,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
             <BrandLink
               href={home}
               name={copy.brand}
-              tagline={copy.footer.tagline}
+              tagline={copy.brandTagline}
               slogan={copy.hero.aside}
               draw
             />

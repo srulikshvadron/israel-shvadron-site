@@ -49,8 +49,8 @@ export function createMetadata(
       images: [
         {
           url: "/brand/logo-square.png",
-          width: 1080,
-          height: 1080,
+          width: 1024,
+          height: 1024,
           alt: copy.brand,
         },
       ],

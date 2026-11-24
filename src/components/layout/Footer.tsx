@@ -23,7 +23,10 @@ export function Footer({ locale, copy }: { locale: Locale; copy: Copy }) {
     <footer className="site-footer border-t border-line bg-bg-elevated/40 pt-12">
       <Container className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
         <div className="footer-brand">
-          <BrandLink href={home} name={copy.brand} tagline={copy.footer.tagline} slogan={copy.hero.aside} />
+          <BrandLink href={home} name={copy.brand} tagline={copy.brandTagline} slogan={copy.hero.aside} />
+          {copy.footer.tagline !== copy.brandTagline ? (
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted">{copy.footer.tagline}</p>
+          ) : null}
           <p className="mt-3 text-sm leading-relaxed text-muted">{copy.footer.operator}</p>
         </div>
         <div className="flex flex-col gap-4">

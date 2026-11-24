@@ -1,7 +1,7 @@
 import { siteConfig } from "@/content/site";
 
 export const WHATSAPP_PREFILL =
-  "היי שרוליק, הגעתי מהאתר. יש משהו בעסק שמציק לי, אפשר לדבר?";
+  "היי שרוליק, הגעתי מהאתר. יש משהו בעסק שיושב לי על הראש. אפשר לדבר?";
 
 /** wa.me link, or null until a real number is set in siteConfig.contact. */
 export function whatsappHref(text: string = WHATSAPP_PREFILL) {
