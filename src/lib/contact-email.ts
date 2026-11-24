@@ -39,7 +39,7 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
   const copy = getCopy(locale);
   const dir = locale === "en" ? "ltr" : "rtl";
   const align = locale === "en" ? "left" : "right";
-  const logo = `${getSiteUrl()}/brand/logo-email.png`;
+  const logo = `${getSiteUrl()}/brand/logo-email.png?v=2`;
   return `<!DOCTYPE html>
 <html lang="${locale}" dir="${dir}">
   <head>
@@ -54,7 +54,7 @@ function shell(title: string, bodyHtml: string, locale: Locale = "he") {
           <table role="presentation" width="100%" cellpadding="0" cellspacing="0" dir="${dir}" style="max-width:560px;background:#ffffff;border-radius:18px;overflow:hidden;border:1px solid #d7e2ee;">
             <tr>
               <td style="background:#071422;padding:22px 24px;text-align:${align};">
-                <img src="${escapeHtml(logo)}" width="168" height="70" alt="${escapeHtml(copy.brand)}" style="display:block;width:168px;height:auto;border:0;" />
+                <img src="${escapeHtml(logo)}" width="180" height="122" alt="${escapeHtml(copy.brand)}" style="display:block;width:180px;height:auto;border:0;" />
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.5;color:#d5e1ee;margin-top:8px;">${escapeHtml(copy.brandTagline)}</div>
                 <div style="font-family:Arial,Helvetica,sans-serif;font-size:22px;line-height:1.35;font-weight:700;color:#f4f8fc;margin-top:12px;">${escapeHtml(title)}</div>
               </td>
