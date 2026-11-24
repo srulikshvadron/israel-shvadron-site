@@ -113,7 +113,7 @@ export function Header({ locale, copy }: { locale: Locale; copy: Copy }) {
           </div>
         </div>
 
-        <nav aria-label={copy.navLabel} className="hidden items-center gap-6 lg:flex">
+        <nav aria-label={copy.navLabel} className="hidden items-center gap-3 whitespace-nowrap xl:gap-6 lg:flex">
           {copy.nav.map((item) => (
             <a
               key={item.id}
