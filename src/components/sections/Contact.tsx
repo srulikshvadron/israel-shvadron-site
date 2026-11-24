@@ -4,8 +4,7 @@ import { FormEvent, useState } from "react";
 import type { Copy, Locale } from "@/content/copy";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
-import { SuccessSwoosh } from "@/components/brand/SuccessSwoosh";
-import { PulseDot } from "@/components/brand/PulseDot";
+import { LogoMark } from "@/components/brand/LogoMark";
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
 import { phoneHref, publicPhone, whatsappHref } from "@/lib/contact";
@@ -151,7 +150,7 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
           >
           {status === "success" ? (
             <div className="success-panel" role="status">
-              <SuccessSwoosh className="success-swoosh h-9 w-52" />
+              <LogoMark variant="check" mode="success" className="success-check" />
               <p className="font-display text-xl font-semibold text-accent">{contact.successTitle}</p>
               <p className="text-sm text-muted">
                 {confirmationSent ? contact.successConfirmed : contact.success}
@@ -254,9 +253,12 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
             </div>
 
             {hasError ? (
-              <p id="contact-form-error" className="text-base font-medium text-red-300" role="alert">
-                {errorMessage}
-              </p>
+              <div className="flex items-center gap-3">
+                <LogoMark variant="gears" mode="error" />
+                <p id="contact-form-error" className="text-base font-medium text-red-300" role="alert">
+                  {errorMessage}
+                </p>
+              </div>
             ) : null}
 
             <button
@@ -266,7 +268,7 @@ export function Contact({ locale, copy }: { locale: Locale; copy: Copy }) {
             >
               {isLoading ? (
                 <span className="inline-flex items-center gap-2">
-                  <PulseDot />
+                  <LogoMark variant="gears" mode="sending" />
                   {contact.sending}
                 </span>
               ) : (

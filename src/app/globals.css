@@ -592,98 +592,27 @@ html.a11y-high-contrast .scroll-progress {
     display: none;
   }
 
-  .logo-intro .logo-swoosh,
-  .logo-intro .logo-arrow,
-  .logo-intro .logo-dot,
-  .pulse-dot,
-  .logo-dot,
-  .logo-draw .swoosh-pen,
-  .oops-dot {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-
-  .logo-dot {
-    filter: drop-shadow(0 0 4px rgba(14, 209, 205, 0.7));
-  }
-
   .brand-logo,
   .brand-tagline,
   .heading-dot {
     transition: none;
-  }
-
-  .oops-stage .logo-dot {
-    opacity: 1;
-  }
-
-  .oops-dot {
-    display: none;
-  }
-}
-
-.logo-swoosh {
-  stroke-dasharray: 540;
-  stroke-dashoffset: 0;
-}
-
-.logo-intro .logo-swoosh {
-  animation: swoosh-draw 0.95s cubic-bezier(0.4, 0, 0.15, 1) both;
-}
-
-.logo-intro .logo-arrow {
-  animation: logo-in 0.28s ease 0.86s both;
-}
-
-.logo-intro .logo-dot {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: logo-dot 0.55s ease 1.05s both;
-}
-
-@keyframes swoosh-draw {
-  from {
-    stroke-dashoffset: 540;
-  }
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes logo-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes logo-dot {
-  0% {
-    opacity: 0;
-  }
-  60% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 1;
   }
 }
 
 .logo-mark {
   position: relative;
   display: block;
-  aspect-ratio: 620 / 280;
+  aspect-ratio: 691 / 378;
 }
 
-.logo-layer {
+.flow-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: fill;
   pointer-events: none;
+  transform-box: fill-box;
 }
 
 .brand-lockup {
@@ -695,25 +624,25 @@ html.a11y-high-contrast .scroll-progress {
 }
 
 .brand-logo {
-  height: 2.4rem;
+  height: 3.15rem;
   width: auto;
   flex: 0 0 auto;
   align-self: center;
 }
 
 header .brand-logo {
-  height: 4.25rem;
+  height: 5.35rem;
 }
 
 @media (max-width: 379px) {
   header .brand-logo {
-    height: 3.25rem;
+    height: 4.35rem;
   }
 }
 
 @media (max-width: 339px) {
   header .brand-logo {
-    height: 2.75rem;
+    height: 3.6rem;
   }
 
   .btn-primary.header-cta {
@@ -798,45 +727,163 @@ header .brand-logo {
   padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
 }
 
-.logo-dot {
-  filter: drop-shadow(0 0 5px rgba(14, 209, 205, 0.85));
-  animation: dot-glow 2.6s ease-in-out infinite;
+.flow-gear-lg {
+  transform-origin: 58.032% 86.772%;
 }
 
-.brand-lockup:hover .logo-dot,
-.brand-lockup:focus-visible .logo-dot {
-  filter: drop-shadow(0 0 4px #ffffff) drop-shadow(0 0 16px #0ed1cd);
-  animation: none;
+.flow-gear-sm {
+  transform-origin: 66.425% 87.566%;
 }
 
-@keyframes dot-glow {
+.flow-dot {
+  filter: drop-shadow(0 0 4px rgba(14, 209, 205, 0.7));
+}
+
+.flow-gears {
+  display: inline-flex;
+  align-items: center;
+  height: 1.15rem;
+  flex: none;
+}
+
+.flow-gear-mark {
+  height: 1.15rem;
+  width: auto;
+}
+
+.flow-gear-mark-sm {
+  height: 0.82rem;
+  margin-inline-start: -0.22rem;
+}
+
+.flow-dot-mark {
+  height: 0.85rem;
+  width: auto;
+  margin-inline-start: 0.15rem;
+}
+
+.flow-check-mark,
+.success-check {
+  height: 2.5rem;
+  width: auto;
+}
+
+.is-error .flow-dot-mark {
+  filter: hue-rotate(-162deg) saturate(2) brightness(1.15);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo-draw .flow-line {
+    animation: flow-reveal 0.5s cubic-bezier(0.4, 0, 0.15, 1) both;
+  }
+
+  .logo-draw .flow-pip-4 {
+    animation: pip-in 0.16s ease 0.06s both;
+  }
+
+  .logo-draw .flow-pip-3 {
+    animation: pip-in 0.16s ease 0.16s both;
+  }
+
+  .logo-draw .flow-pip-2 {
+    animation: pip-in 0.16s ease 0.26s both;
+  }
+
+  .logo-draw .flow-pip-1 {
+    animation: pip-in 0.16s ease 0.36s both;
+  }
+
+  .logo-draw .flow-gear-lg {
+    animation: gear-once 0.42s ease 0.4s both;
+  }
+
+  .logo-draw .flow-gear-sm {
+    animation: gear-once-back 0.42s ease 0.46s both;
+  }
+
+  .logo-draw .flow-check,
+  .flow-check-mark.is-success {
+    animation: check-on 0.34s ease 0.68s both;
+  }
+
+  .flow-check-mark.is-success {
+    animation-delay: 0.05s;
+  }
+
+  .logo-draw .flow-dot {
+    animation: dot-blink 0.34s ease 0.78s both;
+  }
+
+  .is-sending .flow-gear-mark {
+    animation: gear-spin 0.7s linear infinite;
+  }
+
+  .is-sending .flow-gear-mark-sm {
+    animation-duration: 0.5s;
+    animation-direction: reverse;
+  }
+}
+
+@keyframes flow-reveal {
+  from {
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes pip-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gear-once {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes gear-once-back {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes gear-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes check-on {
+  0% {
+    opacity: 0;
+    filter: brightness(0.45);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.75) drop-shadow(0 0 8px #0ed1cd);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+  }
+}
+
+@keyframes dot-blink {
   0%,
   100% {
-    filter: drop-shadow(0 0 2px rgba(14, 209, 205, 0.4));
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(14, 209, 205, 0.7));
   }
-  50% {
-    filter: drop-shadow(0 0 10px rgba(14, 209, 205, 1));
-  }
-}
-
-.swoosh-pen {
-  fill: none;
-  stroke: #ffffff;
-  stroke-width: 56;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 100;
-  stroke-dashoffset: 0;
-}
-
-.logo-draw .swoosh-pen {
-  stroke-dashoffset: 100;
-  animation: swoosh-stroke 1.05s cubic-bezier(0.4, 0, 0.15, 1) forwards;
-}
-
-@keyframes swoosh-stroke {
-  to {
-    stroke-dashoffset: 0;
+  40% {
+    opacity: 0.15;
+    filter: none;
   }
 }
 
@@ -903,40 +950,6 @@ header .brand-logo {
 .oops-logo {
   width: 100%;
   height: auto;
-}
-
-.oops-stage .logo-dot {
-  opacity: 0;
-}
-
-.oops-dot {
-  position: absolute;
-  left: 74%;
-  top: 6%;
-  width: 0.85rem;
-  height: 0.85rem;
-  border-radius: 999px;
-  background: #0ed1cd;
-  box-shadow: 0 0 12px rgba(14, 209, 205, 0.95);
-  animation: oops-fall 1.35s cubic-bezier(0.35, 0.05, 0.25, 1) forwards;
-}
-
-@keyframes oops-fall {
-  0% {
-    transform: translate(0, 0) rotate(0deg);
-  }
-  28% {
-    transform: translate(-18px, 42px) rotate(120deg);
-  }
-  52% {
-    transform: translate(10px, 86px) rotate(250deg);
-  }
-  74% {
-    transform: translate(-8px, 124px) rotate(360deg);
-  }
-  100% {
-    transform: translate(6px, 230px) rotate(520deg);
-  }
 }
 
 .whatsapp-float {
@@ -1021,33 +1034,11 @@ header .brand-logo {
   cursor: wait;
 }
 
-.pulse-dot {
-  width: 0.55rem;
-  height: 0.55rem;
-  border-radius: 999px;
-  background: var(--accent);
-  box-shadow: 0 0 0 0 rgba(14, 209, 205, 0.55);
-  animation: pulse-dot 1.2s ease-out infinite;
-}
-
-@keyframes pulse-dot {
-  70% {
-    box-shadow: 0 0 0 8px transparent;
-  }
-}
-
 .success-panel {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.65rem;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .success-swoosh .swoosh-pen {
-    stroke-dashoffset: 100;
-    animation: swoosh-stroke 1.05s cubic-bezier(0.4, 0, 0.15, 1) 0.1s forwards;
-  }
 }
 
 .built-by {

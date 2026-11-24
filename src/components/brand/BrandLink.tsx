@@ -23,13 +23,6 @@ export function BrandLink({
   const ref = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
-    if (!draw) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    ref.current?.classList.add("logo-draw");
-  }, [draw]);
-
-  useEffect(() => {
     const root = ref.current;
     if (!root) return;
     const logo = root.querySelector<HTMLElement>(".brand-logo");
@@ -45,7 +38,7 @@ export function BrandLink({
     };
 
     const apply = () => {
-      const width = Math.round(logo.offsetHeight * (620 / 280));
+      const width = logo.offsetWidth || Math.round(logo.offsetHeight * (691 / 378));
       if (!width) return;
       captions.style.width = `${width}px`;
       fitTo(tag, width * 0.92);
@@ -71,7 +64,7 @@ export function BrandLink({
       ref={ref}
       href={href}
       aria-label={name}
-      className={cn("brand-lockup min-w-0 flex-col gap-0", className)}
+      className={cn("brand-lockup min-w-0 flex-col gap-0", draw && "logo-draw", className)}
     >
       <LogoMark className="brand-logo" />
       {tagline || slogan ? (
